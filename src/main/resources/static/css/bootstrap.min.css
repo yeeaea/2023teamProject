@@ -657,8 +657,9 @@ progress {
 @media (min-width: 576px) {
 
     .container,
-    .container-sm {
-        max-width: 540px
+    .container-sm,
+    .container-fluid {
+        max-width: 100%
     }
 }
 
@@ -666,8 +667,9 @@ progress {
 
     .container,
     .container-sm,
-    .container-md {
-        max-width: 720px
+    .container-md,
+    .container-fluid {
+        max-width: 100%
     }
 }
 
@@ -676,8 +678,9 @@ progress {
     .container,
     .container-sm,
     .container-md,
-    .container-lg {
-        max-width: 960px
+    .container-lg,
+    .container-fluid {
+        max-width: 100%
     }
 }
 
@@ -687,8 +690,9 @@ progress {
     .container-sm,
     .container-md,
     .container-lg,
-    .container-xl {
-        max-width: 1140px
+    .container-xl,
+    .container-fluid {
+        max-width: 100%
     }
 }
 
@@ -700,9 +704,11 @@ progress {
     .container-lg,
     .container-xl,
     .container-xxl {
-        max-width: 1320px
+        max-width: 100%
     }
 }
+
+
 
 
 .row {
