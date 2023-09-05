@@ -1,0 +1,130 @@
+<!-- header and footer template body -->
+<!doctype html>
+<html lang="ko" xmlns="http://thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>question board</title>
+<script src="/js/include.js"></script>
+
+<!-- Template Stylesheet -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Bootstrap Stylesheet -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<!-- Icon Font Stylesheet -->
+<link
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+   rel="stylesheet">
+<link
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+   rel="stylesheet">
+<script src="https://kit.fontawesome.com/3eb7b16202.js" crossorigin="anonymous"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</head>
+
+<body>
+
+<div class="container-xxl bg-white p-0">
+<!-- header Start -->
+<div id="header-container"></div>
+<!-- header End -->
+
+<div class="container">
+    <a href="/questions" class="fs-3 fw-bold fc" style="color: black;">질문 게시판 목록</a>
+    
+   <button type="button" id="create-btn"
+       th:onclick="|location.href='@{/new-question}'|"
+       class="bg-transparent border border-0 fs-3 mx-3" style="float:right; width:50px; height:50px;">
+       <i id="pencil" class="fa-solid fa-pencil" style="color: #c91c1c;"></i>
+    </button>
+  
+    <table class="table table-hover">
+        <thead>
+            <tr >
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>날짜</th>
+            </tr>
+        </thead>
+        <tbody class="row-6" th:each="item : ${questions}" >
+        
+            
+            <tr>
+                <div>
+                    <td th:text="${item.quesNo}"></td>
+                    <td><a th:href="@{/questions/{quesNo}(quesNo=${item.quesNo})}" th:text="${item.quesTitle}"></a></td>
+                    <td th:text="${item.quesNo}"></td>
+                    <td th:text="${#temporals.format(item.quesRdate, 'yyyy-MM-dd HH:mm')}"></td>
+                    
+                </div>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+<br>
+<br>  
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:classappend="${startPage == questions.pageable.pageNumber + 1} ? 'disabled'">
+            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber - 1})}" tabindex="-1"> < </a>
+        </li>
+        <li class="page-item" th:classappend="${num == questions.pageable.pageNumber + 1} ? 'active'" th:each="num : ${#numbers.sequence(startPage, endPage)}">
+            <a class="page-link" th:href="@{/questions(page=${num-1})}" th:text="${num}">1</a></li>
+
+        <li class="page-item" th:classappend="${endPage == questions.pageable.pageNumber + 1} ? 'disabled'">
+            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber + 1})}"> > </a>
+        </li>
+    </ul>
+</nav>
+
+    <a th:if="${page != nowPage}"
+           th:href="@{/questions(page = ${page -1}, keyword = ${param.keyword})}"
+           th:text="${page}">
+     </a>
+ 
+    <form class="my-5 pagination justify-content-center" action="/questions" method="GET">
+   
+        <!-- <label for="search-type" hidden>유형</label>
+        <select id="search-type" name="search-type">
+            <option>제목</option>
+            <option>작성자</option>
+
+        </select> -->
+        
+        <label for="keyword" hidden>검색어</label>
+       <input class="rounded-pill border border-1" id="keyword" type="search" placeholder="  검색어를 입력해주세요" name="keyword" style="width: 280px; height:40px;" th:value="${param.keyword}">
+
+        
+        <button class="bg-transparent border border-0 fs-3 text-center mx-2" type="submit" style="width: 40px; height: 40px;">
+           <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+   
+    </form>
+
+<!-- footer Start -->
+    <div id="footer-container"></div>
+    <!-- footer End -->
+</div>   
+   <!-- bootstrap library -->
+   <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"></script>
+
+
+
+
+
+    
+
+    <script src="/js/quesBoard.js"></script>
+</body> 
