@@ -1,0 +1,46 @@
+server:
+  port: 80
+  
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+    defer-datasource-initialization: true
+    #jpa로 데이터베이스르 다룰 때 표준 SQL이 아닌 각 데이터베이스의 고유 SQL 기능 사용
+#    database-platform: org.hibernate.dialect.Oracle12cDialect
+    hibernate:
+      hbm2ddl:
+        auto: update
+#      ddl-auto: update
+  
+  h2:
+    console:
+      enabled: true
+#  datasource: 
+#    url: jdbc:h2:mem:testdb   
+  #Oracle 데이터베이스 사용 설정
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@//localhost:1521/xe
+#    username: petuser
+#    password: petuser
+
+  # MariaDB 데이터베이스 사용 설정
+  datasource:
+    url: jdbc:mariadb://localhost:3306/petconnect
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: petuser
+    password: petuser
+
+  #HikariCP 설정
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-timeout: 30000
+      pool-name: HikarkiPoolBBS
+      
+

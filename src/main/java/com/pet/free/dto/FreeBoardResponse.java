@@ -1,0 +1,23 @@
+package com.pet.free.dto;
+
+import java.time.LocalDateTime;
+
+import com.pet.free.domain.FreeBoard;
+
+import lombok.Getter;
+
+@Getter
+public class FreeBoardResponse {
+
+	private String freeTitle;
+	private String freeContent;
+	private LocalDateTime freeRdate;
+	private LocalDateTime freeUdate;
+	
+	public FreeBoardResponse(FreeBoard freeBoard) {
+		this.freeTitle = freeBoard.getFreeTitle();
+		this.freeContent = freeBoard.getFreeContent();
+		this.freeRdate = freeBoard.getFreeRdate();
+		this.freeUdate = freeBoard.getFreeUdate();
+	}
+}
