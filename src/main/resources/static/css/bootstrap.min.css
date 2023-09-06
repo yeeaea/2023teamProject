@@ -658,7 +658,7 @@ progress {
 
     .container,
     .container-sm {
-        max-width: 540px
+        max-width: 100%
     }
 }
 
@@ -667,7 +667,7 @@ progress {
     .container,
     .container-sm,
     .container-md {
-        max-width: 720px
+        max-width: 100%
     }
 }
 
@@ -677,7 +677,7 @@ progress {
     .container-sm,
     .container-md,
     .container-lg {
-        max-width: 960px
+        max-width: 100%
     }
 }
 
@@ -688,7 +688,7 @@ progress {
     .container-md,
     .container-lg,
     .container-xl {
-        max-width: 1140px
+        max-width: 100%
     }
 }
 
@@ -700,10 +700,9 @@ progress {
     .container-lg,
     .container-xl,
     .container-xxl {
-        max-width: 1320px
+        max-width: 100%
     }
 }
-
 
 .row {
     --bs-gutter-x: 1.5rem;
@@ -2012,12 +2011,11 @@ progress {
     --bs-table-active-color: #666565;
     --bs-table-active-bg: rgba(0, 0, 0, 0.1);
     --bs-table-hover-color: #666565;
-    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    --bs-table-hover-bg: #FFEAEA;
     width: 100%;
     margin-bottom: 1rem;
     color: #666565;
     vertical-align: top;
-    border-color: #dee2e6
 }
 
 .table>:not(caption)>*>* {
@@ -4610,7 +4608,7 @@ fieldset:disabled .btn {
     }
 
     .navbar-expand-lg .navbar-nav {
-        flex-direction: row
+        flex-direction: row;
     }
 
     .navbar-expand-lg .navbar-nav .dropdown-menu {
