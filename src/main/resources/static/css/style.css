@@ -236,3 +236,7 @@
 #pencil:hover{
    transform: scale(1.4);
 }
+
+#map {
+        margin: auto;
+    }
