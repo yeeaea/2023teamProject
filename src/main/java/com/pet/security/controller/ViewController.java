@@ -15,30 +15,30 @@ public class ViewController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login";
+        return "/security/login.html";
     }
 
     @GetMapping("/join")
     public String joinPage() {
-        return "join";
+        return "/security/join.html";
     }
 
     @GetMapping("/dashboard")
     public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("loginId", user.getUsername());
         model.addAttribute("loginRoles", user.getAuthorities());
-        return "dashboard";
+        return "/security/dashboard.html";
     }
 
     @GetMapping("/setting/admin")
     @AdminAuthorize
     public String adminSettingPage() {
-        return "admin_setting";
+        return "/security/admin_setting.html";
     }
 
     @GetMapping("/setting/user")
     @UserAuthorize
     public String userSettingPage() {
-        return "user_setting";
+        return "/security/user_setting.html";
     }
 }
