@@ -227,10 +227,25 @@
     border-right: none;
 }
 
+/* 글 목록에서 글쓰기 버튼 */
 #pencil {
   transition: all 0.2s linear;
 }
 
 #pencil:hover{
    transform: scale(1.4);
+}
+
+/* 지도 가운데 정렬하기 */
+#map {
+        margin: auto;
+    }
+
+/* 새 게시글 등록 버튼 그림자*/
+#create-btn2{
+ -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -ms-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -o-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
