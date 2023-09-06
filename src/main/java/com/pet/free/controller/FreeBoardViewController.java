@@ -1,6 +1,5 @@
 package com.pet.free.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pet.free.domain.FreeBoard;
-import com.pet.free.dto.FreeBoardListViewResponse;
 import com.pet.free.dto.FreeBoardViewResponse;
 import com.pet.free.service.FreeBoardService;
 
@@ -26,7 +24,7 @@ public class FreeBoardViewController {
 	
 	@GetMapping("/")
 	public String main() {
-		return "index";
+		return "main";
 	}
 	
 	@GetMapping("/freeboards")
@@ -48,7 +46,7 @@ public class FreeBoardViewController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("freeBoard", freeBoard);
 		
-		return "freeBoardList";
+		return "/board/freeBoardList.html";
 	}
 	
 	@GetMapping("/freeboards/{freeNo}")
@@ -56,7 +54,7 @@ public class FreeBoardViewController {
 		FreeBoard freeBoard = freeBoardService.findById(freeNo);
 		model.addAttribute("freeBoard", new FreeBoardViewResponse(freeBoard));
 		
-		return "freeBoard";
+		return "/board/freeBoard.html";
 	}
 	
 	@GetMapping("/new-freeboard")
@@ -68,7 +66,7 @@ public class FreeBoardViewController {
 			model.addAttribute("freeBoard", new FreeBoardViewResponse(freeBoard));
 		}
 		
-		return "newFreeBoard";
+		return "/board/newFreeBoard.html";
 	}
 	
 }
