@@ -1,7 +1,5 @@
 package com.pet.ques.controller;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,11 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.ques.domain.QuesBoard;
-import com.pet.ques.dto.QuesBoardListViewResponse;
-import com.pet.ques.dto.QuesBoardResponse;
 import com.pet.ques.dto.QuesBoardViewResponse;
 import com.pet.ques.service.QuesBoardService;
 
@@ -47,7 +42,7 @@ public class QuesBoardViewController {
 		QuesBoard question = quesBoardService.findById(quesNo);
 		model.addAttribute("question", new QuesBoardViewResponse(question));
 		
-		return "question";
+		return "/board/question.html";
 	}
 	
 	@GetMapping("/new-question")
@@ -59,7 +54,7 @@ public class QuesBoardViewController {
 			QuesBoard question = quesBoardService.findById(quesNo);
 			model.addAttribute("question", new QuesBoardViewResponse(question));
 		}
-		return "newQuestion";
+		return "/board/newQuestion.html";
 	}
 	
 	@GetMapping("/questions")
@@ -81,6 +76,6 @@ public class QuesBoardViewController {
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 
-	    return "questionList";
+	    return "/board/questionList.html";
 	}
 }

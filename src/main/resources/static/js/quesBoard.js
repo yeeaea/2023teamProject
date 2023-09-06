@@ -32,7 +32,7 @@ if (modifyButton) {
 			})
 		})
 			.then(() => {
-				alert("수정 완료")
+				alert("수정이 완료되었습니다.")
 				location.replace(`/questions/${quesNo}`);
 			});
 	});
@@ -67,7 +67,7 @@ if (modifyButton2) {
 				})
 			})
 				.then(() => {
-					alert("수정 완료")
+					alert("수정이 완료되었습니다.")
 					location.replace(`/questions/${quesNo}`);
 				});
 		}
@@ -88,7 +88,7 @@ if (createButton) {
 				quesContent: document.getElementById("quesContent").value,
 			}),
 		}).then(() => {
-			alert("등록 완료");
+			alert("등록이 완료되었습니다.");
 			location.replace("/questions");
 		});
 	});
@@ -118,7 +118,7 @@ if (createButton2) {
 					quesContent: document.getElementById("quesContent").value,
 				}),
 			}).then(() => {
-				alert("등록 완료");
+				alert("등록이 완료되었습니다.");
 				location.replace("/questions");
 			});
 		}
