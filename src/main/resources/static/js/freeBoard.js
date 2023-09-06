@@ -91,7 +91,7 @@ if (createButton) {
 			})
 		})
 			.then(() => {
-				alert('등록 완료되었습니다.');
+				alert('등록이 완료되었습니다.');
 				location.replace('/freeboards');
 			});
 	});
@@ -123,7 +123,7 @@ if (createButton2) {
 			})
 		})
 			.then(() => {
-				alert('등록 완료되었습니다.');
+				alert('등록이 완료되었습니다.');
 				location.replace('/freeboards');
 			});
 		}
