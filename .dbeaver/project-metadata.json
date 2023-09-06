@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script.sql":{"default-datasource":"mariaDB-18a6435e216-6c84725253f4e4d2","default-catalog":"petconnect"}}}
+{"resources":{"Scripts/Script-1.sql":{"default-datasource":"mariaDB-18a683a066b-5f43e8f703e88475","default-catalog":"petconnect"},"Scripts/Script.sql":{"default-datasource":"mariaDB-18a6435e216-6c84725253f4e4d2","default-catalog":"petconnect"}}}

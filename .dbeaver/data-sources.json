@@ -15,6 +15,21 @@
 				"type": "dev",
 				"auth-model": "native"
 			}
+		},
+		"mariaDB-18a683a066b-5f43e8f703e88475": {
+			"provider": "mysql",
+			"driver": "mariaDB",
+			"name": "localhost 2",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"url": "jdbc:mariadb://localhost:3306/",
+				"configurationType": "MANUAL",
+				"home": "mysql_client",
+				"type": "dev",
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
