@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HOME</title>
 <script src="/js/include.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- Template Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
@@ -34,23 +35,31 @@
     <div id="header-container"></div>
     <!-- header End -->
     
-	<div class="p-5 mb-5 text-center</> bg-light">
-		<h1 class="mb-3">자유 게시판</h1>
-		<h4 class="mb-3">자유 게시판입니다.</h4>
-	</div>
+      <div class="d-flex flex-row bd-highlight mb-3">
+         <div class="fs-4 mx-3" style="width:20px; height:50px;">
+            <i class="fa-solid fa-pencil" style="color: #000000;" ></i>
+         </div>
+         <h4>자유 게시판 글 작성하기</h4>
+      </div>
 	
-	<div class="container mt-5">
+	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-lg-8">
 				<article>
 					<input type="hidden" id="freeBoard-freeNo" th:value="${freeBoard.freeNo}">
 					<header class="mb-4">
-						<label class="mb-2">제목</label>
-						<input type="text" class="form-control" placeholder="제목" id="freeTitle" th:value="${freeBoard.freeTitle}">
+						
+					<input type="text" class="form-control" placeholder="글 제목" id="freeTitle" style="border-radius:10px; height:60px;" th:value="${freeBoard.freeTitle}">
 					</header>
 					<section class="mb-5">
-						<label class="mb-2">내용</label>
-						<textarea class="form-control h-25" rows="10" placeholder="내용" id="freeContent" th:text="${freeBoard.freeContent}"></textarea>
+						<div class="textLengthWrap d-flex flex-row" style="float:right;">
+                      		<p id="cnt" class="textCount">0자</p>
+                      		<p class="textTotal">/1000자</p>
+                    	</div>
+						<textarea rows="10" placeholder="글 내용" maxlength="1000" class="form-control h-25" style="border-radius:20px"
+                     		id="freeContent" th:text="${freeBoard.freeContent}"></textarea>
+				
+				<script src="/js/contentCount.js"></script>
 					</section>
 					
 					<div th:if="${freeBoard.freeNo} != null" class="d-grid gap-2">
@@ -58,8 +67,8 @@
 							style= height: 60px;">수정</button>
 					</div>
 					<div th:if="${freeBoard.freeNo} == null" class="d-grid gap-2">
-						<button type="button" id="create-btn2" class="btn btn-primary btn-sm 
-							style= height: 60px;">등록</button>
+						<button type="button" id="create-btn2" class="btn btn-primary btn-sm" 
+							style= "height: 60px;">등록</button>
 					</div>
 				</article>
 			</div>

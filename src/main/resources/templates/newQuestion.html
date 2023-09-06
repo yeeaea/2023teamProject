@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HOME</title>
 <script src="/js/include.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- Template Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
@@ -16,13 +17,13 @@
 
 <!-- Icon Font Stylesheet -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+   rel="stylesheet">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+   rel="stylesheet">
 <script src="https://kit.fontawesome.com/3eb7b16202.js"
-	crossorigin="anonymous"></script>
+   crossorigin="anonymous"></script>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
@@ -30,56 +31,65 @@
 
 <body>
 
-	<div class="container-xxl bg-white p-0">
-		<!-- header Start -->
-		<div id="header-container"></div>
-		<!-- header End -->
+   <div class="container-xxl bg-white p-0">
+      <!-- header Start -->
+      <div id="header-container"></div>
+      <!-- header End -->
 
-		<div class="p-5 mb-5 text-center</> bg-light">
-			<h1 class="mb-3">질문 게시판</h1>
-			<h4 class="mb-3">질문 게시판입니다.</h4>
-		</div>
+      <div class="d-flex flex-row bd-highlight mb-3">
+         <div class="fs-4 mx-3" style="width:20px; height:50px;">
+            <i class="fa-solid fa-pencil" style="color: #000000;" ></i>
+         </div>
+         <h4>질문 게시판 글 작성하기</h4>
+      </div>
 
-		<!-- 컨텐트 영역 -->
-		<div class="container mt-5">
-			<div class="row">
-				<div class="col-lg-8">
-					<artlce> <!-- 수정글일 경우 서버로 수정 요청시
-    					hidden 값으로 글번호(id)를 요청값으로 추가 --> <input type="hidden"
-						id="question-quesNo" th:value="${question.quesNo}"> <header
-						class="mb-4">
-						<label class="mb-2">제목</label>
+      <!-- 컨텐트 영역 -->
+      <div class="container mt-5 mb-5">
+         <div class="row">
+            <div class="col-lg-8">
+               <artlce> <!-- 수정글일 경우 서버로 수정 요청시
+                   hidden 값으로 글번호(id)를 요청값으로 추가 --> 
+                  <input type="hidden"
+                  id="question-quesNo" th:value="${question.quesNo}"> <header
+                  class="mb-4">
 
-						<!-- 제목 입력 -->
-						<input type="text" placeholder="제목" class="form-control"
-							id="quesTitle" th:value="${question.quesTitle}">
-					</header>
+                  <!-- 제목 입력 -->
+                  <input type="text" placeholder="글 제목" class="form-control" style="border-radius:10px; height:60px;"
+                     id="quesTitle" th:value="${question.quesTitle}">
+               </header>
 
-					<section class="mb-5">
-						<label class="mb-2">내용</label>
-						<!-- 내용 입력 -->
-						<textarea rows="10" placeholder="내용" class="form-control h-25"
-							id="quesContent" th:text="${question.quesContent}"></textarea>
-					</section>
+               <section class="mb-5">
+                  <!-- 내용 입력 -->
+                  <div class="textLengthWrap d-flex flex-row" style="float:right;">
+                      <p id="cnt" class="textCount">0자</p>
+                      <p class="textTotal">/1000자</p>
+                    </div>
+                  <textarea rows="10" placeholder="글 내용" maxlength="1000" class="form-control h-25" style="border-radius:20px"
+                     id="quesContent" th:text="${question.quesContent}"></textarea>
+				
+				<script src="/js/contentCount.js"></script>
 
-					<div th:if="${question.quesNo} != null" class="d-grid gap-2">
-						<button type="button" id="modify-btn2" class="btn btn-primary"
-							style="height: 60px;">글 수정</button>
-					</div>
-					<div th:if="${question.quesNo} == null" class="d-grid gap-2">
-						<button type="button" id="create-btn2" class="btn btn-primary"
-							style="height: 60px;">글 등록</button>
-					</div>
+               </section>
 
-					</artlce>
-				</div>
-			</div>
-		</div>
+               <div th:if="${question.quesNo} != null" class="d-grid gap-2">
+                  <button type="button" id="modify-btn2" class="btn btn-primary"
+                     style="height: 60px;">글 수정</button>
+               </div>
+               <div th:if="${question.quesNo} == null" class="d-grid gap-2">
+                  <button type="button" id="create-btn2" class="btn btn-primary"
+                     style="height: 60px;">게시글 등록</button>
+               </div>
 
-		<!-- 타임리프는 동적기능 resource/templates/아래에 만든다. -->
-		<!-- 정적 기능은 resources/static/ 아래에 만든다. 
-    		js, css, images, 동영상등의 정적 파일들
-    		/js 경로 => resources/static/js/ -->
-		<script src="/js/quesBoard.js"></script>
+               </artlce>
+            </div>
+         </div>
+      </div>
+
+      <!-- 타임리프는 동적기능 resource/templates/아래에 만든다. -->
+      <!-- 정적 기능은 resources/static/ 아래에 만든다. 
+          js, css, images, 동영상등의 정적 파일들
+          /js 경로 => resources/static/js/ -->
+      <script src="/js/quesBoard.js"></script>
+
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 //header footer load page
 document.addEventListener("DOMContentLoaded", function () {
 	let headerContainer = document.getElementById("header-container");
