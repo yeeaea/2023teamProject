@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
 :root {
     --primary: #C91C1C;
@@ -7,15 +8,8 @@
     --dark: #0E2E50;
 }
 
-@font-face {
-    font-family: 'NanumSquareRound';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 *{
-   font-family : 'NanumSquareRound';
+   font-family : 'Pretendard';
 }
 
 .back-to-top {
@@ -94,6 +88,10 @@
 
 .navbar .dropdown-toggle[aria-expanded=true]::after {
     transform: rotate(-180deg);
+}
+
+.navbar-nav {
+	vertical-align: middle;
 }
 
 .navbar-light .navbar-nav .nav-link {
