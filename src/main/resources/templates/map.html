@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+   <div id="map" style="width: 80%; height: 500px;"></div>
+
+
+   <script type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29ece20f213e91f2186db3d10c48da13"></script>
+   
+<div class="container">
+   <table class ="table table-hover">
+      <thead>
+         <tr>
+            <th>위도</th>
+            <th>경도</th>
+         </tr>
+      </thead>
+      <tbody class="row-6" th:each="item : ${funerals}">
+         <tr>
+            <div>
+               <td th:text = "${item.funLat}"></td>
+               <td th:text = "${item.funLon}"></td>
+            </div>
+         </tr>
+      </tbody>
+   </table>
+   
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var funeralData = []; // 빈 JavaScript 배열 생성
+        var markerPosition = [];
+        /* Thymeleaf에서 가져온 데이터를 JavaScript 배열로 변환 */
+        var rows = document.querySelectorAll('.row-6');
+        rows.forEach(function(row) {
+            var lat = row.querySelector('td:nth-child(1)').textContent;
+            var lon = row.querySelector('td:nth-child(2)').textContent;
+            funeralData.push({ 'funLat': lat, 'funLon': lon });
+        });
+
+      var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+      var options = { //지도를 생성할 때 필요한 기본 옵션
+         center : new kakao.maps.LatLng(37.1419706, 128.1544953), //지도의 중심좌표.
+         level : 3
+      //지도의 레벨(확대, 축소 정도)
+      };
+      
+      var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+      
+        /* JavaScript 배열을 사용 */
+        for (var i = 0; i < funeralData.length; i++) {
+              markerPosition[i] = new kakao.maps.LatLng(funeralData[i].funLat, funeralData[i].funLon);
+         var marker = new kakao.maps.Marker({
+            map: map,
+            position: markerPosition[i]
+         });
+        }
+        /*]]>*/
+    </script>
+
+</div>   
+
+</body>
+</html>
