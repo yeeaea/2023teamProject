@@ -42,41 +42,52 @@
 			<h4>자유 게시판 글 작성하기</h4>
 		</div>
 
-		<!-- 컨텐트 영역 -->
-		<div class="container mt-5 mb-5">
-			<div class="row">
-				<div class="col-lg-8">
-					<article>
+		<form id="freeboard-form" action="/api/freeboard" method="post"
+			enctype="multipart/form-data">
+			<!-- 컨텐트 영역 -->
+			<div class="container mt-5 mb-5">
+				<div class="row">
+					<div class="col-lg-8">
+
 						<input type="hidden" id="freeBoard-freeNo"
 							th:value="${freeBoard.freeNo}">
 						<header class="mb-4">
+
 							<input type="text" class="form-control" placeholder="글 제목"
 								id="freeTitle" th:value="${freeBoard.freeTitle}"
 								style="border-radius: 10px; height: 60px;">
 						</header>
+
 						<section class="mb-5">
 							<div class="textLengthWrap d-flex flex-row" style="float: right;">
 								<p id="cnt" class="textCount">0자</p>
 								<p class="textTotal">/1000자</p>
 							</div>
+
 							<textarea class="form-control h-25" rows="10" placeholder="글 내용"
 								maxlength="1000" id="freeContent"
 								th:text="${freeBoard.freeContent}" style="border-radius: 20px"></textarea>
 						</section>
 
-						<div th:if="${freeBoard.freeNo} != null" class="d-grid gap-2">
-							<button type="button" id="modify-btn2"
-								class="btn btn-primary btn-sm 
-							style= height: 60px;">수정</button>
+						<input type="file" name="file" class="form-control"> <br>
+
+						<div class="d-grid gap-2">
+							<button th:if="${freeBoard.freeNo} != null" type="button"
+								id="modify-btn" class="btn btn-primary btn-sm"
+								style="height: 60px;">수정</button>
 						</div>
-						<div th:if="${freeBoard.freeNo} == null" class="d-grid gap-2">
-							<button type="button" id="create-btn2"
-								class="btn btn-primary btn-sm" style="height: 60px;">등록</button>
+
+						<div class="d-grid gap-2">
+							<button th:if="${freeBoard.freeNo} == null" type="button"
+								id="create-btn" class="btn btn-primary btn-sm"
+								style="height: 60px;">등록</button>
 						</div>
-					</article>
+					</div>
+
 				</div>
 			</div>
-		</div>
+
+		</form>
 
 		<!-- footer Start -->
 		<div id="footer-container"></div>

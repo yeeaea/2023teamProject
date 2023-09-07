@@ -75,27 +75,38 @@ if(modifyButton2) {
 	});
 }
 
-// 등록버튼이 눌러졌으면 그 등록버튼의 이벤트 핸들러 등록
-const createButton = document.getElementById('create-btn');
+// 생성 기능
+const createButton = document.getElementById("create-btn");
 
 if (createButton) {
-	createButton.addEventListener('click', event => {
-		fetch('/api/freeboard', {
-			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				freeTitle: document.getElementById('freeTitle').value,
-				freeContent: document.getElementById('freeContent').value
-			})
-		})
-			.then(() => {
-				alert('등록이 완료되었습니다.');
-				location.replace('/freeboards');
-			});
-	});
-}
+  createButton.addEventListener("click", (event) => {
+    event.preventDefault(); // 기본 이벤트 방지
+
+console.log("createButton 클릭 이벤트 발생");
+
+    const formData = new FormData();
+    formData.append("freeTitle", document.getElementById("freeTitle").value);
+    formData.append("freeContent", document.getElementById("freeContent").value);
+    formData.append("file", document.querySelector('input[type="file"]').files[0]);
+
+    fetch("/api/freeboard", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          alert("등록 완료");
+          location.replace("/freeboards");
+        } else {
+          alert("등록 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("등록 실패");
+      });
+  });
+} 
 
 // 등록 기능2
 const createButton2 = document.getElementById('create-btn2');

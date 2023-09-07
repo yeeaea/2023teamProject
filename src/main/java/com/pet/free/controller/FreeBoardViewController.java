@@ -51,7 +51,7 @@ public class FreeBoardViewController {
 	
 	@GetMapping("/freeboards/{freeNo}")
 	public String getFreeBoard(@PathVariable Long freeNo, Model model) {
-		FreeBoard freeBoard = freeBoardService.findById(freeNo);
+		FreeBoard freeBoard = freeBoardService.getFree(freeNo);
 		model.addAttribute("freeBoard", new FreeBoardViewResponse(freeBoard));
 		
 		return "/board/freeBoard.html";

@@ -54,6 +54,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>날짜</th>
+						 <th>조회수</th>
 					</tr>
 				</thead>
 
@@ -67,7 +68,8 @@
 							<td th:text="${item.freeNo}"></td>
 							<td
 								th:text="${#temporals.format(item.freeRdate, 'yyyy-MM-dd HH:mm')}"></td>
-
+<td th:text="${item.freeVisit}"></td>
+                    
 						</div>
 					</tr>
 				</tbody>

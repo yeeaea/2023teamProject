@@ -1,5 +1,6 @@
 package com.pet.free.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,6 @@ import com.pet.free.dto.FreeBoardRequest;
 import com.pet.free.dto.FreeBoardResponse;
 import com.pet.free.dto.UpdateFreeBoardRequest;
 import com.pet.free.service.FreeBoardService;
-import com.pet.ques.domain.QuesBoard;
-import com.pet.ques.dto.QuesBoardRequest;
-import com.pet.ques.dto.QuesBoardResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,16 +44,15 @@ public class FreeBoardApiController {
 		    return ResponseEntity.status(HttpStatus.CREATED)
 		            .body(savedFreeBoard);
 		}
-
-//	// 글 목록 가져오기
-//	@GetMapping("/api/freeboard")
-//	public ResponseEntity<List<QuesBoardResponse>> findAllQuestions(){
-//		List<QuesBoardResponse> questions = quesBoardService.findAll(null)
-//				.stream()
-//				.map(QuesBoardResponse::new)
-//				.toList();  // 최종 리턴값을 List로 바꿔라
-//		return ResponseEntity.ok().body(questions);
-//	}
+	// 글 목록 가져오기
+	@GetMapping("/api/freeboard")
+	public ResponseEntity<List<FreeBoardResponse>> findAllQuestions(){
+		List<FreeBoardResponse> freeboard = freeBoardService.findAll(null)
+				.stream()
+				.map(FreeBoardResponse::new)
+				.toList();  // 최종 리턴값을 List로 바꿔라
+		return ResponseEntity.ok().body(freeboard);
+	}
 	
 	
 	
@@ -75,12 +72,13 @@ public class FreeBoardApiController {
 		return ResponseEntity.ok().build();
 	}
 	
-//	// 글 수정하기
-//	@PutMapping("/api/freeboards/{freeNo}")
-//	public ResponseEntity<FreeBoard> updateFreeBoard(@PathVariable Long freeNo,
-//			@RequestBody UpdateFreeBoardRequest request) {
-//		FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, request);
-//
-//		return ResponseEntity.ok().body(updatedFreeBoard);
-//	}
+	// 글 수정하기
+	@PutMapping("/api/freeboards/{freeNo}")
+	public ResponseEntity<FreeBoard> updateFreeBoard(@PathVariable long freeNo,
+	        @RequestBody UpdateFreeBoardRequest request,
+	        @RequestParam(name = "file", required = false) MultipartFile file) throws IOException {
+	    FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, request, file);
+
+	    return ResponseEntity.ok().body(updatedFreeBoard);
+	}
 }
