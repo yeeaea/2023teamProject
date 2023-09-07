@@ -1,16 +1,20 @@
 package com.pet.ques.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.ques.domain.QuesBoard;
+import com.pet.ques.dto.QuesBoardListViewResponse;
+import com.pet.ques.dto.QuesBoardResponse;
 import com.pet.ques.dto.QuesBoardViewResponse;
 import com.pet.ques.service.QuesBoardService;
 
@@ -39,11 +43,18 @@ public class QuesBoardViewController {
 	
 	@GetMapping("/questions/{quesNo}")
 	public String getQuestions(@PathVariable Long quesNo, Model model) {
-		QuesBoard question = quesBoardService.findById(quesNo);
-		model.addAttribute("question", new QuesBoardViewResponse(question));
-		
-		return "/board/question.html";
+	    QuesBoard question = quesBoardService.getQues(quesNo);
+	    if (question != null) {
+	       
+	        model.addAttribute("question", new QuesBoardViewResponse(question));
+
+	        return "/board/question.html";
+	    } else {
+	        // 게시물이 없을 경우 예외 처리 또는 다른 대응
+	        return "redirect:/not_found"; // 예시: 존재하지 않는 게시물 처리
+	    }
 	}
+
 	
 	@GetMapping("/new-question")
 	// quesNo키를 가진 쿼리 파라미터의 값을 quesNo 변수에 매핑(quesNo는 없을 수도 있음)
@@ -58,7 +69,7 @@ public class QuesBoardViewController {
 	}
 	
 	@GetMapping("/questions")
-	public String getQuestionsAndSearch(@PageableDefault(size = 10, sort = "quesNo", direction= Sort.Direction.DESC) Pageable pageable, Model model, @RequestParam(required = false) String keyword) {
+	public String getQuestionsAndSearch(@PageableDefault(size = 5) Pageable pageable, Model model, @RequestParam(required = false) String keyword) {
 	    Page<QuesBoard> boards;
 
 	    if (keyword == null) {
@@ -69,8 +80,8 @@ public class QuesBoardViewController {
 	        boards = quesBoardService.boardSearchList(keyword, pageable);
 	    }
 
-	    int startPage = Math.max(1, boards.getPageable().getPageNumber() - 9);
-	    int endPage = Math.min(boards.getPageable().getPageNumber() + 9, boards.getTotalPages());
+	    int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
+	    int endPage = Math.min(boards.getPageable().getPageNumber() + 4, boards.getTotalPages());
 
 	    model.addAttribute("questions", boards);
 	    model.addAttribute("startPage", startPage);
@@ -78,4 +89,5 @@ public class QuesBoardViewController {
 
 	    return "/board/questionList.html";
 	}
+
 }

@@ -46,8 +46,12 @@
                     <h1 class="fw-bolder mb-1" th:text="${question.quesTitle}"></h1>
                     <div class="text-muted fst-italic mb-2" th:text="|작성일자 ${#temporals.format(question.quesRdate, 'yyyy-MM-dd HH:mm')}|"></div>
                 </header>
+                
                 <section class="mb-5">
                     <p class="fs-5 mb-4" th:text="${question.quesContent}"></p>
+                    <img th:if="${question.quesFilepath != null}"
+							th:src="@{${question.quesFilepath}}" width="400" height="400" />
+						<!--<a th:href="@{${question.quesFilepath}}">다운로드</a>-->
                 </section>
                 <div class="d-flex justify-content-center">
                     <button type="button" id="modify-btn"

@@ -20,6 +20,9 @@ public class QuesBoardViewResponse {
 	private String quesTitle;
 	private String quesContent;
 	private LocalDateTime quesRdate;
+	private String quesFilename;
+	private String quesFilepath;
+	
 //	private LocalDateTime quesUdate;
 //	private String memId;
 	
@@ -28,6 +31,8 @@ public class QuesBoardViewResponse {
 		this.quesTitle = quesBoard.getQuesTitle();
 		this.quesContent = quesBoard.getQuesContent();
 		this.quesRdate = quesBoard.getQuesRdate();
+		this.quesFilename = quesBoard.getQuesFilename();
+		this.quesFilepath = quesBoard.getQuesFilepath();
 //		this.quesUdate = quesBoard.getQuesUdate();
 //		this.memId = quesBoard.getMemId();
 	}
