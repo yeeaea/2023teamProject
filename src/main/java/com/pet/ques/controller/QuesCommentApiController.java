@@ -35,14 +35,6 @@ public class QuesCommentApiController {
 	}
 
 	
-	@GetMapping("/api/quescomments")
-	public ResponseEntity<List<QuesCommentResponse>> findAllComments(){
-		List<QuesBoardResponse> comments = quesCommentService.findAll()
-				.stream()
-				.map(QuesBoardResponse::new)
-				.toList();  // 최종 리턴값을 List로 바꿔라
-		return ResponseEntity.ok().body(comments);
-	}
-	
+
 	
 }
