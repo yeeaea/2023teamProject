@@ -154,7 +154,7 @@ body{
 }
 
 .navbar-light .navbar-brand {
-    height: 75px;
+    height: 80px;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -181,6 +181,39 @@ body{
         transition: .5s;
         opacity: 1;
     }
+}
+
+/*** mainpage text img ***/
+.main-text-img {
+	position: relative;
+	width: 100%;
+	z-index: 2;
+}
+
+.main-img {
+	position: relative;
+	text-align: center;
+	z-index: 1;
+}
+
+/*** sido ***/
+.map-search {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 323px;
+}
+
+.map-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.map-text {
+	padding-left: 60px;
 }
 
 /*** Footer ***/

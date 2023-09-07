@@ -1,40 +1,10 @@
 {
 	"folders": {},
 	"connections": {
-		"mariaDB-18a6435e216-6c84725253f4e4d2": {
+		"mariaDB-18a699b7fc2-282f9c180da542ba": {
 			"provider": "mysql",
 			"driver": "mariaDB",
-			"name": "localhost",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "3306",
-				"url": "jdbc:mariadb://localhost:3306/",
-				"configurationType": "MANUAL",
-				"home": "mysql_client",
-				"type": "dev",
-				"auth-model": "native"
-			}
-		},
-		"mariaDB-18a683a066b-5f43e8f703e88475": {
-			"provider": "mysql",
-			"driver": "mariaDB",
-			"name": "localhost 2",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "3306",
-				"url": "jdbc:mariadb://localhost:3306/",
-				"configurationType": "MANUAL",
-				"home": "mysql_client",
-				"type": "dev",
-				"auth-model": "native"
-			}
-		},
-		"mariaDB-18a696ffcb8-41cf11ad1ce18e7b": {
-			"provider": "mysql",
-			"driver": "mariaDB",
-			"name": "localhost 3",
+			"name": "petconnect",
 			"save-password": true,
 			"configuration": {
 				"host": "localhost",

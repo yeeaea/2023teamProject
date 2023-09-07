@@ -709,9 +709,10 @@ progress {
     --bs-gutter-y: 0;
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(var(--bs-gutter-y) * -1);
-    margin-right: calc(var(--bs-gutter-x) / -2);
-    margin-left: calc(var(--bs-gutter-x) / -2)
+    margin: 0 auto;
+    padding-right: calc(var(--bs-gutter-x) / .5);
+    padding-left: calc(var(--bs-gutter-x) / .5);
+    justify-content: center;
 }
 
 .row>* {
@@ -898,7 +899,7 @@ progress {
 
 .g-2,
 .gy-2 {
-    --bs-gutter-y: .5rem
+    /*--bs-gutter-y: .5rem*/
 }
 
 .g-3,
@@ -4475,8 +4476,7 @@ fieldset:disabled .btn {
 }
 
 .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 0
+    text-indent: 1em;
 }
 
 .navbar-nav .dropdown-menu {
@@ -7176,7 +7176,8 @@ fieldset:disabled .btn {
 }
 
 .d-flex {
-    display: flex !important
+    display: flex !important;
+    justify-content: center;
 }
 
 .d-inline-flex {
