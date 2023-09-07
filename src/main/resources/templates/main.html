@@ -40,9 +40,17 @@
 		<!-- header Start -->
 		<div id="header-container"></div>
 		<!-- header End -->
-
+		<div class="main-text">
+			<p class="main-text-big">반려동물은 우리들의 친구입니다.</p>
+			<p class="main-text-middle">이곳에서 병원 및 장묘 정보를 검색해보세요.</p>
+		</div>
+		
+		<div class="main-img-box">
+			<img class="main-img" src="/img/main.png">
+		</div>
+		
 		<!-- Search Start main-->
-		<div class="container-fluid bg-primary mb-5 wow fadeIn"
+		<div class="container-fluid bg-primary wow fadeIn"
 			data-wow-delay="0.1s" style="padding: 35px;">
 			<div class="container">
 				<div class="row g-2">
@@ -76,33 +84,6 @@
 			</div>
 		</div>
 		<!-- Search End -->
-
-		<!-- article start -->
-		<article>
-
-
-			<div id="map" style="width: 80%; height: 500px;"></div>
-
-
-			<script type="text/javascript"
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29ece20f213e91f2186db3d10c48da13"></script>
-			<script type="text/javascript">
-				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-				var options = { //지도를 생성할 때 필요한 기본 옵션
-					center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-					level : 3
-				//지도의 레벨(확대, 축소 정도)
-				};
-
-				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-			</script>
-
-		</article>
-		<!-- article end -->
-
-		<!-- footer Start -->
-		<div id="footer-container"></div>
-		<!-- footer End -->
 	</div>
 
 	<!-- Template Javascript -->
