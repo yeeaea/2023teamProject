@@ -1,7 +1,5 @@
 package com.pet.free.dto;
 
-import java.time.LocalDateTime;
-
 import com.pet.free.domain.FreeBoard;
 
 import lombok.AllArgsConstructor;
