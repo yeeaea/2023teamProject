@@ -1,5 +1,11 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+@font-face {
+    font-family: 'Giants-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
 
 :root {
     --primary: #C91C1C;
@@ -14,7 +20,12 @@
 
 body{
  -ms-overflow-style: none;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ -ms-user-select:none;
+ user-select:none
  }
+ 
 ::-webkit-scrollbar {
   display: none;
 }
@@ -25,30 +36,6 @@ body{
     right: 45px;
     bottom: 45px;
     z-index: 99;
-}
-
-.main-text {
-	transition: .5s;
-	position: relative;
-	z-index: 2;
-	width: 100%;
-	height: 150px;
-	border: 1px solid black;
-}
-
-.main-img-box {
-	position: absolute;
-	z-index: 1;
-	margin: -150px;
-	margin-left: 0;
-	padding: 150px 100px 150px 100px;
-	width: 100%;
-	height: 100%
-}
-
-.main-img {
-	width: 100%;
-	height: 100%
 }
 
 /*** Button ***/
@@ -184,13 +171,33 @@ body{
 }
 
 /*** mainpage text img ***/
-.main-text-img {
-	position: relative;
-	width: 100%;
-	z-index: 2;
+.main-text-box {
+	transition: .5s;
+	position: absolute; z-index: 2;
+	width: 100%; height: 600px;
+	padding-top: 1em;
+    padding-right: 2em;
+	border: 0px solid black;
+}
+
+.main-text {
+	font-style: bold;
+	font-family: 'Giants-Bold';
+	text-align: right;
+}
+
+.main-text-title {
+	font-size: 4rem;
+	color: var(--primary);
+}
+
+.main-text-middle, .main-text-last {
+	color: #0E2E50;
+	font-size: 1.8rem;
 }
 
 .main-img {
+	margin-top: 150px;
 	position: relative;
 	text-align: center;
 	z-index: 1;
@@ -202,7 +209,7 @@ body{
     bottom: 0;
     left: 0;
     right: 0;
-    height: 323px;
+    height: 300px;
 }
 
 .map-box {

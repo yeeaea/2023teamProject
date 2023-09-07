@@ -1,7 +1,5 @@
 package com.pet.ques.dto;
 
-import java.time.LocalDateTime;
-
 import com.pet.ques.domain.QuesBoard;
 
 import lombok.AllArgsConstructor;
