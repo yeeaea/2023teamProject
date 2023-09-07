@@ -38,16 +38,32 @@
 
 <body>
 <div class="container">
-    <form class="form-signin" id='join_form'>
+    <form class="form-signin" id='join_form' method = "post">
         <h2 class="form-signin-heading text-center mb-5">회원가입</h2>
 
         <p>
             <label for="username" class="sr-only">아이디</label>
             <input type="text" id="username" name="userid" class="form-control" placeholder="아이디" required="" autofocus="">
+            <span th:if="${valid_userid}" th:text="${valid_userid}" id="valid"></span>
         </p>
         <p>
             <label for="password" class="sr-only">비밀번호</label>
-            <input type="password" id="password" name="pw" class="form-control" placeholder="비밀번호" required="">
+            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required="">
+            <span th:if="${valid_password}" th:text="${valid_password}" id="valid"></span>
+        </p>
+        <p>
+            <label for="password" class="sr-only">비밀번호 확인</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 확인" required="">
+        </p>
+         <p>
+            <label for="nickname" class="sr-only">닉네임</label>
+            <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임" required="">
+            <span th:if="${valid_nickname}" th:text="${valid_nickname}" id="valid"></span>
+        </p>
+         <p>
+            <label for="email" class="sr-only">이메일</label>
+            <input type="text" id="email" name="email" class="form-control" placeholder="이메일" required="">
+            <span th:if="${valid_email}" th:text="${valid_email}" id="valid"></span>
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
     </form>
@@ -61,7 +77,7 @@
             const data = new FormData(form);
             const param = JSON.stringify(Object.fromEntries(data));
 
-            fetch('/join', {
+            fetch('/auth/join', {
                 method: 'POST',
                 body: param,
                 headers: {

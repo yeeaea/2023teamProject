@@ -1,11 +1,13 @@
 package com.pet.security.service;
 
-import com.pet.security.domain.Member;
-import com.pet.security.repository.MemberRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
+import com.pet.security.domain.Member;
+import com.pet.security.repository.MemberRepository;
 
 @Service
 public class RegisterMemberService {
@@ -18,18 +20,18 @@ public class RegisterMemberService {
         this.repository = repository;
     }
 
-    public Long join(String userid, String pw) {
-        Member member = Member.createUser(userid, pw, passwordEncoder);
+    @Transactional
+    public void join(String userid, String password, String nickname, String email) {
+        Member member = Member.createUser(userid, password, passwordEncoder, nickname, email);
         validateDuplicateMember(member);
         repository.save(member);
-
-        return member.getId();
     }
-
+    
     private void validateDuplicateMember(Member member) {
         repository.findByUserid(member.getUserid())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
+
 }

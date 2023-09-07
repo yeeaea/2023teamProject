@@ -32,8 +32,8 @@ public class SpringSecurityConfig {
                         .loginPage("/login")  // 커스텀 로그인 페이지 지정
                         .loginProcessingUrl("/login-process")  // submit 받을 url
                         .usernameParameter("userid")  // submit할 아이디
-                        .passwordParameter("pw")  // submit할 비밀번호
-                        .defaultSuccessUrl("/dashboard", true)
+                        .passwordParameter("password")  // submit할 비밀번호
+                        .defaultSuccessUrl("/dashboard", true)  // 로그인 성공 시 이동하는 페이지
                         .permitAll()
                 )
                 .logout(withDefaults());
