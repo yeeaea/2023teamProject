@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pet.ques.domain.QuesBoard;
 import com.pet.ques.dto.QuesBoardRequest;
 import com.pet.ques.dto.QuesBoardResponse;
+import com.pet.ques.dto.QuesBoardViewResponse;
 import com.pet.ques.dto.UpdateQuesBoardRequest;
 import com.pet.ques.service.QuesBoardService;
 
@@ -69,6 +71,7 @@ public class QuesBoardApiController {
 		}
 	
 	
+		
 	// 블로그 글 하나 조회하는 api
 	@GetMapping("/api/questions/{quesNo}")
 	// URL 경로에서 값 추출
@@ -90,6 +93,8 @@ public class QuesBoardApiController {
 	}
 
 	
+	
+	
 	// 수정
 	@PutMapping("/api/questions/{quesNo}")
 	public ResponseEntity<QuesBoard> updateQuesBoard(@PathVariable long quesNo,
@@ -99,7 +104,6 @@ public class QuesBoardApiController {
 
 	    return ResponseEntity.ok().body(updatedQuesBoard);
 	}
-
 	
 	
 }

@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.free.domain.FreeBoard;
 import com.pet.free.dto.FreeBoardRequest;
 import com.pet.free.dto.FreeBoardResponse;
 import com.pet.free.dto.UpdateFreeBoardRequest;
 import com.pet.free.service.FreeBoardService;
+import com.pet.ques.domain.QuesBoard;
+import com.pet.ques.dto.QuesBoardRequest;
+import com.pet.ques.dto.QuesBoardResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,22 +33,31 @@ public class FreeBoardApiController {
 
 	@PostMapping("/api/freeboard")
 	public ResponseEntity<FreeBoard> addFreeBoard(
-			@RequestBody FreeBoardRequest request) {
-		FreeBoard savedFreeBoard = freeBoardService.save(request);
+		    @RequestParam("freeTitle") String freeTitle,
+		    @RequestParam("freeContent") String freeContent,
+		    @RequestParam(value="file", required = false) MultipartFile file) throws Exception {
+		    FreeBoardRequest request = new FreeBoardRequest();
+		    request.setFreeTitle(freeTitle);
+		    request.setFreeContent(freeContent);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(savedFreeBoard);
-	}
+		    FreeBoard savedFreeBoard = freeBoardService.save(request, file);
+		    
+		    // 요청한 자원이 성공적으로 생성되었으며 저장된 블로그 글 정보를 응답 객체에 담아 전송
+		    return ResponseEntity.status(HttpStatus.CREATED)
+		            .body(savedFreeBoard);
+		}
 
-	// 글 목록 가져오기
-	@GetMapping("/api/freeboard")
-	public ResponseEntity<List<FreeBoardResponse>> findAllFreeBoard() {
-		List<FreeBoardResponse> freeboard = freeBoardService.findAll(null)
-				.stream()
-				.map(FreeBoardResponse::new)
-				.toList();
-
-		return ResponseEntity.ok().body(freeboard);
-	}
+//	// 글 목록 가져오기
+//	@GetMapping("/api/freeboard")
+//	public ResponseEntity<List<QuesBoardResponse>> findAllQuestions(){
+//		List<QuesBoardResponse> questions = quesBoardService.findAll(null)
+//				.stream()
+//				.map(QuesBoardResponse::new)
+//				.toList();  // 최종 리턴값을 List로 바꿔라
+//		return ResponseEntity.ok().body(questions);
+//	}
+	
+	
 	
 	// 글 하나 조회하기
 	@GetMapping("/api/freeboard/{freeNo}")
@@ -61,12 +75,12 @@ public class FreeBoardApiController {
 		return ResponseEntity.ok().build();
 	}
 	
-	// 글 수정하기
-	@PutMapping("/api/freeboards/{freeNo}")
-	public ResponseEntity<FreeBoard> updateFreeBoard(@PathVariable Long freeNo,
-			@RequestBody UpdateFreeBoardRequest request) {
-		FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, request);
-
-		return ResponseEntity.ok().body(updatedFreeBoard);
-	}
+//	// 글 수정하기
+//	@PutMapping("/api/freeboards/{freeNo}")
+//	public ResponseEntity<FreeBoard> updateFreeBoard(@PathVariable Long freeNo,
+//			@RequestBody UpdateFreeBoardRequest request) {
+//		FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, request);
+//
+//		return ResponseEntity.ok().body(updatedFreeBoard);
+//	}
 }

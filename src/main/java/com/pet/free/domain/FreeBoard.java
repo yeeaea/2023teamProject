@@ -47,11 +47,22 @@ public class FreeBoard {
     @Column(name="free_udate")
     private LocalDateTime freeUdate;
     
+	@Column(name="free_filename")
+	private String freeFilename;
+	
+	@Column(name="free_filepath")
+	private String freeFilepath;
+	
+	@Column(name="free_visit")
+	private int freeVisit;
+    
 
     @Builder
-	public FreeBoard(String freeTitle, String freeContent) {
+	public FreeBoard(String freeTitle, String freeContent, String freeFilename, String freeFilepath) {
 		this.freeTitle = freeTitle;
 		this.freeContent = freeContent;
+		this.freeFilename = freeFilename;
+		this.freeFilepath = freeFilepath;
 	}
     
     // 수정 메서드

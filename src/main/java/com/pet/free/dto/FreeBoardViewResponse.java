@@ -15,6 +15,8 @@ public class FreeBoardViewResponse {
 	private String freeTitle;
 	private String freeContent;
 	private LocalDateTime freeRdate;
+	private String freeFilename;
+	private String freeFilepath;
 //	private LocalDateTime freeUdate;
 
 	
@@ -23,6 +25,8 @@ public class FreeBoardViewResponse {
 		this.freeTitle = freeBoard.getFreeTitle();
 		this.freeContent = freeBoard.getFreeContent();
 		this.freeRdate = freeBoard.getFreeRdate();
+		this.freeFilename = freeBoard.getFreeFilename();
+		this.freeFilepath = freeBoard.getFreeFilepath();
 //		this.freeUdate = freeBoard.getFreeUdate();
 	}
 }
