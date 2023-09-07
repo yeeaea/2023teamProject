@@ -19,7 +19,9 @@ spring:
     #jpa로 데이터베이스르 다룰 때 표준 SQL이 아닌 각 데이터베이스의 고유 SQL 기능 사용
 #    database-platform: org.hibernate.dialect.Oracle12cDialect
       
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
   
   h2:
     console:
