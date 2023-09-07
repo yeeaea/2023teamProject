@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Getter
-public class FuneralViewRsponse {
+public class FuneralViewResponse {
 	
 	   private final Long funNo;
 	   private final String funName;
@@ -20,7 +20,7 @@ public class FuneralViewRsponse {
 	   private final double funLon;
 	   
 	   
-	public FuneralViewRsponse(FuneralMap funeralMap) {
+	public FuneralViewResponse(FuneralMap funeralMap) {
 		this.funNo = funeralMap.getFunNo();
 		this.funName = funeralMap.getFunName();
 		this.funTel = funeralMap.getFunTel();

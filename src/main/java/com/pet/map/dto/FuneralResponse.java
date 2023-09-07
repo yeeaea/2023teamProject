@@ -1,5 +1,6 @@
 package com.pet.map.dto;
 
+
 import com.pet.map.domain.FuneralMap;
 
 import lombok.Getter;
