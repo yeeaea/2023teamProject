@@ -61,7 +61,7 @@
             const data = new FormData(form);
             const param = JSON.stringify(Object.fromEntries(data));
 
-            fetch('/auth/join', {
+            fetch('/join', {
                 method: 'POST',
                 body: param,
                 headers: {
