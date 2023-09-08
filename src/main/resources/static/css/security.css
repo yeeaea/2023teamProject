@@ -18,3 +18,6 @@
 	font-size: 13px;
 	color: #666565;
 }
+input::placeholder {
+  font-size : 14px;
+}
