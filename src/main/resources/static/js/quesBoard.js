@@ -1,19 +1,25 @@
-// 삭제 기능
+// 삭제기능
 const deleteButton = document.getElementById('delete-btn');
 
 if (deleteButton) {
-	deleteButton.addEventListener('click', event => {
-		let quesNo = document.getElementById('question-quesNo').value;
-		fetch(`/api/questions/${quesNo}`, {
-			method: 'DELETE'
-		})
-			.then(() => {
-				alert('삭제가 완료되었습니다.');
-				location.replace('/questions');
-			});
-	});
-}
+  deleteButton.addEventListener('click', event => {
+    // 사용자에게 확인 메시지를 표시
+    const confirmDelete = confirm('삭제하시겠습니까?');
 
+    // 확인 버튼이 눌렸을 경우만 삭제 진행
+    if (confirmDelete) {
+      let quesNo = document.getElementById('question-quesNo').value;
+
+      fetch(`/api/questions/${quesNo}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
+          alert('삭제가 완료되었습니다.');
+          location.replace('/questions');
+        });
+    }
+  });
+}
 // 수정 기능
 const modifyButton = document.getElementById("modify-btn");
 
