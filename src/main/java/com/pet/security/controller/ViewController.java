@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pet.security.config.AdminAuthorize;
 import com.pet.security.config.UserAuthorize;
+import com.pet.security.dto.MemberJoinDto;
 
 @Controller
 public class ViewController {
@@ -19,8 +19,9 @@ public class ViewController {
     }
 
     @GetMapping("/join")
-    public String joinPage() {
-        return "/security/join.html";
+    public String joinPage(Model model) {
+    	model.addAttribute("dto", new MemberJoinDto());
+        return "security/join.html";
     }
 
     @GetMapping("/dashboard")
