@@ -33,9 +33,6 @@ if (modifyButton) {
     formData.append("quesTitle", document.getElementById("quesTitle").value);
     formData.append("quesContent", document.getElementById("quesContent").value);
     formData.append("file", document.querySelector('input[type="file"]').files[0]);
-    
-	let title = document.getElementById("quesTitle").value;
-    let content = document.getElementById("quesContent").value;
 
       if (title == "" && content == "") {
          alert("제목과 내용을 입력해주세요!")

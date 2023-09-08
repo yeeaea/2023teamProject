@@ -38,6 +38,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 */
 
+// 메인화면에서 검색 버튼을 눌렀을 때
+const searchBtn = document.getElementById("search-btn");
+
+if(searchBtn){
+	searchBtn.addEventListener('click', function(){
+		var sido = document.getElementById("sido1").value;
+		var gugun = document.getElementById("gugun1").value;
+		
+		localStorage.setItem('sido', sido);
+		localStorage.setItem('gugun', gugun); 
+		
+		location.href='/funeralList';
+	})
+}
+
+
 (function ($) {
     "use strict";
     
