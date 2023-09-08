@@ -92,20 +92,24 @@ public class QuesBoardApiController {
 				.build();
 	}
 
-	
-	
-	
 	// 수정
-	@PutMapping("/api/questions/{quesNo}")
-	public ResponseEntity<QuesBoard> updateQuesBoard(@PathVariable long quesNo,
-	        @RequestBody UpdateQuesBoardRequest dto,
-	        @RequestParam(name = "file", required = false) MultipartFile file) throws IOException {
-	    QuesBoard updatedQuesBoard = quesBoardService.update(quesNo, dto, file);
+	 @PutMapping("/api/questions/{quesNo}")
+	    public ResponseEntity<QuesBoard> updateQuesBoard(
+	            @PathVariable long quesNo,
+	            @RequestParam("quesTitle") String quesTitle,
+	            @RequestParam("quesContent") String quesContent,
+	            @RequestParam(name = "file", required = false) MultipartFile file) throws IOException {
 
-	    return ResponseEntity.ok().body(updatedQuesBoard);
+	        // quesNo와 다른 요청 매개변수(quesTitle, quesContent, file)를 사용하여 수정 작업을 수행합니다.
+	        // 이후 ResponseEntity를 사용하여 응답을 반환합니다.
+	        
+	        QuesBoard updatedQuesBoard = quesBoardService.update(quesNo, quesTitle, quesContent, file);
+
+	        return ResponseEntity.ok().body(updatedQuesBoard);
+	    }
 	}
 	
 	
-}
+
 
 

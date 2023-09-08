@@ -81,11 +81,11 @@ public class QuesBoardService {
 
 	// 글 수정 메서드
 	@Transactional
-	public QuesBoard update(long quesNo, UpdateQuesBoardRequest dto, MultipartFile file) throws IOException {
+	public QuesBoard update(long quesNo, String quesTitle, String quesContent, MultipartFile file) throws IOException {
 	    QuesBoard quesBoard = quesBoardRepo.findById(quesNo)
 	            .orElseThrow(() -> new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
 	    quesBoard.setQuesRdate(LocalDateTime.now());
-	    quesBoard.update(dto.getQuesTitle(), dto.getQuesContent());
+	    quesBoard.update(quesTitle, quesContent);
 
 	    String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
@@ -95,22 +95,25 @@ public class QuesBoardService {
 	        String fileName = uuid + "_" + file.getOriginalFilename();
 	        File saveFile = new File(projectPath, fileName);
 	        file.transferTo(saveFile);        
-	        dto.setQuesFilename(fileName);
-	        dto.setQuesFilepath("/files/" + fileName);
+	        quesBoard.setQuesFilename(fileName);
+	        quesBoard.setQuesFilepath("/files/" + fileName);
 	    } else {
 	        // 파일이 없는 경우, 파일 관련 정보를 null로 설정
-	        dto.setQuesFilename(null);
-	        dto.setQuesFilepath(null);
+	        quesBoard.setQuesFilename(null);
+	        quesBoard.setQuesFilepath(null);
 	    }
 
-	    return quesBoard;
+	    return quesBoardRepo.save(quesBoard); // 수정된 엔티티를 저장하고 반환
 	}
+
+	
 
 	// 키워드 검색
 	 public Page<QuesBoard> boardSearchList(String keyword, Pageable pageable){
 	    return quesBoardRepo.findByquesTitleContaining(keyword, pageable);
 	}
 	 
+	 // 조회수 증가.. 
 	 @Transactional
 	 public QuesBoard getQues(long quesNo) {
 	        Optional<QuesBoard> ques = quesBoardRepo.findById(quesNo);
@@ -123,5 +126,6 @@ public class QuesBoardService {
 	            return null;
 	        }
 	  }
+
 //	   
 }

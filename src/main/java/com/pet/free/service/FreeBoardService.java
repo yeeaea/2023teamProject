@@ -17,6 +17,7 @@ import com.pet.free.domain.FreeBoard;
 import com.pet.free.dto.FreeBoardRequest;
 import com.pet.free.dto.UpdateFreeBoardRequest;
 import com.pet.free.repository.FreeBoardRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -64,31 +65,31 @@ public class FreeBoardService {
 	}
 
 	// 글 수정 메서드
-	@Transactional
-	public FreeBoard update(long freeNo, UpdateFreeBoardRequest request, MultipartFile file) throws IOException {
-	    FreeBoard freeBoard = freeBoardRepository.findById(freeNo)
-	            .orElseThrow(() -> new IllegalArgumentException(freeNo + "번 글이 존재하지 않습니다."));
-	    freeBoard.setFreeRdate(LocalDateTime.now());
-	    freeBoard.update(request.getFreeTitle(), request.getFreeContent());
+		@Transactional
+		public FreeBoard update(long freeNo, String freeTitle, String freeContent, MultipartFile file) throws IOException {
+		    FreeBoard freeBoard = freeBoardRepository.findById(freeNo)
+		            .orElseThrow(() -> new IllegalArgumentException(freeNo + "번 글이 존재하지 않습니다."));
+		    freeBoard.setFreeRdate(LocalDateTime.now());
+		    freeBoard.update(freeTitle, freeContent);
 
-	    String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+		    String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
-	    // 파일이 없는 경우에 대한 처리 추가
-	    if (file != null && !file.isEmpty()) {
-	        UUID uuid = UUID.randomUUID();
-	        String fileName = uuid + "_" + file.getOriginalFilename();
-	        File saveFile = new File(projectPath, fileName);
-	        file.transferTo(saveFile);        
-	        request.setFreeFilename(fileName);
-	        request.setFreeFilepath("/files/" + fileName);
-	    } else {
-	        // 파일이 없는 경우, 파일 관련 정보를 null로 설정
-	        request.setFreeFilename(null);
-	        request.setFreeFilepath(null);
-	    }
+		    // 파일이 없는 경우에 대한 처리 추가
+		    if (file != null && !file.isEmpty()) {
+		        UUID uuid = UUID.randomUUID();
+		        String fileName = uuid + "_" + file.getOriginalFilename();
+		        File saveFile = new File(projectPath, fileName);
+		        file.transferTo(saveFile);        
+		        freeBoard.setFreeFilename(fileName);
+		        freeBoard.setFreeFilepath("/files/" + fileName);
+		    } else {
+		        // 파일이 없는 경우, 파일 관련 정보를 null로 설정
+		        freeBoard.setFreeFilename(null);
+		        freeBoard.setFreeFilepath(null);
+		    }
 
-	    return freeBoard;
-	}
+		    return freeBoardRepository.save(freeBoard); // 수정된 엔티티를 저장하고 반환
+		}
 
 	// 키워드 검색
 	 public Page<FreeBoard> boardSearchList(String keyword, Pageable pageable){
