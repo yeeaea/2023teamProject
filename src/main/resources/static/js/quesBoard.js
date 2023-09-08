@@ -34,34 +34,36 @@ if (modifyButton) {
     formData.append("quesContent", document.getElementById("quesContent").value);
     formData.append("file", document.querySelector('input[type="file"]').files[0]);
     
-    
-	if (title == "" && content == "") {
-		alert("제목과 내용을 입력해주세요!")
-	} else if (content == "") {
-		alert("내용을 입력해주세요!");
-	} else if (title == "") {
-		alert("제목을 입력해주세요!")
-	} else {
-    
-    // URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
-    fetch(`/api/questions/${quesNo}`, {
-      method: "PUT",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          alert("수정 완료");
-          location.replace(`/questions/${quesNo}`);
-        } else {
-          alert("수정 실패");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("수정 실패");
-      });
-     }
-  });
+	let title = document.getElementById("quesTitle").value;
+    let content = document.getElementById("quesContent").value;
+
+      if (title == "" && content == "") {
+         alert("제목과 내용을 입력해주세요!")
+      } else if (content == "") {
+         alert("내용을 입력해주세요!");
+      } else if (title == "") {
+         alert("제목을 입력해주세요!")
+      } else {
+		    // URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
+		    fetch(`/api/questions/${quesNo}`, {
+		      method: "PUT",
+		      body: formData,
+		    })
+		      .then((response) => {
+		        if (response.status === 200) {
+		          alert("수정 완료");
+		          location.replace(`/questions/${quesNo}`);
+		        } else {
+		          alert("수정 실패");
+		        }
+		      })
+		      .catch((error) => {
+		        console.error("Error:", error);
+		        alert("수정 실패");
+		      });
+	      }
+	  });
+
 }
 
 // 이미지 삭제하기
@@ -77,8 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-// 등록 기능
+// 생성 기능
 const createButton = document.getElementById("create-btn");
 if (createButton) {
    createButton.addEventListener("click", (event) => {
@@ -117,8 +118,6 @@ if (createButton) {
       }
    });
 }
-
-
 
 // 글 목록으로 가는 기능
 const listButton = document.getElementById("list-btn");
