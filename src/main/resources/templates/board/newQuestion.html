@@ -69,14 +69,9 @@
 								class="form-control h-25" style="border-radius: 20px"
 								id="quesContent" th:text="${question.quesContent}"></textarea>
 						</section>
-					<div class="d-flex flex-row">
-						
-						<input type="file" id="imageUpload" name="file" class="form-control" style="width:900px;"> 
-						<button type="button" class="btn-close mt-2" aria-label="Close" id="deleteImg">
+
+					<input type="file" name="file" class="form-control"> <br>
 					
-					</div>
-					
-					<br>
 					
 					<div class="d-grid gap-2">
 					<button th:if="${question.quesNo} != null" type="button" 

@@ -28,10 +28,11 @@ public class RegisterMemberService {
     }
     
     private void validateDuplicateMember(Member member) {
-        repository.findByUserid(member.getUserid())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
-                });
+        Member existingMember = repository.findByUserid(member.getUserid());
+
+        if (existingMember != null) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
     }
 
 }
