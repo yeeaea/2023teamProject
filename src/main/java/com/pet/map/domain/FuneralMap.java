@@ -30,6 +30,12 @@ public class FuneralMap {
    @Column(name="funeral_addr", nullable = false)
    private String funAddr;
    
+   @Column(name="funeral_sido", nullable = false)
+   private String funSido;
+   
+   @Column(name="funeral_gugun", nullable = false)
+   private String funGugun;
+   
    @Column (name="funeral_time")
    private String funTime;
    

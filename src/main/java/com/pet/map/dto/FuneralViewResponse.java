@@ -15,6 +15,8 @@ public class FuneralViewResponse {
 	   private final String funName;
 	   private final String funTel;
 	   private final String funAddr;
+	   private final String funSido;
+	   private final String funGugun;
 	   private final String funTime;
 	   private final double funLat;
 	   private final double funLon;
@@ -25,6 +27,8 @@ public class FuneralViewResponse {
 		this.funName = funeralMap.getFunName();
 		this.funTel = funeralMap.getFunTel();
 		this.funAddr = funeralMap.getFunAddr();
+		this.funSido = funeralMap.getFunSido();
+		this.funGugun = funeralMap.getFunGugun();
 		this.funTime = funeralMap.getFunTime();
 		this.funLat = funeralMap.getFunLat();
 		this.funLon = funeralMap.getFunLon();
