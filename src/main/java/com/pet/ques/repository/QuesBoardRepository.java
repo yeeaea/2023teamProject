@@ -1,7 +1,5 @@
 package com.pet.ques.repository;
 
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +14,9 @@ public interface QuesBoardRepository extends JpaRepository<QuesBoard, Long>{
 	Page<QuesBoard> findAll(Pageable pageable);
 	
 	Page<QuesBoard> findByquesTitleContaining(String keyword, Pageable pageable);
+	 
+	Page<QuesBoard> findAllByOrderByQuesVisitDesc(Pageable pageable);
+	
+	
 
 }

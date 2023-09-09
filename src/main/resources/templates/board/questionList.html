@@ -58,7 +58,15 @@
        class="bg-transparent border border-0 fs-3 mx-3" style="float:right; width:50px; height:50px;">
        <i id="pencil" class="fa-solid fa-pencil" style="color: #c91c1c;"></i>
     </button>
-  
+    
+ <form th:action="@{/questions}" method="get">
+    <label for="sortBy">정렬 옵션:</label>
+    <select name="sortBy" id="sortBy" th:onchange="|this.form.submit()|">
+        <option value="latest" th:selected="${sortBy == 'latest'}">최신순</option>
+        <option value="most-visited" th:selected="${sortBy == 'most-visited'}">조회순</option>
+    </select>
+</form>
+    
     <table class="table table-hover">
         <thead>
             <tr >
@@ -141,5 +149,31 @@
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
     <script src="/js/quesBoard.js"></script>
+    <script>
+    // 페이지 로딩 시 URL에서 정렬 옵션 읽어오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const sortByParam = urlParams.get("sortBy");
+
+    // 정렬 옵션 select 엘리먼트를 가져오기
+    const sortBySelect = document.getElementById("sortBy");
+
+    // URL에서 읽어온 정렬 옵션을 select 엘리먼트에 반영
+    if (sortByParam) {
+        for (let i = 0; i < sortBySelect.options.length; i++) {
+            if (sortBySelect.options[i].value === sortByParam) {
+                sortBySelect.options[i].selected = true;
+                break;
+            }
+        }
+    }
+
+    // select 엘리먼트의 값이 변경될 때 폼을 서밋하여 페이지 이동
+    sortBySelect.addEventListener("change", function () {
+        const selectedSortBy = sortBySelect.value;
+        const url = new URL(window.location.href);
+        url.searchParams.set("sortBy", selectedSortBy);
+        window.location.href = url.toString();
+    });
+</script>
 </body>
 </html>

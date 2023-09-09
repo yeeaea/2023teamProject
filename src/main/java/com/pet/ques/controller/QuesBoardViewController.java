@@ -1,7 +1,9 @@
 package com.pet.ques.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,15 +41,11 @@ public class QuesBoardViewController {
 	@GetMapping("/questions/{quesNo}")
 	public String getQuestions(@PathVariable Long quesNo, Model model) {
 	    QuesBoard question = quesBoardService.getQues(quesNo);
-	    if (question != null) {
 	       
 	        model.addAttribute("question", new QuesBoardViewResponse(question));
 
 	        return "/board/question.html";
-	    } else {
-	        // 게시물이 없을 경우 예외 처리 또는 다른 대응
-	        return "redirect:/not_found"; // 예시: 존재하지 않는 게시물 처리
-	    }
+	   
 	}
 
 	
@@ -64,14 +62,21 @@ public class QuesBoardViewController {
 	}
 	
 	@GetMapping("/questions")
-	public String getQuestionsAndSearch(@PageableDefault(size = 5) Pageable pageable, Model model, @RequestParam(required = false) String keyword) {
+	public String getQuestionsAndSearch(@PageableDefault(size = 10) Pageable pageable,
+	                                    Model model,
+	                                    @RequestParam(required = false) String keyword,
+	                                    @RequestParam(required = false) String sortBy) {
 	    Page<QuesBoard> boards;
 
 	    if (keyword == null) {
-	        // 검색어가 없을 때는 전체 목록을 가져옵니다.
-	        boards = quesBoardService.findAll(pageable);
+	        if ("most-visited".equals(sortBy)) {
+	            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("quesVisit").descending());
+	            boards = quesBoardService.getPostsOrderByVisit(pageable); // 조회순 정렬
+	        } else {
+	            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("quesRdate").descending());
+	            boards = quesBoardService.findAll(pageable); // 최신순 정렬 (기본)
+	        }
 	    } else {
-	        // 검색어가 있을 때는 검색을 실행합니다.
 	        boards = quesBoardService.boardSearchList(keyword, pageable);
 	    }
 
@@ -81,8 +86,13 @@ public class QuesBoardViewController {
 	    model.addAttribute("questions", boards);
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("sortBy", sortBy);
 
-	    return "/board/questionList.html";
+	    return "board/questionList";
 	}
+
+
+
+
 
 }
