@@ -1,12 +1,12 @@
 package com.pet.security.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.pet.security.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-
-    Optional<Member> findByUserid(String userId);
+    
+    Member findByUserid(String userid);
+    Member findByNickname(String nickname);
+    Member findByEmail(String email);
 }
