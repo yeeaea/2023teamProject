@@ -27,4 +27,14 @@ public class FuneralViewController {
 		return "map";
 	}
 	
+	@GetMapping("/funeralList")
+	public String funeralList(Model model) {
+		List<FuneralViewResponse> funerals =  funeralService.findAll().stream()
+				.map(FuneralViewResponse::new)
+				.toList();
+		model.addAttribute("funerals", funerals);
+		
+		return "/map/funeralList";
+	}
+	
 }

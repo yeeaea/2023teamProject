@@ -22,9 +22,12 @@ public class MyUserDetailService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String insertedUserId) throws UsernameNotFoundException {
-        Optional<Member> findOne = memberService.findOne(insertedUserId);
-        Member member = findOne.orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+    public UserDetails loadUserByUsername(String insertedUserid) throws UsernameNotFoundException {
+        Member member = memberService.findOne(insertedUserid);
+
+        if (member == null) {
+            throw new UsernameNotFoundException("존재하지 않는 회원입니다.");
+        }
 
         return User.builder()
                 .username(member.getUserid())
