@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.thymeleaf.org/extras/spring-form">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,6 +15,7 @@
 	
 	<!-- Template Stylesheet -->
 	<link rel="stylesheet" href="css/security.css">
+	
 	
 	<!-- Bootstrap Stylesheet -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -34,68 +35,58 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="/lib/wow/wow.min.js"></script>
+	
+	<!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
 <div class="container">
-    <form class="form-signin" id='join_form' method = "post">
-        <h2 class="form-signin-heading text-center mb-5">회원가입</h2>
+    <form class="form-signin" id="join_form" method="post" >
+    <a href="/"><img class="logo" src="/img/logo_width.png"></a>
 
-        <p>
-            <label for="username" class="sr-only">아이디</label>
-            <input type="text" id="username" name="userid" class="form-control" placeholder="아이디" required="" autofocus="">
-            <span th:if="${valid_userid}" th:text="${valid_userid}" id="valid"></span>
-        </p>
-        <p>
-            <label for="password" class="sr-only">비밀번호</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required="">
-            <span th:if="${valid_password}" th:text="${valid_password}" id="valid"></span>
-        </p>
-        <p>
-            <label for="password" class="sr-only">비밀번호 확인</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 확인" required="">
-        </p>
-         <p>
-            <label for="nickname" class="sr-only">닉네임</label>
-            <input type="text" id="nickname" name="nickname" class="form-control" placeholder="닉네임" required="">
-            <span th:if="${valid_nickname}" th:text="${valid_nickname}" id="valid"></span>
-        </p>
-         <p>
-            <label for="email" class="sr-only">이메일</label>
-            <input type="text" id="email" name="email" class="form-control" placeholder="이메일" required="">
-            <span th:if="${valid_email}" th:text="${valid_email}" id="valid"></span>
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
-    </form>
-
-    <script>
-        const form = document.getElementById('join_form');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-
-            const data = new FormData(form);
-            const param = JSON.stringify(Object.fromEntries(data));
-
-            fetch('/auth/join', {
-                method: 'POST',
-                body: param,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                debugger;
-                if (response.status == 200) {
-                    window.location.href = '/login';
-                    alert("회원가입 성공")
-                } else {
-                    alert("회원가입 실패")
-                }
-            })
-            .catch(error => console.log(error))
-        });
-    </script>
+	   <!-- 아이디 -->
+	   <div class="mb-2">
+	       <label for="userid" class="sr-only">아이디</label>
+	       <input type="text" id="userid" name="userid" th:value="${dto.userid}" class="form-control" placeholder="아이디" required autofocus>
+		   <!-- 중복 확인 결과를 여기에 표시 -->
+	       <span id="useridStatus"></span> 
+	   </div>
+	
+	   <!-- 비밀번호 -->
+	   <div class="mb-2">
+	       <label for="password" class="sr-only">비밀번호</label>
+	       <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required>
+	       <!-- 비밀번호 유효성 검사 여부를  여기에 표시 -->	      
+	       <span id="passwordCheckStatus"></span>
+	   </div>
+	
+	   <!-- 비밀번호 확인 -->
+	   <div class="mb-2">
+	       <label for="confirmPassword" class="sr-only">비밀번호 확인</label>
+	       <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="비밀번호 확인" required>
+		   <!-- 비밀번호 일치 여부를 여기에 표시 -->	      
+	       <span id="passwordStatus"></span> 
+	   </div>
+	
+	   <!-- 닉네임 -->
+	   <div class="mb-2">
+	       <label for="nickname" class="sr-only">닉네임</label>
+	       <input type="text" th:value="${dto.nickname}" id="nickname" name="nickname" class="form-control" placeholder="닉네임" required>
+	       <span id="nicknameStatus"></span> 
+	   </div>
+	
+	   <!-- 이메일 -->
+	   <div class="mb-2">
+	        <label for="email" class="sr-only">이메일</label>
+	        <input type="text" th:value="${dto.email}" id="email" name="email" class="form-control" placeholder="이메일" required>
+	        <span id="emailStatus"></span> 
+	    </div>
+	
+	    <button class="btn btn-lg btn-primary btn-block" id="joinButton" type="submit">회원가입</button>
+	</form>
+    <script src="/js/join.js"></script>
 </div>
 </body>
 </html>
