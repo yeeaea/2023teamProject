@@ -86,25 +86,13 @@ public class QuesBoardService {
 	// 글 수정 메서드
 	@Transactional
 	public QuesBoard update(long quesNo, String quesTitle, String quesContent, MultipartFile file) throws IOException {
-
-	    QuesBoard quesBoard = quesBoardRepo.findById(quesNo)
-	            .orElseThrow(() -> new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
-	    quesBoard.setQuesRdate(LocalDateTime.now());
-	    quesBoard.update(quesTitle, quesContent);
-
-	    String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
-
-	    // 파일이 없는 경우에 대한 처리 추가
-	    if (file != null && !file.isEmpty()) {
-	        UUID uuid = UUID.randomUUID();
-	        String fileName = uuid + "_" + file.getOriginalFilename();
-	        File saveFile = new File(projectPath, fileName);
-	        file.transferTo(saveFile);        
-	        quesBoard.setQuesFilename(fileName);
-	        quesBoard.setQuesFilepath("/files/" + fileName);
-	    } 
+		QuesBoard quesBoard = quesBoardRepo.findById(quesNo)
+				.orElseThrow(() -> new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
+		quesBoard.setQuesRdate(LocalDateTime.now());
+		quesBoard.update(quesTitle, quesContent);
 
 		String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+
 
 		// 파일이 없는 경우에 대한 처리 추가
 		if (file != null && !file.isEmpty()) {
@@ -119,7 +107,6 @@ public class QuesBoardService {
 			quesBoard.setQuesFilename(null);
 			quesBoard.setQuesFilepath(null);
 		}
-
 		return quesBoardRepo.save(quesBoard); // 수정된 엔티티를 저장하고 반환
 	}
 
