@@ -42,14 +42,19 @@ document.addEventListener("DOMContentLoaded", function () {
 const searchBtn = document.getElementById("search-btn");
 
 if(searchBtn){
-	searchBtn.addEventListener('click', function(){
-		var sido = document.getElementById("sido1").value;
-		var gugun = document.getElementById("gugun1").value;
-		
-		localStorage.setItem('sido', sido);
-		localStorage.setItem('gugun', gugun); 
-		
-		location.href='/funeralList';
+		searchBtn.addEventListener('click', function(){
+			var sido = document.getElementById("sido1").value;
+			var gugun = document.getElementById("gugun1").value;
+			var selectOption = document.getElementById("select-option").value;
+			
+			localStorage.setItem('sido', sido);
+			localStorage.setItem('gugun', gugun); 
+			
+			if(selectOption == '1'){
+				location.href='/';
+			}else if(selectOption == '2'){
+				location.href='/funeralList';
+			}
 	})
 }
 
