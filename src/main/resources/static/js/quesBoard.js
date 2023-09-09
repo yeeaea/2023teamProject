@@ -25,23 +25,33 @@ const modifyButton = document.getElementById("modify-btn");
 
 if (modifyButton) {
    modifyButton.addEventListener("click", event => {
-      let params = new URLSearchParams(location.search);
-      let quesNo = params.get("quesNo");
-      fetch(`/api/questions/${quesNo}`, {
-         method: 'PUT',
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-            quesTitle: document.getElementById("quesTitle").value,
-            quesContent: document.getElementById("quesContent").value,
-         })
+   event.preventDefault(); // 기본 이벤트 방지	   
+	   
+	let quesNo = document.getElementById('question-quesNo').value;
+
+    const formData = new FormData();
+    formData.append("quesTitle", document.getElementById("quesTitle").value);
+    formData.append("quesContent", document.getElementById("quesContent").value);
+    formData.append("file", document.querySelector('input[type="file"]').files[0]);
+
+    // URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
+    fetch(`/api/questions/${quesNo}`, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("수정 완료");
+          location.replace(`/questions/${quesNo}`);
+        } else {
+          alert("수정 실패");
+        }
       })
-         .then(() => {
-            alert("수정이 완료되었습니다.")
-            location.replace(`/questions/${quesNo}`);
-         });
-   });
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("수정 실패");
+      });
+  });
 }
 
 // 수정 기능2
