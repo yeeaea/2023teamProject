@@ -63,7 +63,7 @@ if (modifyButton2) {
       let quesNo = params.get("quesNo");
 
       let title = document.getElementById("quesTitle").value;
-      let content = document.getElementById("quesContent").value;
+      let content = document.getElementById("quesContent").value
 
       if (title == "" && content == "") {
          alert("제목과 내용을 입력해주세요!")
