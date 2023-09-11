@@ -40,33 +40,24 @@
            th:href="@{/questions(page = ${page -1}, keyword = ${param.keyword})}"
            th:text="${page}">
      </a>
-<!--  
-    <form class="m-2" action="/questions" method="GET" style="float: right;">
-   
-       <label for="search-type" hidden>유형</label>
-        <select id="search-type" name="search-type">
-            <option>제목</option>
-            <option>작성자</option>
 
-        </select>
-        
-        
-    </form>
-     -->
-   <button type="button" id="create-btn"
+    <button type="button" id="create-btn"
        th:onclick="|location.href='@{/new-question}'|"
        class="bg-transparent border border-0 fs-3 mx-3" style="float:right; width:50px; height:50px;">
        <i id="pencil" class="fa-solid fa-pencil" style="color: #c91c1c;"></i>
     </button>
-    
- <form th:action="@{/questions}" method="get">
-    <label for="sortBy">정렬 옵션:</label>
-    <select name="sortBy" id="sortBy" th:onchange="|this.form.submit()|">
-        <option value="latest" th:selected="${sortBy == 'latest'}">최신순</option>
-        <option value="most-visited" th:selected="${sortBy == 'most-visited'}">조회순</option>
-    </select>
+
+
+<!-- 최신순과 조회순 버튼 추가 -->
+<form id="sortByForm" method="get">
+    <input type="hidden" name="sortBy" id="sortByInput" th:value="${sortBy}" />
 </form>
-    
+<!-- 최신순 정렬 버튼 (사용자 정의 스타일) -->
+<button type="button" class="btn custom-button" onclick="changeSort('latest')">최신순</button>
+<!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
+<button type="button" class="btn custom-button" onclick="changeSort('most-visited')">조회순</button>
+
+
     <table class="table table-hover">
         <thead>
             <tr >
@@ -100,31 +91,29 @@
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 링크 -->
         <li class="page-item" th:classappend="${startPage == questions.pageable.pageNumber + 1} ? 'disabled'">
-            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber - 1})}" tabindex="-1"> < </a>
+            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber - 1}, sortBy=${sortBy})}" tabindex="-1"> < </a>
         </li>
+        <!-- 페이지 번호 링크 -->
         <li class="page-item" th:classappend="${num == questions.pageable.pageNumber + 1} ? 'active'" th:each="num : ${#numbers.sequence(startPage, endPage)}">
-            <a class="page-link" th:href="@{/questions(page=${num-1})}" th:text="${num}">1</a></li>
-
+            <a class="page-link" th:href="@{/questions(page=${num-1}, sortBy=${sortBy})}" th:text="${num}"></a>
+        </li>
+        <!-- 다음 페이지 링크 -->
         <li class="page-item" th:classappend="${endPage == questions.pageable.pageNumber + 1} ? 'disabled'">
-            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber + 1})}"> > </a>
+            <a class="page-link" th:href="@{/questions(page=${questions.pageable.pageNumber + 1}, sortBy=${sortBy})}"> > </a>
         </li>
     </ul>
 </nav>
 
-    <a th:if="${page != nowPage}"
+
+
+ <a th:if="${page != nowPage}"
            th:href="@{/questions(page = ${page -1}, keyword = ${param.keyword})}"
            th:text="${page}">
      </a>
  
     <form class="my-5 pagination justify-content-center" action="/questions" method="GET">
-   
-        <!-- <label for="search-type" hidden>유형</label>
-        <select id="search-type" name="search-type">
-            <option>제목</option>
-            <option>작성자</option>
-
-        </select> -->
         
         <label for="keyword" hidden>검색어</label>
        <input class="rounded-pill border border-1" id="keyword" type="search" placeholder="  검색어를 입력해주세요" name="keyword" style="width: 280px; height:40px;" th:value="${param.keyword}">
@@ -143,37 +132,17 @@
 	<!-- bootstrap library -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVI nixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
 
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
     <script src="/js/quesBoard.js"></script>
-    <script>
-    // 페이지 로딩 시 URL에서 정렬 옵션 읽어오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const sortByParam = urlParams.get("sortBy");
 
-    // 정렬 옵션 select 엘리먼트를 가져오기
-    const sortBySelect = document.getElementById("sortBy");
 
-    // URL에서 읽어온 정렬 옵션을 select 엘리먼트에 반영
-    if (sortByParam) {
-        for (let i = 0; i < sortBySelect.options.length; i++) {
-            if (sortBySelect.options[i].value === sortByParam) {
-                sortBySelect.options[i].selected = true;
-                break;
-            }
-        }
-    }
 
-    // select 엘리먼트의 값이 변경될 때 폼을 서밋하여 페이지 이동
-    sortBySelect.addEventListener("change", function () {
-        const selectedSortBy = sortBySelect.value;
-        const url = new URL(window.location.href);
-        url.searchParams.set("sortBy", selectedSortBy);
-        window.location.href = url.toString();
-    });
-</script>
+
+
+
 </body>
 </html>

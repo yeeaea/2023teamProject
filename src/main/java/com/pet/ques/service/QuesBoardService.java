@@ -64,7 +64,8 @@ public class QuesBoardService {
 		return quesBoardRepo.findAll(Pageable);
 	}
 	
-	public Page<QuesBoard> getPostsOrderByVisit(Pageable pageable) {
+	// 조회수 정렬
+	public Page<QuesBoard> findAllByOrderByQuesVisitDesc(Pageable pageable) {
 		Pageable descendingPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 				Sort.by(Sort.Direction.DESC, "quesVisit"));
 	        return quesBoardRepo.findAllByOrderByQuesVisitDesc(descendingPageable);
@@ -111,8 +112,7 @@ public class QuesBoardService {
 		return quesBoardRepo.findByquesTitleContaining(keyword, pageable);
 	}
 
-	// 세션을 통한 중복 방지 조회수 증가
-	@Transactional
+
 	public QuesBoard getQues(long quesNo, HttpSession session) {
 	    // 게시물 조회
 	    Optional<QuesBoard> ques = quesBoardRepo.findById(quesNo);
@@ -139,4 +139,5 @@ public class QuesBoardService {
 	    }
 	    
 	}   
+
 }

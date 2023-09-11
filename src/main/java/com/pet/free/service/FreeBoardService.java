@@ -57,6 +57,14 @@ public class FreeBoardService {
 		return freeBoardRepository.findAll(descendingPageable);
 	}
 	
+	// 조회수 정렬
+		public Page<FreeBoard> findAllByOrderByFreeVisitDesc(Pageable pageable) {
+			Pageable descendingPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+					Sort.by(Sort.Direction.DESC, "freeVisit"));
+		        return freeBoardRepository.findAllByOrderByFreeVisitDesc(descendingPageable);
+		    }
+
+
 	public FreeBoard findById(Long freeNo) {
 		return freeBoardRepository.findById(freeNo)
 				.orElseThrow(()-> new IllegalArgumentException("not found: " + freeNo));
