@@ -25,9 +25,9 @@ const modifyButton = document.getElementById("modify-btn");
 
 if (modifyButton) {
    modifyButton.addEventListener("click", event => {
-   event.preventDefault(); // 기본 이벤트 방지	   
-	   
-	let quesNo = document.getElementById('question-quesNo').value;
+   event.preventDefault(); // 기본 이벤트 방지      
+      
+   let quesNo = document.getElementById('question-quesNo').value;
     let title = document.getElementById("quesTitle").value;
     let content = document.getElementById("quesContent").value;
     
@@ -36,30 +36,30 @@ if (modifyButton) {
     formData.append("quesContent", document.getElementById("quesContent").value);
     formData.append("file", document.querySelector('input[type="file"]').files[0]);
 
-	if (title == "" && content == "") {
+   if (title == "" && content == "") {
          alert("제목과 내용을 입력해주세요!")
       } else if (content == "") {
          alert("내용을 입력해주세요!");
       } else if (title == "") {
          alert("제목을 입력해주세요!")
       } else {
-	    // URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
-	    fetch(`/api/questions/${quesNo}`, {
-	      method: "PUT",
-	      body: formData,
-	    })
-	      .then((response) => {
-	        if (response.status === 200) {
-	          alert("수정 완료");
-	          location.replace(`/questions/${quesNo}`);
-	        } else {
-	          alert("수정 실패");
-	        }
-	      })
-	      .catch((error) => {
-	        console.error("Error:", error);
-	        alert("수정 실패");
-	      });
+       // URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
+       fetch(`/api/questions/${quesNo}`, {
+         method: "PUT",
+         body: formData,
+       })
+         .then((response) => {
+           if (response.status === 200) {
+             alert("수정 완료");
+             location.replace(`/questions/${quesNo}`);
+           } else {
+             alert("수정 실패");
+           }
+         })
+         .catch((error) => {
+           console.error("Error:", error);
+           alert("수정 실패");
+         });
       }
   });
 }
@@ -71,9 +71,9 @@ if (createButton) {
   createButton.addEventListener("click", (event) => {
     event.preventDefault(); // 기본 이벤트 방지
 
-	// console.log("createButton 클릭 이벤트 발생");
-	
-	let title = document.getElementById("quesTitle").value;
+   // console.log("createButton 클릭 이벤트 발생");
+   
+   let title = document.getElementById("quesTitle").value;
     let content = document.getElementById("quesContent").value;
 
     const formData = new FormData();
@@ -81,29 +81,29 @@ if (createButton) {
     formData.append("quesContent", document.getElementById("quesContent").value);
     formData.append("file", document.querySelector('input[type="file"]').files[0]);
 
-	if (title == "" && content == "") {
+   if (title == "" && content == "") {
          alert("제목과 내용을 입력해주세요!")
       } else if (content == "") {
          alert("내용을 입력해주세요!");
       } else if (title == "") {
          alert("제목을 입력해주세요!")
       } else {
-	    fetch("/api/questions", {
-	      method: "POST",
-	      body: formData,
-	    })
-	      .then((response) => {
-	        if (response.status === 201) {
-	          alert("등록 완료");
-	          location.replace("/questions");
-	        } else {
-	          alert("등록 실패");
-	        }
-	      })
-	      .catch((error) => {
-	        console.error("Error:", error);
-	        alert("등록 실패");
-	      });
+       fetch("/api/questions", {
+         method: "POST",
+         body: formData,
+       })
+         .then((response) => {
+           if (response.status === 201) {
+             alert("등록 완료");
+             location.replace("/questions");
+           } else {
+             alert("등록 실패");
+           }
+         })
+         .catch((error) => {
+           console.error("Error:", error);
+           alert("등록 실패");
+         });
       }
   });
 } 
