@@ -15,6 +15,7 @@ import com.pet.ques.domain.QuesBoard;
 import com.pet.ques.dto.QuesBoardViewResponse;
 import com.pet.ques.service.QuesBoardService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -38,9 +39,10 @@ public class QuesBoardViewController {
 //		return "questionList"; // questionList.html 라는 뷰 조회
 //	}
 	
+	
 	@GetMapping("/questions/{quesNo}")
-	public String getQuestions(@PathVariable Long quesNo, Model model) {
-	    QuesBoard question = quesBoardService.getQues(quesNo);
+	public String getQuestions(@PathVariable Long quesNo, Model model, HttpSession session) {
+	    QuesBoard question = quesBoardService.getQues(quesNo, session);
 	       
 	        model.addAttribute("question", new QuesBoardViewResponse(question));
 

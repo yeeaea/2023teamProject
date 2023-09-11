@@ -14,6 +14,7 @@ import com.pet.free.domain.FreeBoard;
 import com.pet.free.dto.FreeBoardViewResponse;
 import com.pet.free.service.FreeBoardService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -50,8 +51,8 @@ public class FreeBoardViewController {
 	}
 	
 	@GetMapping("/freeboards/{freeNo}")
-	public String getFreeBoard(@PathVariable Long freeNo, Model model) {
-		FreeBoard freeBoard = freeBoardService.getFree(freeNo);
+	public String getFreeBoard(@PathVariable Long freeNo, Model model, HttpSession session) {
+		FreeBoard freeBoard = freeBoardService.getFree(freeNo, session);
 		model.addAttribute("freeBoard", new FreeBoardViewResponse(freeBoard));
 		
 		return "/board/freeBoard.html";

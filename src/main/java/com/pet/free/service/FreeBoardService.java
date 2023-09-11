@@ -17,7 +17,9 @@ import com.pet.free.domain.FreeBoard;
 import com.pet.free.dto.FreeBoardRequest;
 import com.pet.free.dto.UpdateFreeBoardRequest;
 import com.pet.free.repository.FreeBoardRepository;
+import com.pet.ques.domain.QuesBoard;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -104,5 +106,34 @@ public class FreeBoardService {
 	            return null;
 	        }
 	  }
-//	   
+	 
+		// 세션을 통한 중복 방지 조회수 증가
+		@Transactional
+		public FreeBoard getFree(long freeNo, HttpSession session) {
+		    // 게시물 조회
+		    Optional<FreeBoard> free = freeBoardRepository.findById(freeNo);
+		    if (free.isPresent()) {
+		    	FreeBoard freeboard = free.get();
+
+		        // 세션에 이미 조회한 게시물을 추적하는 키를 생성
+		        String visitedKey = "visited_question_" + freeNo;
+
+		        // 세션에서 해당 키의 값(게시물을 이미 조회한 경우)을 가져옴
+		        Boolean hasVisited = (Boolean) session.getAttribute(visitedKey);
+
+		        if (hasVisited == null || !hasVisited) {
+		            // 사용자가 해당 게시물을 아직 조회하지 않은 경우에만 조회수 증가
+		        	freeboard.setFreeVisit(freeboard.getFreeVisit() + 1);
+		        	freeBoardRepository.save(freeboard); // 데이터베이스 업데이트
+		            // 세션에 해당 키를 저장하여 중복 조회수 증가를 방지
+		            session.setAttribute(visitedKey, true);
+		        }
+		        return freeboard;
+		        
+		    } else {
+		        return null;
+		    }
+		    
+		} 
+ 
 }
