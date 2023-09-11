@@ -27,7 +27,8 @@ if (modifyButton) {
    modifyButton.addEventListener("click", event => {
    event.preventDefault(); // 기본 이벤트 방지	   
 	   
-	let quesNo = document.getElementById('question-quesNo').value;
+	   // 수정할 글의 ID (quesNo)를 가져옵니다.
+   	let quesNo = document.getElementById('question-quesNo').value;
 
     const formData = new FormData();
     formData.append("quesTitle", document.getElementById("quesTitle").value);
@@ -53,42 +54,7 @@ if (modifyButton) {
       });
   });
 }
-
-// 수정 기능2
-const modifyButton2 = document.getElementById("modify-btn2");
-
-if (modifyButton2) {
-   modifyButton2.addEventListener("click", event => {
-      let params = new URLSearchParams(location.search);
-      let quesNo = params.get("quesNo");
-
-      let title = document.getElementById("quesTitle").value;
-      let content = document.getElementById("quesContent").value
-
-      if (title == "" && content == "") {
-         alert("제목과 내용을 입력해주세요!")
-      } else if (content == "") {
-         alert("내용을 입력해주세요!");
-      } else if (title == "") {
-         alert("제목을 입력해주세요!")
-      } else {
-         fetch(`/api/questions/${quesNo}`, {
-            method: 'PUT',
-            headers: {
-               "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-               quesTitle: document.getElementById("quesTitle").value,
-               quesContent: document.getElementById("quesContent").value,
-            })
-         })
-            .then(() => {
-               alert("수정이 완료되었습니다.")
-               location.replace(`/questions/${quesNo}`);
-            });
-      }
-   });
-}
+	   
 
 // 생성 기능
 const createButton = document.getElementById("create-btn");
@@ -163,3 +129,4 @@ if (listButton) {
       location.replace("/questions");
    });
 }
+    
