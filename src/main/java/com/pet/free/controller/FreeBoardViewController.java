@@ -1,6 +1,7 @@
 package com.pet.free.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -28,24 +29,32 @@ public class FreeBoardViewController {
 	}
 	
 	@GetMapping("/freeboards")
-	public String getFreeBoardAndSearch(@PageableDefault(size = 10, sort = "freeNo", direction = Sort.Direction.DESC)Pageable pageable, Model model, @RequestParam(required = false) String keyword) {
+	public String getFreeBoardAndSearch(@PageableDefault(size = 10) Pageable pageable,
+            Model model,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String sortBy) {
 		Page<FreeBoard> freeBoard;
 		
-		if(keyword == null) {
-			// 검색어가 없을 때는 전체 목록을 가져옵니다.
-			freeBoard = freeBoardService.findAll(pageable);			
-		} else {
-			// 검색어가 있을 때는 검색을 실행합니다.
-			freeBoard = freeBoardService.boardSearchList(keyword, pageable);
-		}
-		
-		int startPage = Math.max(1, freeBoard.getPageable().getPageNumber()-9);
-		int endPage = Math.min(freeBoard.getPageable().getPageNumber() + 9, freeBoard.getTotalPages());
-		
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("freeBoard", freeBoard);
-		
+		 if (keyword == null) {
+		        if ("most-visited".equals(sortBy)) {
+		            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("freeVisit").descending());
+		            freeBoard = freeBoardService.findAllByOrderByFreeVisitDesc(pageable); // 조회순 정렬
+		        } else {
+		            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("freeRdate").descending());
+		            freeBoard = freeBoardService.findAll(pageable); // 최신순 정렬 (기본)
+		        }
+		    } else {
+		    	 freeBoard = freeBoardService.boardSearchList(keyword, pageable);
+		    }
+
+		    int startPage = Math.max(1, freeBoard.getPageable().getPageNumber() - 4);
+		    int endPage = Math.min(freeBoard.getPageable().getPageNumber() + 4, freeBoard.getTotalPages());
+
+		    model.addAttribute("freeBoard", freeBoard);
+		    model.addAttribute("startPage", startPage);
+		    model.addAttribute("endPage", endPage);
+		    model.addAttribute("sortBy", sortBy);
+
 		return "/board/freeBoardList.html";
 	}
 	

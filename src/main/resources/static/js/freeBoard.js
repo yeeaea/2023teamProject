@@ -124,3 +124,29 @@ if (listButton) {
       location.replace("/freeboards");
    });
 }
+
+// 조회수 정렬
+function changeSort(sortBy) {
+    // 현재 페이지 URL 가져오기
+    const currentUrl = new URL(window.location.href);
+
+    // sortBy 파라미터 설정
+    currentUrl.searchParams.set('sortBy', sortBy);
+
+    // sort 파라미터 제거 (기존 버전의 파라미터를 제거함)
+    currentUrl.searchParams.delete('sort');
+
+    // 현재 페이지 번호 가져오기
+    const currentPage = currentUrl.searchParams.get('page');
+
+    // 페이지 번호가 있는 경우 페이지 번호도 설정
+    if (currentPage !== null) {
+        currentUrl.searchParams.set('page', currentPage);
+    }
+
+    // 새로운 URL로 이동
+    window.location.href = currentUrl.toString();
+}
+
+
+

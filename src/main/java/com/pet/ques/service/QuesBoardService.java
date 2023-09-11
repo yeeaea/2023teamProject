@@ -65,7 +65,8 @@ public class QuesBoardService {
 		return quesBoardRepo.findAll(Pageable);
 	}
 	
-	public Page<QuesBoard> getPostsOrderByVisit(Pageable pageable) {
+	// 조회수 정렬
+	public Page<QuesBoard> findAllByOrderByQuesVisitDesc(Pageable pageable) {
 		Pageable descendingPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 				Sort.by(Sort.Direction.DESC, "quesVisit"));
 	        return quesBoardRepo.findAllByOrderByQuesVisitDesc(descendingPageable);
@@ -126,6 +127,14 @@ public class QuesBoardService {
 		}
 	}
 
+	 // 현재 글의 이전 글 가져오기
+    public Optional<QuesBoard> findPreviousQuesNo(Long quesNo) {
+        return quesBoardRepo.findPreviousQuesNo(quesNo);
+    }
 
-//	   
+    // 현재 글의 다음 글 가져오기
+    public Optional<QuesBoard> findNextQuesNo(Long quesNo) {
+        return quesBoardRepo.findNextQuesNo(quesNo);
+    }
+   
 }

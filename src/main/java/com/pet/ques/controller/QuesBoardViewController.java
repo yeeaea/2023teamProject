@@ -23,21 +23,6 @@ public class QuesBoardViewController {
 
 	private final QuesBoardService quesBoardService;
 	
-//	@GetMapping("/questions")
-//	public String getQuestions(@PageableDefault(size=5)Pageable pageable, Model model) {
-//		Page<QuesBoard> boards = quesBoardService.findAll(pageable);
-//		
-//		int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
-//	    int endPage = Math.min(boards.getPageable().getPageNumber()+4, boards.getTotalPages());
-//	 
-//	    model.addAttribute("startPage", startPage);
-//	    model.addAttribute("endPage", endPage);
-//		
-//		model.addAttribute("questions", boards); // 블로그 글 리스트 저장
-//		
-//		return "questionList"; // questionList.html 라는 뷰 조회
-//	}
-	
 	@GetMapping("/questions/{quesNo}")
 	public String getQuestions(@PathVariable Long quesNo, Model model) {
 	    QuesBoard question = quesBoardService.getQues(quesNo);
@@ -71,7 +56,7 @@ public class QuesBoardViewController {
 	    if (keyword == null) {
 	        if ("most-visited".equals(sortBy)) {
 	            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("quesVisit").descending());
-	            boards = quesBoardService.getPostsOrderByVisit(pageable); // 조회순 정렬
+	            boards = quesBoardService.findAllByOrderByQuesVisitDesc(pageable); // 조회순 정렬
 	        } else {
 	            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("quesRdate").descending());
 	            boards = quesBoardService.findAll(pageable); // 최신순 정렬 (기본)

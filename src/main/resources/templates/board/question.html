@@ -28,30 +28,30 @@
     <div class="container-xxl bg-white p-0">
         <!-- header Start -->
         
-	<!-- Header and Navbar Start -->
-	<div class="container-fluid nav-bar bg-transparent">
-		<nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4 mt-3 mb-3">
-		<!-- logo -->
+   <!-- Header and Navbar Start -->
+   <div class="container-fluid nav-bar bg-transparent">
+      <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4 mt-3 mb-3">
+      <!-- logo -->
         <a href="/" class="navbar-brand d-flex align-items-center text-center">
             <img class="img-fluid" th:src="@{/img/logo_width.png}" alt="Icon" style="width: 300px; height: 120px;">
         </a>
-			<!-- nav-button -->
-			<button type="button" class="navbar-toggler"
-				data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+         <!-- nav-button -->
+         <button type="button" class="navbar-toggler"
+            data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+         </button>
 
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<div class="navbar-nav ms-auto" >
-						<!-- <a href="" class="nav-item nav-link">마이페이지</a> -->
-						<a href="/map" class="nav-item nav-link">지도 검색</a>
-						<a href="/freeboards" class="nav-item nav-link">자유게시판</a>
-						<a href="/questions" class="nav-item nav-link">질문게시판</a>
-					</div>
-					<a href="/login" class="btn btn-primary px-3 d-none d-lg-flex">로그인</a>
-			</div>
-		</nav>
-	</div>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto" >
+                  <!-- <a href="" class="nav-item nav-link">마이페이지</a> -->
+                  <a href="/map" class="nav-item nav-link">지도 검색</a>
+                  <a href="/freeboards" class="nav-item nav-link">자유게시판</a>
+                  <a href="/questions" class="nav-item nav-link">질문게시판</a>
+               </div>
+               <a href="/login" class="btn btn-primary px-3 d-none d-lg-flex">로그인</a>
+         </div>
+      </nav>
+   </div>
         <!-- header End -->
         
         
@@ -61,20 +61,28 @@
     <div class="row">
         <div class="col-lg-8">
             <article>
-                <input type="hidden" id="question-quesNo"
-                th:value="${question.quesNo}">
-                <header class="mb-4">
-                    <p class="fw-bolder mb-1 fs-2" th:text="${question.quesTitle}"></p>
-                    <div class="text-muted fst-italic mb-2" th:text="|작성일자 ${#temporals.format(question.quesRdate, 'yyyy-MM-dd HH:mm')}|"></div>
-                </header>
-                
-                <section class="mb-5">
-                    <p class="fs-5 mb-4" th:text="${question.quesContent}"></p>
-                    <img th:if="${question.quesFilepath != null}"
-							th:src="@{${question.quesFilepath}}" width="400" height="400" />
-						<!--<a th:href="@{${question.quesFilepath}}">다운로드</a>-->
-                </section>
-                <div class="d-flex justify-content-center">
+               <input type="hidden" id="question-quesNo"
+                   th:value="${question.quesNo}">
+               <div style="background-color: #faf4f4; border-radius: 30px; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
+               
+                  <div style="width:90%; height: 90%;  margin:30px auto">
+                     <a href="/questions">질문게시판 > </a> <br />
+                     <p style="height: 20px;" class="fw-bolder mb-1 fs-2" th:text="${question.quesTitle}"></p> <br/>
+                     <div  class="d-flex justify-content-start my-3">
+                        <i class="fa-solid fa-circle-user fs-5" style="color: #b1b1b1"></i>
+                        <div th:text="${question.quesNo}" class="mx-2" style="color: #b1b1b1"></div>
+                        <div class="ms-auto text-muted fst-italic mb-2 justify-content" th:text="|작성일자 ${#temporals.format(question.quesRdate, 'yyyy-MM-dd HH:mm')}|"></div>
+                     </div>
+                     <hr style="width:90%; margin: 10px auto; color: #b1b1b1">
+                     <section class="mb-5" style="width:90%; margin: 0 auto;">
+                          <p class="fs-5 mb-4" th:text="${question.quesContent}" style="word-break: break-all;"></p>
+                          <img th:if="${question.quesFilepath != null}"
+                        th:src="@{${question.quesFilepath}}" width="400" height="400" />
+                        </section>
+                     
+                  </div>
+               
+                <div style="margin:0 auto;" class="d-flex justify-content-center">
                     <button type="button" id="modify-btn"
                             th:onclick="|location.href='@{/new-question?quesNo={quesNo}(quesNo=${question.quesNo})}'|"
                             class="btn btn-primary btn-sm"style="margin-right: 10px;">수정</button>
@@ -83,17 +91,20 @@
                     <button type="button" id="list-btn"
                             class="btn btn-secondary btn-sm">글 목록</button>
                 </div>
+                
             </article>
         </div>
     </div>
 </div>
 
-<!-- footer Start -->
-		<div id="footer-container"></div>
-		<!-- footer End -->
-	</div>
 
-	<!-- bootstrap library -->
+
+<!-- footer Start -->
+      <div id="footer-container"></div>
+      <!-- footer End -->
+   </div>
+
+   <!-- bootstrap library -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
     <!-- Template Javascript -->
