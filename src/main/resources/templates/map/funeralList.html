@@ -58,12 +58,14 @@
 			funeralData.push({'name': funName, 'tel':funTel, 'addr': funAddr, 'time':funTime, 'sido': funSido, 'gugun': funGugun});
 		});
 		
+		var lists = [];
+		
 		for(var i = 0; i < funeralData.length; i++){
 			if(sido === funeralData[i].sido && gugun === funeralData[i].gugun){
-				document.write(funeralData[i].name + " |  "); 
-				document.write(funeralData[i].tel + "  |  "); 
-				document.write(funeralData[i].addr + "  |  ");
-				document.write(funeralData[i].time + ' <br /> '); 
+				document.write(funeralData[i].name);
+				document.write(funeralData[i].tel);
+				document.write(funeralData[i].addr);
+				document.write(funeralData[i].time);
 			}
 		}
 		
@@ -88,6 +90,7 @@
 		}
 
 </script>
+
 
 
 </body>
