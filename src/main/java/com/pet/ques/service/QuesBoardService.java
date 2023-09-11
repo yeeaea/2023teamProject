@@ -91,6 +91,7 @@ public class QuesBoardService {
 		quesBoard.setQuesRdate(LocalDateTime.now());
 		quesBoard.update(quesTitle, quesContent);
 
+    
 		String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
 
@@ -102,11 +103,7 @@ public class QuesBoardService {
 			file.transferTo(saveFile);
 			quesBoard.setQuesFilename(fileName);
 			quesBoard.setQuesFilepath("/files/" + fileName);
-		} else {
-			// 파일이 없는 경우, 파일 관련 정보를 null로 설정
-			quesBoard.setQuesFilename(null);
-			quesBoard.setQuesFilepath(null);
-		}
+		} 
 		return quesBoardRepo.save(quesBoard); // 수정된 엔티티를 저장하고 반환
 	}
 
