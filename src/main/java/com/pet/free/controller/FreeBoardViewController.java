@@ -24,11 +24,6 @@ public class FreeBoardViewController {
 	
 	private final FreeBoardService freeBoardService;
 	
-	@GetMapping("/")
-	public String main() {
-		return "main";
-	}
-	
 	@GetMapping("/freeboards")
 	public String getFreeBoardAndSearch(@PageableDefault(size = 10) Pageable pageable,
             Model model,
