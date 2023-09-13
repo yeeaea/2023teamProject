@@ -23,12 +23,14 @@ body{
  -webkit-user-select:none;
  -moz-user-select:none;
  -ms-user-select:none;
- user-select:none
+ user-select:none;
  }
  
-::-webkit-scrollbar {
-  display: none;
+
+body::-webkit-scrollbar {
+  width: 0;
 }
+
 
 .back-to-top {
     position: fixed;
@@ -77,6 +79,7 @@ body{
 }
 
 /*** Navbar ***/
+
 .nav-bar {
     position: relative;
     margin-top: 45px;
@@ -92,8 +95,9 @@ body{
 }
 
 .navbar {
-   /* border-bottom: 1px solid #dce0e3; */
-   /* box-shadow: 0 0 30px rgba(0, 0, 0, .08); */
+   /*border-bottom: 1px solid #dce0e3;*/
+   box-shadow: 0px 10px 20px -2px rgba(0, 0, 0, .08);
+   /*box-shadow: 0px 2px 6px 1px #555555*/
 }
 
 .navbar .dropdown-toggle::after {
@@ -309,6 +313,7 @@ body{
 #map {
         margin: auto;
     }
+    
 
 /* 새 게시글 등록 버튼 그림자*/
 #create-btn2{
@@ -317,4 +322,57 @@ body{
   -ms-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   -o-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+#searchResults {
+    overflow: scroll; /* 스크롤을 허용합니다. */
+    width: 100%; /* 부모 요소의 100% 폭을 가집니다. */
+    height: 150px; /* 높이를 조정합니다. */
+    padding: 10px; /* 내용과 스크롤바 사이의 여백을 설정합니다. */
+    scrollbar-width: thin; /* 스크롤바 너비를 설정합니다. thin 또는 auto를 사용할 수 있습니다. */
+    scrollbar-color: dark gray lightgray; /* 스크롤바의 색상을 설정합니다. */
+}
+
+.map-info-div{
+	margin-bottom: 7px;	
+}
+
+.map-info-name{
+	font-weight: bold;
+	font-size: large;
+	margin-bottom : 7px;
+}
+.map-info-addr{
+	margin-bottom: 0
+}
+
+
+/* 현재 위치 받아오기 */
+#mylocation{
+	background-color: transparent; 
+	color:white; 
+	float:right; 
+	border: none;
+}
+#mylocation:hover{
+	color: #fff568;
+}
+
+/* 지역 주변 병원 상자(왼쪽부분) 그림자 주기 */
+#search-data{
+	position: relative;
+    z-index: 1;
+	box-shadow: -10px 0px 10px -2px rgba(0, 0, 0, .08);
+}
+
+/* 지역 주변 병원 상자(빨간색 부분)그림자 주기 */
+#search-div{
+	position: relative;
+    z-index: 8;
+	box-shadow: 0px 10px 10px -2px #D8D8D8;
+}
+
+.map-info-div:hover{
+   background-color:#faf4f4;
+   cursor:pointer;
 }
