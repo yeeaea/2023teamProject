@@ -1,0 +1,25 @@
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4 mt-3 mb-3">
+	<div class="container-fluid nav-bar bg-transparent">
+		<!-- logo -->
+		<a href="/" class="navbar-brand d-flex align-items-center text-center">
+			<img class="img-fluid" src="img/logo_width.png" alt="Icon"
+			style="width: 300px; height: 120px;">
+		</a>
+		<!-- nav-button -->
+		<button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+			data-bs-target="#navbarCollapse">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<div class="navbar-nav ms-auto">
+				<a th:href="@{/map}" class="nav-link">지도 보기</a> 
+				<a th:href="@{/freeboards}" class="nav-link">자유게시판</a> 
+				<a th:href="@{/questions}" class="nav-link">질문게시판</a>
+				<a sec:authorize="isAuthenticated()" th:href="@{/mypage}" class="nav-link">마이페이지</a>
+			</div>
+				<a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-primary px-3 d-none d-lg-flex">로그인</a> 
+				<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary px-3 d-none d-lg-flex">로그아웃</a>
+		</div>
+	</div>
+</nav>

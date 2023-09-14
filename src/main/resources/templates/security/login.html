@@ -52,6 +52,11 @@
             <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required="">
         </p>  
         <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+        <div th:if="${loginError}" class="mt-3 alert alert-danger" role="alert" style="font-size: 14px;">
+		    아이디 또는 비밀번호를 잘못 입력했습니다. 
+		    <br>
+		    입력하신 내용을 다시 확인해주세요.
+		</div>
     </form>
 
     <form class="form-signin" method="get" action="/join">

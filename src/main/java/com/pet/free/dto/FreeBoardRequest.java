@@ -16,6 +16,8 @@ public class FreeBoardRequest {
 	private String freeContent;
 	private String freeFilename;
 	private String freeFilepath;
+	private String userid;
+	private String nickname;
 	
 	public FreeBoard toEntity() {
 		return FreeBoard.builder()
@@ -23,6 +25,8 @@ public class FreeBoardRequest {
 				.freeContent(freeContent)
 				.freeFilename(freeFilename)
 				.freeFilepath(freeFilepath)
+				.userid(userid)
+				.nickname(nickname)
 				.build();
 	}
 }
