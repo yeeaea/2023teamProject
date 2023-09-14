@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
    // 현재 나의 위치 이미지
    var imageSrc = "/img/mymarker.png",
-      imageSizes = [new kakao.maps.Size(50, 50), new kakao.maps.Size(37, 37), new kakao.maps.Size(25, 25)], // 마커 이미지 크기 배열
+      imageSizes = [new kakao.maps.Size(90, 90), new kakao.maps.Size(70, 70), new kakao.maps.Size(40, 40)], // 마커 이미지 크기 배열
       imageSizeIndex = 0, // 초기 마커 이미지 크기 인덱스
       imageOption = { offset: new kakao.maps.Point(16, 32) }; // 마커이미지의 옵션
 
@@ -121,7 +121,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // 받아온 JSON 데이터를 표시
             responseData.forEach(function(place, index) {
+				
                const placeDiv = document.createElement("div");
+
+               // 검색된 목록을 클릭했을 때, 지도에서 해당 이름 띄우기
                placeDiv.addEventListener("click", function() {
 
                   // 이전에 열린 infowindow가 있다면 닫기
@@ -140,11 +143,24 @@ document.addEventListener("DOMContentLoaded", function() {
                   
                   // 열린 infowindow를 openInfowindow 변수에 저장
                   openInfowindow = infowindow;
-
+                  
+                  // 특정 확대 레벨로 지도 확대
+                  const zoomLevel = 3;
+                  map.setLevel(zoomLevel, {anchor: markerPosition});
+                                
                   map.panTo(markerPosition);
+                  
+	                  // 맵의 다른 부분을 클릭했을 때, 열린 infowindow 없애기
+	               map.addListener('click', function(){
+					   if(openInfowindow){
+						   openInfowindow.close();
+						   openInfowindow = null;
+					   }
+				   });
 
                });
-
+               
+			   
                const nameElement = document.createElement("p");
 			   nameElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${place.name}`;
                placeDiv.appendChild(nameElement);
@@ -170,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
                // 아래쪽 경계 추가
-               if (index < responseData.length - 1) {
+               if (index < responseData.length ) {
                   placeDiv.style.borderBottom = "1px solid #ccc";
                }
 

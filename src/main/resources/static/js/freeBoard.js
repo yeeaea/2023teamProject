@@ -4,14 +4,17 @@ const deleteButton = document.getElementById('delete-btn');
 if (deleteButton) {
 	deleteButton.addEventListener('click', event => {
 		const isConfirmed = confirm('삭제하시겠습니까?');
-		let freeNo = document.getElementById('freeBoard-freeNo').value;
-		fetch(`/api/freeboards/${freeNo}`, {
-			method: 'DELETE'
-		})
-			.then(() => {
-				alert('삭제가 완료되었습니다.');
-				location.replace('/freeboards');
-			});
+		if (isConfirmed) {
+			let freeNo = document.getElementById('freeBoard-freeNo').value;
+
+			fetch(`/api/freeboards/${freeNo}`, {
+				method: 'DELETE'
+			})
+				.then(() => {
+					alert('삭제가 완료되었습니다.');
+					location.replace('/freeboards');
+				});
+		}
 	});
 }
 
@@ -23,7 +26,6 @@ if (modifyButton) {
 		event.preventDefault();
 
 		let freeNo = document.getElementById('freeBoard-freeNo').value;
-
 		let title = document.getElementById("freeTitle").value;
 		let content = document.getElementById("freeContent").value;
 
@@ -162,25 +164,26 @@ submitButton.addEventListener("click", () => {
 		freeNo: freeNo
 	};
 
-	// 서버로 댓글 데이터 전송
-	fetch("/api/freecomments", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(commentData)
-	})
-		.then(response => response.json())
-		.then(data => {
-			// 성공적으로 등록된 댓글을 화면에 표시
-			// (이전 코드와 동일)
-
-			// 페이지 새로 고침
-			location.reload();
+	if (freeCmtContent.trim() === "") {
+		alert("댓글 내용을 입력해주세요!");
+	} else {
+		// 서버로 댓글 데이터 전송
+		fetch("/api/freecomments", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(commentData)
 		})
-		.catch(error => {
-			console.error("Error:", error);
-		});
+			.then(response => response.json())
+			.then(data => {
+				location.reload();
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			});
+	}
+
 });
 
 // 댓글 삭제 버튼 이벤트 리스너
@@ -261,6 +264,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (button.classList.contains('save-comment-btn') && editingCommentNo !== null) {
 				const updatedContent = editTextarea.value;
 
+				if (updatedContent.trim() === "") {
+					alert("수정할 댓글 내용을 입력해주세요!");
+					return;
+				}
 				// 서버에 업데이트 요청 보내기
 				fetch(`/api/freecomments/${editingCommentNo}`, { // 수정 중인 댓글 번호 사용
 					method: "PUT",

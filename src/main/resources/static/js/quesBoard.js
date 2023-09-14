@@ -4,14 +4,17 @@ const deleteButton = document.getElementById('delete-btn');
 if (deleteButton) {
 	deleteButton.addEventListener('click', event => {
 		const isConfirmed = confirm('삭제하시겠습니까?');
-		let quesNo = document.getElementById('question-quesNo').value;
-		fetch(`/api/questions/${quesNo}`, {
-			method: 'DELETE'
-		})
-			.then(() => {
-				alert('삭제가 완료되었습니다.');
-				location.replace('/questions');
-			});
+		if (isConfirmed) {
+			let quesNo = document.getElementById('question-quesNo').value;
+
+			fetch(`/api/questions/${quesNo}`, {
+				method: 'DELETE'
+			})
+				.then(() => {
+					alert('삭제가 완료되었습니다.');
+					location.replace('/questions');
+				});
+		}
 	});
 }
 
@@ -22,8 +25,8 @@ if (modifyButton) {
 	modifyButton.addEventListener("click", event => {
 		event.preventDefault();
 
-		let freeNo = document.getElementById('quesBoard-quesNo').value;
-
+		// let freeNo = document.getElementById('quesBoard-quesNo').value;
+		let quesNo = document.getElementById('question-quesNo').value;
 		let title = document.getElementById("quesTitle").value;
 		let content = document.getElementById("quesContent").value;
 
@@ -40,14 +43,14 @@ if (modifyButton) {
 			alert("제목을 입력해주세요!")
 		} else {
 			// URL에 실제 quesNo 값을 대체하여 요청을 보냅니다.
-			fetch(`/api/questions/{quesNo}`, {
+			fetch(`/api/questions/${quesNo}`, {
 				method: "PUT",
 				body: formData,
 			})
 				.then((response) => {
 					if (response.status === 200) {
 						alert("수정 완료");
-						location.replace(`/questions/{quesNo}`);
+						location.replace(`/questions/${quesNo}`);
 					} else {
 						alert("수정 실패");
 					}
@@ -162,25 +165,26 @@ submitButton.addEventListener("click", () => {
 		quesNo: quesNo
 	};
 
-	// 서버로 댓글 데이터 전송
-	fetch("/api/quescomments", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(commentData)
-	})
-		.then(response => response.json())
-		.then(data => {
-			// 성공적으로 등록된 댓글을 화면에 표시
-			// (이전 코드와 동일)
-
-			// 페이지 새로 고침
-			location.reload();
+	if (quesCmtContent.trim() === "") {
+		alert("댓글 내용을 입력해주세요!");
+	} else {
+		// 서버로 댓글 데이터 전송
+		fetch("/api/quescomments", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(commentData)
 		})
-		.catch(error => {
-			console.error("Error:", error);
-		});
+			.then(response => response.json())
+			.then(data => {
+				// 페이지 새로 고침
+				location.reload();
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			});
+	}
 });
 
 // 댓글 삭제 버튼 이벤트 리스너
@@ -260,6 +264,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			if (button.classList.contains('save-comment-btn') && editingCommentNo !== null) {
 				const updatedContent = editTextarea.value;
+
+				// 댓글 내용이 없으면 alert
+				if (updatedContent.trim() === "") {
+					alert("수정할 댓글 내용을 입력해주세요!");
+					return;
+				}
 
 				// 서버에 업데이트 요청 보내기
 				fetch(`/api/quescomments/${editingCommentNo}`, { // 수정 중인 댓글 번호 사용
