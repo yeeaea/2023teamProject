@@ -1,29 +1,3 @@
-//header footer load page
-document.addEventListener("DOMContentLoaded", function () {
-	let headerContainer = document.getElementById("header-container");
-
-    if (headerContainer) {
-        fetch('/html/header_nav.html')
-            .then(response => response.text())
-            .then(data => {
-                headerContainer.innerHTML = data;
-            });
-   	}
-});
-
-//footer load page
-document.addEventListener("DOMContentLoaded", function () {
-	let headerContainer = document.getElementById("footer-container");
-
-    if (headerContainer) {
-        fetch('/html/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                headerContainer.innerHTML = data;
-            });
-   	}
-});
-
 // SelectBox
 document.addEventListener("DOMContentLoaded", function () {
 	const typeSelect = document.getElementById("type");
@@ -94,73 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	        selectElement.appendChild(optionElement);
 	    });
 	}
+	
+	
 });
 
 
-(function ($) {
-    "use strict";
-    
-    // Initiate the wowjs
-    new WOW().init();
-    
-    // Sticky Navbar
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 45) {
-            $('.nav-bar').addClass('sticky-top');
-        } else {
-            $('.nav-bar').removeClass('sticky-top');
-        }
-    });
-    
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
-    });
-
-
-    // Header carousel
-    $(".header-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        items: 1,
-        dots: true,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-chevron-left"></i>',
-            '<i class="bi bi-chevron-right"></i>'
-        ]
-    });
-
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        margin: 24,
-        dots: false,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsive: {
-            0:{
-                items:1
-            },
-            992:{
-                items:2
-            }
-        }
-    });
-    
-})(jQuery);

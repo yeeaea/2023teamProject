@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pet.security.service.MemberCheckService;
 
 @RestController
-@RequestMapping("/api/members")
+@RequestMapping("/api/valid")
 public class MemberCheckController {
 
 	private final MemberCheckService memberCheckService;

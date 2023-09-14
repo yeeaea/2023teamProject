@@ -30,38 +30,9 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+	<!-- header -->
+	<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 	<div class="container-xxl bg-white p-0">
-
-		<!-- Header and Navbar Start -->
-		<div class="container-fluid nav-bar bg-transparent">
-			<nav
-				class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4 mt-3 mb-3">
-				<!-- logo -->
-				<a href="/"
-					class="navbar-brand d-flex align-items-center text-center"> <img
-					class="img-fluid" th:src="@{/img/logo_width.png}" alt="Icon"
-					style="width: 300px; height: 120px;">
-				</a>
-				<!-- nav-button -->
-				<button type="button" class="navbar-toggler"
-					data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarCollapse">
-					<div class="navbar-nav ms-auto">
-						<!-- <a href="" class="nav-item nav-link">마이페이지</a> -->
-						<a href="/map" class="nav-item nav-link">지도 검색</a> <a
-							href="/freeboards" class="nav-item nav-link">자유게시판</a> <a
-							href="/questions" class="nav-item nav-link">질문게시판</a>
-					</div>
-					<a href="/login" class="btn btn-primary px-3 d-none d-lg-flex">로그인</a>
-				</div>
-			</nav>
-		</div>
-		<!-- header End -->
-
-
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-lg-8">
@@ -78,7 +49,7 @@
 								<br />
 								<div class="d-flex justify-content-start my-3">
 									<i class="fa-solid fa-circle-user fs-5" style="color: #b1b1b1"></i>
-									<div th:text="${freeBoard.freeNo}" class="mx-2"
+									<div th:text="${nickname}" class="mx-2"
 										style="color: #b1b1b1"></div>
 									<div class="ms-auto text-muted fst-italic mb-2 justify-content"
 										th:text="|작성일자 ${#temporals.format(freeBoard.freeRdate, 'yyyy-MM-dd HH:mm')}|"></div>
@@ -96,9 +67,11 @@
 							<div style="margin: 0 auto;"
 								class="d-flex justify-content-center">
 								<button type="button" id="modify-btn"
+									th:if="${currentUserid == author}"
 									th:onclick="|location.href='@{/new-freeboard?freeNo={freeNo}(freeNo=${freeBoard.freeNo})}'|"
 									class="btn btn-primary btn-sm" style="margin-right: 10px;">수정</button>
 								<button type="button" id="delete-btn"
+									th:if="${currentUserid == author}"
 									class="btn btn-secondary btn-sm" style="margin-right: 10px;">삭제</button>
 								<button type="button" id="list-btn"
 									class="btn btn-secondary btn-sm">글 목록</button>
@@ -181,7 +154,7 @@
 		<!-- Comment End -->
 
 		<!-- footer Start -->
-		<div id="footer-container"></div>
+		<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 		<!-- footer End -->
 	</div>
 	<!-- bootstrap library -->

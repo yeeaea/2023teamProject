@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pet.free.domain.FreeBoard;
 import com.pet.free.dto.FreeBoardRequest;
 import com.pet.free.repository.FreeBoardRepository;
+import com.pet.security.domain.Member;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -149,5 +150,17 @@ public class FreeBoardService {
 		} else {
 			return null;
 		}
+	}
+	
+	// 글 작성자의 닉네임을 가져오는 메소드
+	public String getNickname(Long freeNo) {
+		FreeBoard freeBoard = freeBoardRepository.findById(freeNo).orElse(null);
+		
+		if (freeBoard != null) {
+            return freeBoard.getNickname();
+        }
+
+        return null;
+		
 	}
 }

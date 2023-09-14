@@ -8,6 +8,10 @@
     <title>대시보드</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+</head>
 </head>
 
 <body>
@@ -30,5 +34,19 @@
         <button class="btn btn-sm btn-danger btn-block" type="submit">로그아웃</button>
     </form>
 </div>
+<script>
+        // URL에서 success 파라미터가 있는지 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const successParam = urlParams.get("success");
+
+        // success 파라미터가 있을 경우 성공 메시지를 표시
+        if (successParam === "true") {
+        	Swal.fire({
+        		title:'로그인 성공!',         // Alert 제목
+        		text: '환영합니다',  // Alert 내용
+        		icon: 'success',                         // Alert 타입
+        		});
+        }
+</script>
 </body>
 </html>
