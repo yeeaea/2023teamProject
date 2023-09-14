@@ -33,7 +33,7 @@
 		<div id="header-container"></div>
 		<!-- header End -->
 
-<div class="container mt-5">
+<div class="container mt-5" style="width:80%;">
     <a href="/questions" class="fs-3 fw-bold fc" style="color: black;">질문 게시판 목록</a>
     
      <a th:if="${page != nowPage}"
@@ -53,9 +53,9 @@
     <input type="hidden" name="sortBy" id="sortByInput" th:value="${sortBy}" />
 </form>
 <!-- 최신순 정렬 버튼 (사용자 정의 스타일) -->
-<button type="button" class="btn custom-button" onclick="changeSort('latest')">최신순</button>
+<button type="button" class="btn custom-button" onclick="changeSort('latest')" >최신순</button>
 <!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
-<button type="button" class="btn custom-button" onclick="changeSort('most-visited')">조회순</button>
+<button type="button" class="btn custom-button" onclick="changeSort('most-visited')" >조회순</button>
 
 
     <table class="table table-hover">
@@ -65,7 +65,7 @@
                 <th>제목</th>
                 <th>작성자</th>
                 <th>날짜</th>
-                <th>조회수</th>
+                <th>조회수</th> 
             </tr>
         </thead>
         <tbody class="row-6" th:each="item : ${questions}" >

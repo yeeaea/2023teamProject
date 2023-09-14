@@ -52,7 +52,7 @@
 					<div class="navbar-nav ms-auto">
 						<!-- <a href="" class="nav-item nav-link">마이페이지</a> -->
 						<a href="/map" class="nav-item nav-link">지도 검색</a> <a
-							href="/freeBoards" class="nav-item nav-link">자유게시판</a> <a
+							href="/freeboards" class="nav-item nav-link">자유게시판</a> <a
 							href="/questions" class="nav-item nav-link">질문게시판</a>
 					</div>
 					<a href="/login" class="btn btn-primary px-3 d-none d-lg-flex">로그인</a>
@@ -72,7 +72,7 @@
 							style="background-color: #faf4f4; border-radius: 30px; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
 
 							<div style="width: 90%; height: 90%; margin: 30px auto">
-								<a href="/freeBoards">자유게시판 > </a> <br />
+								<a href="/freeboards">자유게시판 > </a> <br />
 								<p style="height: 20px;" class="fw-bolder mb-1 fs-2"
 									th:text="${freeBoard.freeTitle}"></p>
 								<br />
@@ -96,7 +96,7 @@
 							<div style="margin: 0 auto;"
 								class="d-flex justify-content-center">
 								<button type="button" id="modify-btn"
-									th:onclick="|location.href='@{/new-freeBoard?freeNo={freeNo}(freeNo=${freeBoard.freeNo})}'|"
+									th:onclick="|location.href='@{/new-freeboard?freeNo={freeNo}(freeNo=${freeBoard.freeNo})}'|"
 									class="btn btn-primary btn-sm" style="margin-right: 10px;">수정</button>
 								<button type="button" id="delete-btn"
 									class="btn btn-secondary btn-sm" style="margin-right: 10px;">삭제</button>
