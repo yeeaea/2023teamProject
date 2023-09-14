@@ -15,6 +15,7 @@ public class ViewController {
 
     @GetMapping("/login")
     public String loginPage() {
+    	System.out.println("login 메소드 호출");
         return "/security/login.html";
     }
 

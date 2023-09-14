@@ -1,16 +1,22 @@
 package com.pet.ques.dto;
 
+import java.time.LocalDateTime;
+
 import com.pet.ques.domain.QuesComment;
 
 import lombok.Getter;
 
 @Getter
 public class QuesCommentResponse {
-
-	private String QuesCmtContent;
+	private String quesCmtContent;
+	private LocalDateTime quesCmtRdate;
+	private LocalDateTime quesCmtUdate;
 	
 	public QuesCommentResponse(QuesComment quesComment) {
-		this.QuesCmtContent = quesComment.getQuesCmtContent();
+		
+		this.quesCmtContent = quesComment.getQuesCmtContent();
+		this.quesCmtRdate = quesComment.getQuesCmtRdate();
+		this.quesCmtUdate = quesComment.getQuesCmtUdate();
 	}
 	
 }

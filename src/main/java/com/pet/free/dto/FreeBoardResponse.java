@@ -8,7 +8,6 @@ import lombok.Getter;
 
 @Getter
 public class FreeBoardResponse {
-
 	private String freeTitle;
 	private String freeContent;
 	private LocalDateTime freeRdate;

@@ -1,4 +1,4 @@
-package com.pet.ques.domain;
+package com.pet.free.domain;
 
 import java.time.LocalDateTime;
 
@@ -27,35 +27,35 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 
-public class QuesComment {
+public class FreeComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ques_cmt_no", nullable = false)
-	private Long quesCmtNo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ques_no")
-	private QuesBoard quesBoard;
+	@Column(name = "free_cmt_no", nullable = false)
+	private Long freeCmtNo;
 
-	@Column(name = "ques_cmt_content")
-	private String quesCmtContent;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "free_no")
+	private FreeBoard freeBoard;
+
+	@Column(name = "free_cmt_content")
+	private String freeCmtContent;
 
 	@CreatedDate
-	@Column(name = "ques_cmt_rdate")
-	private LocalDateTime quesCmtRdate;
-	
+	@Column(name = "free_cmt_rdate")
+	private LocalDateTime freeCmtRdate;
+
 	@LastModifiedDate
-	@Column(name= "ques_cmt_udate")
-	private LocalDateTime quesCmtUdate;
+	@Column(name = "free_cmt_udate")
+	private LocalDateTime freeCmtUdate;
 
 	@Builder
-	public QuesComment(String quesCmtContent) {
-		this.quesCmtContent = quesCmtContent;
+	public FreeComment(String freeCmtContent) {
+		this.freeCmtContent = freeCmtContent;
 	}
 
-	public void update(String quesCmtContent) {
-		this.quesCmtContent = quesCmtContent;
+	public void update(String freeCmtContent) {
+		this.freeCmtContent = freeCmtContent;
 	}
 
 }
