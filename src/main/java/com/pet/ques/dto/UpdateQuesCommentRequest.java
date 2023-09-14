@@ -1,6 +1,6 @@
 package com.pet.ques.dto;
 
-import com.pet.ques.domain.QuesComment;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class QuesCommentRequest {
-	private Long quesNo;
+public class UpdateQuesCommentRequest {
 	private String quesCmtContent;
-
-	public QuesComment toEntity() {
-		return QuesComment.builder()
-				.quesCmtContent(quesCmtContent)
-				.build();
-	}
-
+	private LocalDateTime quesCmtRdate;
+	private LocalDateTime quesCmtUdate;
 }

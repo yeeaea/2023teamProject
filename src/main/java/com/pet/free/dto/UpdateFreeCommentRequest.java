@@ -11,11 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateFreeBoardRequest {
-	private String freeTitle;
-	private String freeContent;
-	private LocalDateTime freeRdate;
-	private LocalDateTime freeUdate;
-	private String freeFilename;
-	private String freeFilepath;
+public class UpdateFreeCommentRequest {
+	private String freeCmtContent;
+	private LocalDateTime freeCmtRdate;
+	private LocalDateTime freeCmtUdate;
 }

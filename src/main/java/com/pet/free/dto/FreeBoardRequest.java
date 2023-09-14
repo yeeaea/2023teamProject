@@ -12,13 +12,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FreeBoardRequest {
-
 	private String freeTitle;
 	private String freeContent;
 	private String freeFilename;
 	private String freeFilepath;
-	
-	
 	
 	public FreeBoard toEntity() {
 		return FreeBoard.builder()
@@ -28,5 +25,4 @@ public class FreeBoardRequest {
 				.freeFilepath(freeFilepath)
 				.build();
 	}
-
 }

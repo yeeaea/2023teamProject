@@ -14,7 +14,6 @@ public class FreeBoardListViewResponse {
 	private String freeContent;
 	private LocalDateTime freeRdate;
 	private LocalDateTime freeUdate;
-
 	
 	public FreeBoardListViewResponse(FreeBoard freeBoard) {
 		this.freeNo = freeBoard.getFreeNo();
@@ -22,6 +21,5 @@ public class FreeBoardListViewResponse {
 		this.freeContent = freeBoard.getFreeContent();
 		this.freeRdate = freeBoard.getFreeRdate();
 		this.freeUdate = freeBoard.getFreeUdate();
-
 	}
 }

@@ -10,16 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class FreeBoardViewResponse {
-
 	private Long freeNo;
 	private String freeTitle;
 	private String freeContent;
 	private LocalDateTime freeRdate;
 	private String freeFilename;
 	private String freeFilepath;
-//	private LocalDateTime freeUdate;
 
-	
 	public FreeBoardViewResponse(FreeBoard freeBoard) {
 		this.freeNo = freeBoard.getFreeNo();
 		this.freeTitle = freeBoard.getFreeTitle();
@@ -27,6 +24,5 @@ public class FreeBoardViewResponse {
 		this.freeRdate = freeBoard.getFreeRdate();
 		this.freeFilename = freeBoard.getFreeFilename();
 		this.freeFilepath = freeBoard.getFreeFilepath();
-//		this.freeUdate = freeBoard.getFreeUdate();
 	}
 }
