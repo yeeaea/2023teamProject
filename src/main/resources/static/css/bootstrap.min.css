@@ -2288,7 +2288,7 @@ progress {
 
 .form-control:disabled,
 .form-control:read-only {
-    background-color: #e9ecef;
+    background-color: #fff;
     opacity: 1
 }
 
@@ -4836,7 +4836,7 @@ fieldset:disabled .btn {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    /*border: 1px solid rgba(0, 0, 0, 0.125);*/
     border-radius: 5px
 }
 
@@ -4869,7 +4869,7 @@ fieldset:disabled .btn {
 
 .card-body {
     flex: 1 1 auto;
-    padding: 1rem 1rem
+    padding: .3rem .5rem
 }
 
 .card-title {
@@ -4894,9 +4894,9 @@ fieldset:disabled .btn {
 }
 
 .card-header {
-    padding: .5rem 1rem;
+    padding: .8rem 1rem;
     margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #faf4f4;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125)
 }
 
@@ -5476,10 +5476,9 @@ fieldset:disabled .btn {
 .list-group-item {
     position: relative;
     display: block;
-    padding: .5rem 1rem;
+    padding: .8rem 1rem;
     color: #212529;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125)
 }
 
 .list-group-item:first-child {
@@ -7181,9 +7180,13 @@ fieldset:disabled .btn {
 
 .d-flex {
     display: flex !important;
-    justify-content: center;
+    justify-content: flex-start;
 }
-
+/*
+.d-flex .edit-comment-form {
+	display: block;
+}
+*/
 .d-inline-flex {
     display: inline-flex !important
 }
