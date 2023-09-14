@@ -59,15 +59,21 @@ public class FreeBoard {
 	@Column(name="free_visit")
 	private int freeVisit;
     
-	 @OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	 private List<FreeComment> comments;
+	@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<FreeComment> comments;
+	
+	private String userid; // 글 작성자의 id
+	
+	private String nickname; // 글 작성자의 nickname
 	
     @Builder
-	public FreeBoard(String freeTitle, String freeContent, String freeFilename, String freeFilepath) {
+	public FreeBoard(String freeTitle, String freeContent, String freeFilename, String freeFilepath, String userid, String nickname) {
 		this.freeTitle = freeTitle;
 		this.freeContent = freeContent;
 		this.freeFilename = freeFilename;
 		this.freeFilepath = freeFilepath;
+		this.userid = userid;
+		this.nickname = nickname;
 	}
     
     // 수정 메서드

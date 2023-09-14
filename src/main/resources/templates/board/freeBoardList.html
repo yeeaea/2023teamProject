@@ -75,7 +75,7 @@
 							<td><a
 								th:href="@{/freeboards/{freeNo}(freeNo=${item.freeNo})}"
 								th:text="${item.freeTitle}"></a></td>
-							<td th:text="${item.freeNo}"></td>
+							<td th:text="${item.nickname}"></td>
 							<td
 								th:text="${#temporals.format(item.freeRdate, 'yyyy-MM-dd HH:mm')}"></td>
 <td th:text="${item.freeVisit}"></td>

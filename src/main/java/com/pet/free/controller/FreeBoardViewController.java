@@ -1,5 +1,6 @@
 package com.pet.free.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import com.pet.free.dto.FreeCommentListViewResponse;
 import com.pet.free.service.FreeBoardService;
 import com.pet.free.service.FreeCommentService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +35,27 @@ public class FreeBoardViewController {
 	
 	
 	@GetMapping("/freeboards/{freeNo}")
-	public String getFreeBoard(@PathVariable Long freeNo, Model model, HttpSession session) {
+	public String getFreeBoard(@PathVariable Long freeNo, Model model, HttpSession session, HttpServletRequest request) {
+		// 현재 로그인한 사용자 정보 가져오기
+		Principal principal = request.getUserPrincipal(); // 이것을 사용하려면 HttpServletRequest를 주입해야 합니다.
+
+		String currentUserid = null; // 초기화
+		    
+	    if (principal != null) {
+	        currentUserid = principal.getName();
+	    } else {
+	        // 사용자가 인증되지 않은 경우에 대한 처리
+	        currentUserid = "anonymous"; // 혹은 다른 값을 지정하여 인증되지 않은 사용자를 구분할 수 있습니다.
+	    }
+	    
+	    // 글 정보 가져오기
 		FreeBoard freeBoard = freeBoardService.getFree(freeNo, session);
+		
+		// 글 작성자 정보 가져오기
+	    String author = freeBoard.getUserid();
+	    
+	    // 글 작성자의 닉네임 가져오기
+	    String nickname = freeBoardService.getNickname(freeNo);
 		
 		// 댓글 목록을 가져오기
         List<FreeComment> comments =
@@ -46,6 +67,9 @@ public class FreeBoardViewController {
 
 		model.addAttribute("freeBoard", freeBoard);
 		model.addAttribute("comments", commentResponses);
+		model.addAttribute("currentUserid", currentUserid);
+		model.addAttribute("author", author);
+	    model.addAttribute("nickname", nickname);
 		
 		return "board/freeBoard.html";
 	}
