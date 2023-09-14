@@ -17,7 +17,7 @@ $(document).ready(function() {
 		
 		// AJAX 요청을 통해 아이디 중복 확인 + 유효성 검사
 		$.ajax({
-			url: "api/members/checkUserid",
+			url: "api/valid/checkUserid",
 			type: "GET",
 			data: { userid: userid },
 			success: function (response) {
@@ -91,7 +91,7 @@ $(document).ready(function() {
 		
 		// AJAX  요청을 통해 닉네임 중복 확인 + 유효성 검사
 		$.ajax({
-			url: "/api/members/checkNickname",
+			url: "/api/valid/checkNickname",
 			type: "GET",
 			data: { nickname: nickname },
 			success: function (response) {
@@ -128,7 +128,7 @@ $(document).ready(function() {
 
 		// AJAX 요청을 통해 이메일 중복 확인 + 유효성 검사
 		$.ajax({
-			url: "/api/members/checkEmail",
+			url: "/api/valid/checkEmail",
 			type: "GET",
 			data: { email: email },
 			success: function (response) {
