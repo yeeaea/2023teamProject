@@ -11,6 +11,7 @@ import com.pet.map.domain.Place;
 public interface PlaceRepository extends JpaRepository<Place, Long>{
 	
 	List<Place> findByTypeAndSidoAndGugun(String type, String sido, String gugun);
+
 	@Query("SELECT DISTINCT p.type FROM Place p")
 	List<String> findDistinctTypes();
 

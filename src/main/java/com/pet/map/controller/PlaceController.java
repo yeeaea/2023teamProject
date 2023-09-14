@@ -1,3 +1,4 @@
+
 package com.pet.map.controller;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class PlaceController {
         List<String> types = placeService.getDistinctTypes();
         return ResponseEntity.ok(types);
     }
+	
 
     @GetMapping("/api/places/sidos")
     public ResponseEntity<List<String>> getSido(@RequestParam String type) {
@@ -68,4 +70,8 @@ public class PlaceController {
 	// JSON 데이터와 HTTP 상태코드 반환
 	return ResponseEntity.ok(places);
 	}
+    
+    @GetMapping("/")
+    
+    
 }

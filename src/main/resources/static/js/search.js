@@ -164,6 +164,11 @@ document.addEventListener("DOMContentLoaded", function() {
                const nameElement = document.createElement("p");
 			   nameElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${place.name}`;
                placeDiv.appendChild(nameElement);
+               
+               nameElement.addEventListener('click', function(){
+				   const placeInfo = encodeURIComponent(place.name);
+				   window.location.href= `review?name=${placeInfo}`;
+			   })
 
                const addressElement = document.createElement("p");
                addressElement.innerText = place.addr;
