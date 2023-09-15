@@ -20,4 +20,5 @@ public interface PlaceRepository extends JpaRepository<Place, Long>{
 
     @Query("SELECT DISTINCT p.gugun FROM Place p WHERE p.type = :type AND p.sido = :sido")
     List<String> findDistinctGugunsByTypeAndSido(@Param("type") String type, @Param("sido") String sido);
+
 }
