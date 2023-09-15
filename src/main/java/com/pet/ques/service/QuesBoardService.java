@@ -54,34 +54,39 @@ public class QuesBoardService {
 
 	// 글 목록 조회
 	public Page<QuesBoard> findAll(Pageable pageable) {
-		Pageable Pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+		Pageable Pageable =
+				PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 				Sort.by(Sort.Direction.DESC, "quesNo"));
+		
 		return quesBoardRepo.findAll(Pageable);
 	}
 
 	// 조회수 정렬
 	public Page<QuesBoard> findAllByOrderByQuesVisitDesc(Pageable pageable) {
-		Pageable descendingPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+		Pageable descendingPageable =
+				PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 				Sort.by(Sort.Direction.DESC, "quesVisit"));
-		return quesBoardRepo.findAllByOrderByQuesVisitDesc(descendingPageable);
+		
+		return quesBoardRepo.
+				findAllByOrderByQuesVisitDesc(descendingPageable);
 	}
 
 	// 글 하나 조회
-	public QuesBoard findById(long quesNo) {
+	public QuesBoard findById(Long quesNo) {
 		return quesBoardRepo.findById(quesNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
 	}
 
 	// 글 삭제
-	public void delete(long quesNo) {
+	public void delete(Long quesNo) {
 		quesBoardRepo.deleteById(quesNo);
 	}
 
 	// 글 수정
 	@Transactional
-	public QuesBoard update(long quesNo, String quesTitle,
-				String quesContent, MultipartFile file) throws IOException {
+	public QuesBoard update(Long quesNo, String quesTitle,
+			String quesContent, MultipartFile file) throws IOException {
 		QuesBoard quesBoard = quesBoardRepo.findById(quesNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
@@ -109,8 +114,9 @@ public class QuesBoardService {
 		return quesBoardRepo.findByquesTitleContaining(keyword, pageable);
 	}
 	
-	// 게시물 조회
+	// 세션을 통한 중복 방지 조회수 증가
 	public QuesBoard getQues(long quesNo, HttpSession session) {
+		// 게시물 조회
 		Optional<QuesBoard> ques = quesBoardRepo.findById(quesNo);
 		if (ques.isPresent()) {
 			QuesBoard question = ques.get();
@@ -133,5 +139,15 @@ public class QuesBoardService {
 		} else {
 			return null;
 		}
+	}
+	
+	// 글 작성자의 닉네임을 가져오는 메소드
+	public String getNickname(Long quesNo) {
+		QuesBoard quesBoard = quesBoardRepo.findById(quesNo).orElse(null);
+		
+		if (quesBoard != null) {
+			return quesBoard.getNickname();
+		}
+		return null;
 	}
 }

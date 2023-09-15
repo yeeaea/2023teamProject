@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,11 +26,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class FreeBoardService {
-
+	
+	@Autowired
 	private final FreeBoardRepository freeBoardRepository;
 
-	// 글 추가 (이미지 업로드)
-	public FreeBoard save(FreeBoardRequest request, MultipartFile file) throws Exception {
+	// 글 등록 (이미지 업로드)
+	public FreeBoard save(FreeBoardRequest dto, MultipartFile file) throws Exception {
 		String projectPath =
 				System.getProperty("user.dir") + "/src/main/resources/static/files";
 
@@ -39,17 +41,18 @@ public class FreeBoardService {
 			String fileName = uuid + "_" + file.getOriginalFilename();
 			File saveFile = new File(projectPath, fileName);
 			file.transferTo(saveFile);
-			request.setFreeFilename(fileName);
-			request.setFreeFilepath("/files/" + fileName);
+			dto.setFreeFilename(fileName);
+			dto.setFreeFilepath("/files/" + fileName);
 		} else {
 			// 파일이 없는 경우, 파일 관련 정보를 null로 설정
-			request.setFreeFilename(null);
-			request.setFreeFilepath(null);
+			dto.setFreeFilename(null);
+			dto.setFreeFilepath(null);
 		}
-		return freeBoardRepository.save(request.toEntity());
+		
+		return freeBoardRepository.save(dto.toEntity());
 	}
 
-	// 글 전체 조회
+	// 글 목록 조회
 	public Page<FreeBoard> findAll(Pageable pageable) {
 		Pageable descendingPageable =
 				PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
@@ -72,7 +75,7 @@ public class FreeBoardService {
 	public FreeBoard findById(Long freeNo) {
 		return freeBoardRepository.findById(freeNo)
 				.orElseThrow(() ->
-					new IllegalArgumentException("not found: " + freeNo));
+					new IllegalArgumentException(freeNo + "번 글이 존재하지 않습니다."));
 	}
 	
 	// 글 삭제
@@ -82,7 +85,8 @@ public class FreeBoardService {
 
 	// 글 수정
 	@Transactional
-	public FreeBoard update(long freeNo, String freeTitle, String freeContent, MultipartFile file) throws IOException {
+	public FreeBoard update(Long freeNo, String freeTitle,
+			String freeContent, MultipartFile file) throws IOException {
 		FreeBoard freeBoard = freeBoardRepository.findById(freeNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException(freeNo + "번 글이 존재하지 않습니다."));
@@ -101,27 +105,13 @@ public class FreeBoardService {
 			freeBoard.setFreeFilename(fileName);
 			freeBoard.setFreeFilepath("/files/" + fileName);
 		}
-
-		return freeBoardRepository.save(freeBoard); // 수정된 엔티티를 저장하고 반환
+		// 수정된 엔티티를 저장하고 반환
+		return freeBoardRepository.save(freeBoard);
 	}
 
 	// 키워드 검색
 	public Page<FreeBoard> boardSearchList(String keyword, Pageable pageable) {
 		return freeBoardRepository.findByfreeTitleContaining(keyword, pageable);
-	}
-	
-	// 글 조회수
-	@Transactional
-	public FreeBoard getFree(long freeNo) {
-		Optional<FreeBoard> free = freeBoardRepository.findById(freeNo);
-		if (free.isPresent()) {
-			FreeBoard freeboard = free.get();
-			freeboard.setFreeVisit(freeboard.getFreeVisit() + 1); // 조회수 증가
-			freeBoardRepository.save(freeboard); // 데이터베이스 업데이트
-			return freeboard;
-		} else {
-			return null;
-		}
 	}
 
 	// 세션을 통한 중복 방지 조회수 증가
@@ -141,12 +131,12 @@ public class FreeBoardService {
 			if (hasVisited == null || !hasVisited) {
 				// 사용자가 해당 게시물을 아직 조회하지 않은 경우에만 조회수 증가
 				freeboard.setFreeVisit(freeboard.getFreeVisit() + 1);
-				freeBoardRepository.save(freeboard); // 데이터베이스 업데이트
+				// 데이터베이스 업데이트
+				freeBoardRepository.save(freeboard);
 				// 세션에 해당 키를 저장하여 중복 조회수 증가를 방지
 				session.setAttribute(visitedKey, true);
 			}
 			return freeboard;
-
 		} else {
 			return null;
 		}
@@ -159,8 +149,6 @@ public class FreeBoardService {
 		if (freeBoard != null) {
             return freeBoard.getNickname();
         }
-
         return null;
-		
 	}
 }
