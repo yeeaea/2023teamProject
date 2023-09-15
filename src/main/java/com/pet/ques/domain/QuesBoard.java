@@ -16,7 +16,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,12 +26,9 @@ import lombok.Setter;
 @Table(name = "ques_board")
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-@SequenceGenerator(name = "QUESBOARD_SEQ_GENERATOR",
-				   sequenceName = "quesboard_seq",
-				   initialValue = 1, allocationSize = 1)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuesBoard {
 
 	@Id
@@ -63,18 +59,21 @@ public class QuesBoard {
 	@Column(name = "ques_visit")
 	private int quesVisit;
 
-	@OneToMany(mappedBy = "quesBoard",
-			   cascade = CascadeType.ALL,
-			   fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "quesBoard", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<QuesComment> comments;
-
+	
+	private String userid;
+	
+	private String nickname;
 	
 	@Builder
-	public QuesBoard(String quesTitle, String quesContent, String quesFilename, String quesFilepath) {
+	public QuesBoard(String quesTitle, String quesContent, String quesFilename, String quesFilepath, String userid, String nickname) {
 		this.quesTitle = quesTitle;
 		this.quesContent = quesContent;
 		this.quesFilename = quesFilename;
 		this.quesFilepath = quesFilepath;
+		this.userid = userid;
+		this.nickname = nickname;
 	}
 
 	// 수정 메서드

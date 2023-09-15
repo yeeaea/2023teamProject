@@ -12,11 +12,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuesBoardRequest {
-
 	private String quesTitle;
 	private String quesContent;
 	private String quesFilename;
 	private String quesFilepath;
+	private String userid;
+	private String nickname;
 	
 	public QuesBoard toEntity() {
 		return QuesBoard.builder()
@@ -24,6 +25,8 @@ public class QuesBoardRequest {
 				.quesContent(quesContent)
 				.quesFilename(quesFilename)
 				.quesFilepath(quesFilepath)
+				.userid(userid)
+				.nickname(nickname)
 				.build();
 	}
 }

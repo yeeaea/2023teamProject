@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="ko" xmlns="http://thymeleaf.org">
+<html lang="ko" xmlns="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>자유게시판 글수정</title>
 
 <!-- font style -->
@@ -12,10 +11,10 @@
 	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 
 <!-- Template Stylesheet -->
-<link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
 
 <!-- Bootstrap Stylesheet -->
-<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 
 <!-- Icon Font Stylesheet -->
 <link
@@ -24,145 +23,145 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet" />
-
 <script src="https://kit.fontawesome.com/3eb7b16202.js"
 	crossorigin="anonymous"></script>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+
 <body>
-	<!-- header -->
-	<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 	<div class="container-xxl bg-white p-0">
-		<div class="container mt-5">
-			<div class="row">
-				<div class="col-lg-8">
-					<article>
-						<input type="hidden" id="freeBoard-freeNo"
-							th:value="${freeBoard.freeNo}">
-						<div
-							style="background-color: #faf4f4; border-radius: 30px; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
+		<!-- header start -->
+		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+		<!-- header end -->
 
-							<div style="width: 90%; height: 90%; margin: 30px auto">
-								<a href="/freeboards">자유게시판 > </a> <br />
-								<p style="height: 20px;" class="fw-bolder mb-1 fs-2"
-									th:text="${freeBoard.freeTitle}"></p>
-								<br />
-								<div class="d-flex justify-content-start my-3">
-									<i class="fa-solid fa-circle-user fs-5" style="color: #b1b1b1"></i>
-									<div th:text="${nickname}" class="mx-2"
-										style="color: #b1b1b1"></div>
-									<div class="ms-auto text-muted fst-italic mb-2 justify-content"
-										th:text="|작성일자 ${#temporals.format(freeBoard.freeRdate, 'yyyy-MM-dd HH:mm')}|"></div>
+		<div class="container-xxl bg-white p-0">
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col-lg-8">
+						<article>
+							<input type="hidden" id="freeBoard-freeNo"
+								th:value="${freeBoard.freeNo}">
+							<div
+								style="background-color: #faf4f4; border-radius: 30px; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
+
+								<div style="width: 90%; height: 90%; margin: 30px auto">
+									<a href="/freeboards">자유게시판 > </a> <br />
+									<p style="height: 20px;" class="fw-bolder mb-1 fs-2"
+										th:text="${freeBoard.freeTitle}"></p>
+									<br />
+									<div class="d-flex justify-content-start my-3">
+										<div th:text="${nickname}" class="mx-2" style="color: #949494"></div>
+										<div style="font-size: 13px" class="ms-auto text-muted fst-italic mb-2 justify-content"
+											th:text="|작성일자 ${#temporals.format(freeBoard.freeRdate, 'yyyy-MM-dd HH:mm')}|"></div>
+									</div>
+									<hr style="width: 100%; margin: 10px auto; color: #b1b1b1">
+									<section class="mb-5" style="width: 90%; margin: 0 auto;">
+										<p class="fs-5 mb-4" th:text="${freeBoard.freeContent}"
+											style="word-break: break-all;"></p>
+										<img th:if="${freeBoard.freeFilepath != null}"
+											th:src="@{${freeBoard.freeFilepath}}" width="400"
+											height="400" />
+									</section>
+
 								</div>
-								<hr style="width: 90%; margin: 10px auto; color: #b1b1b1">
-								<section class="mb-5" style="width: 90%; margin: 0 auto;">
-									<p class="fs-5 mb-4" th:text="${freeBoard.freeContent}"
-										style="word-break: break-all;"></p>
-									<img th:if="${freeBoard.freeFilepath != null}"
-										th:src="@{${freeBoard.freeFilepath}}" width="400" height="400" />
-								</section>
 
-							</div>
-
-							<div style="margin: 0 auto;"
-								class="d-flex justify-content-center">
-								<button type="button" id="modify-btn"
-									th:if="${currentUserid == author}"
-									th:onclick="|location.href='@{/new-freeboard?freeNo={freeNo}(freeNo=${freeBoard.freeNo})}'|"
-									class="btn btn-primary btn-sm" style="margin-right: 10px;">수정</button>
-								<button type="button" id="delete-btn"
-									th:if="${currentUserid == author}"
-									class="btn btn-secondary btn-sm" style="margin-right: 10px;">삭제</button>
-								<button type="button" id="list-btn"
-									class="btn btn-secondary btn-sm">글 목록</button>
-							</div>
-						</div>
-					</article>
-				</div>
-			</div>
-		</div>
-
-		<!-- Comment start -->
-		<div class="container mt-5">
-			<div class="card row col-lg-8">
-				<div class="card-header bi bi-chat-dots" style="border-radius: 15px">
-					<span th:if="${comments.size()}"
-						th:text="' ' + ${comments.size()} + ' Comments'"></span>
-				</div>
-				<!-- Comment Content -->
-				<ul id="comment-list" class="list-group-flush"
-					style="list-style: none; padding: 12px;">
-					<li th:each="comment : ${freeBoard.comments}"
-						class="list-group-item">
-						<div id="edit-cmt-box"
-							class="d-flex justify-content-between align-items-center">
-							<div>
-								<!-- 댓글 번호 -->
-								<span class="comment-no" style="font-size: small"
-									th:text="${comment.freeCmtNo}"></span>
-								<!-- 댓글 생성일 -->
-								<span style="font-size: x-small" class="comment-date"
-									th:text="${#temporals.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-								<!-- 수정 버튼 -->
-								<button type="button"
-									class="btn bi bi-pencil-square edit-comment-btn"
-									style="font-size: 12px; padding: .1em .5em;"
-									data-freeCmtNo="${comment.freeCmtNo}">수정</button>
-								<!-- 삭제 버튼 -->
-								<button type="button" class="btn bi bi-trash cmt-delete-btn"
-									style="font-size: 12px; padding: .1em .5em;"
-									data-freeCmtNo="${comment.freeCmtNo}">삭제</button>
-								<!-- 댓글 내용 -->
-								<span class="mt-2 comment-content"
-									th:text="${comment.freeCmtContent}"
-									style="display: block; font-size: 14px;"></span>
-								<!-- 수정 폼 -->
-								<div class="form-control edit-comment-form"
-									style="display: none; width: 100%;">
-									<textarea class="mt-2 edit-comment-textarea"
-										id="editfreeCmtContent"
-										style="font-size: 14px; color: #212529;"
-										onkeyup="countingLength(this);" rows="3"></textarea>
-									<span id="counterEdit" style="font-size: 12px; margin: 8px;"></span>
-									<button style="font-size: 12px; padding: .1em .5em;"
-										class="btn save-comment-btn">저장</button>
-									<button style="font-size: 12px; padding: .1em .5em;"
-										class="btn cancel-comment-btn">취소</button>
+								<div style="margin: 0 auto;"
+									class="d-flex justify-content-center">
+									<button type="button" id="modify-btn"
+										th:if="${currentUserid == author}"
+										th:onclick="|location.href='@{/new-freeboard?freeNo={freeNo}(freeNo=${freeBoard.freeNo})}'|"
+										class="btn btn-primary btn-sm" style="margin-right: 10px;">수정</button>
+									<button type="button" id="delete-btn"
+										th:if="${currentUserid == author}"
+										class="btn btn-secondary btn-sm" style="margin-right: 10px;">삭제</button>
+									<button type="button" id="list-btn"
+										class="btn btn-secondary btn-sm">글 목록</button>
 								</div>
 							</div>
-						</div>
-					</li>
-				</ul>
-
-				<!-- Comment Form -->
-				<form id="comment-form">
-					<input type="hidden" id="freeNo" th:value="${freeBoard.freeNo}">
-					<div class="card-body mt-3">
-						<textarea class="form-control" id="freeCmtContent"
-							style="font-size: 14px;" placeholder="댓글을 입력하세요"
-							onkeyup="countingLength(this);" rows="4"></textarea>
+						</article>
 					</div>
-					<div class="card-body" style="float: right;">
-						<span id="counterCmt" style="font-size: 12px; margin: 8px;"></span>
-						<button type="button" id="submit-comment"
-							class="btn btn-outline-primary bi bi-pencil-square"
-							style="font-size: 14px; padding: .275em .5em;">등록</button>
-					</div>
-				</form>
+				</div>
 			</div>
+
+			<!-- Comment start -->
+			<div class="container mt-5">
+				<div class="card row col-lg-8">
+					<div class="card-header bi bi-chat-dots"
+						style="border-radius: 15px">
+						<span th:if="${comments.size()}"
+							th:text="' ' + ${comments.size()} + ' Comments'"></span>
+					</div>
+					<!-- Comment Content -->
+					<ul id="comment-list" class="list-group-flush"
+						style="list-style: none; padding: 12px;">
+						<li th:each="comment : ${freeBoard.comments}"
+							class="list-group-item">
+							<div id="edit-cmt-box"
+								class="d-flex justify-content-between align-items-center">
+								<div>
+									<!-- 댓글 번호 -->
+									<span class="comment-no" style="font-size: small"
+										th:text="${comment.freeCmtNo}"></span>
+									<!-- 댓글 생성일 -->
+									<span style="font-size: x-small" class="comment-date"
+										th:text="${#temporals.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+									<!-- 수정 버튼 -->
+									<button type="button"
+										class="btn bi bi-pencil-square edit-comment-btn"
+										style="font-size: 12px; padding: .1em .5em;"
+										data-freeCmtNo="${comment.freeCmtNo}">수정</button>
+									<!-- 삭제 버튼 -->
+									<button type="button" class="btn bi bi-trash cmt-delete-btn"
+										style="font-size: 12px; padding: .1em .5em;"
+										data-freeCmtNo="${comment.freeCmtNo}">삭제</button>
+									<!-- 댓글 내용 -->
+									<span class="mt-2 comment-content"
+										th:text="${comment.freeCmtContent}"
+										style="display: block; font-size: 14px;"></span>
+									<!-- 수정 폼 -->
+									<div class="form-control edit-comment-form"
+										style="display: none; width: 100%;">
+										<textarea class="mt-2 edit-comment-textarea"
+											id="editfreeCmtContent"
+											style="font-size: 14px; color: #212529;"
+											onkeyup="countingLength(this);" rows="3"></textarea>
+										<span id="counterEdit" style="font-size: 12px; margin: 8px;"></span>
+										<button style="font-size: 12px; padding: .1em .5em;"
+											class="btn save-comment-btn">저장</button>
+										<button style="font-size: 12px; padding: .1em .5em;"
+											class="btn cancel-comment-btn">취소</button>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+
+					<!-- Comment Form -->
+					<form id="comment-form" sec:authorize="isAuthenticated()">
+						<input type="hidden" id="freeNo" th:value="${freeBoard.freeNo}">
+						<div class="card-body mt-3">
+							<textarea class="form-control" id="freeCmtContent"
+								style="font-size: 14px;" placeholder="댓글을 입력하세요"
+								onkeyup="countingLength(this);" rows="4"></textarea>
+						</div>
+						<div class="card-body" style="float: right;">
+							<span id="counterCmt" style="font-size: 12px; margin: 8px;"></span>
+							<button type="button" id="submit-comment"
+								class="btn btn-outline-primary bi bi-pencil-square"
+								style="font-size: 14px; padding: .275em .5em;">등록</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Comment End -->
 		</div>
-		<!-- Comment End -->
 
 		<!-- footer Start -->
-		<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 		<!-- footer End -->
 	</div>
-	<!-- bootstrap library -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-
+	
 	<!-- Template Javascript -->
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/freeBoard.js}"></script>

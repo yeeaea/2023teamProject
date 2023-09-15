@@ -33,7 +33,7 @@ public class FreeBoardViewController {
 	private final FreeBoardService freeBoardService;
 	private final FreeCommentService freeCommentService;
 	
-	
+	// 게시글 보기
 	@GetMapping("/freeboards/{freeNo}")
 	public String getFreeBoard(@PathVariable Long freeNo, Model model, HttpSession session, HttpServletRequest request) {
 		// 현재 로그인한 사용자 정보 가져오기
@@ -74,6 +74,7 @@ public class FreeBoardViewController {
 		return "board/freeBoard.html";
 	}
 	
+	// 게시글 수정
 	@GetMapping("/new-freeboard")
 	public String newFreeBoard(@RequestParam(required = false) Long freeNo, Model model) {
 		if(freeNo == null) {
@@ -82,11 +83,10 @@ public class FreeBoardViewController {
 			FreeBoard freeBoard = freeBoardService.findById(freeNo);
 			model.addAttribute("freeBoard", new FreeBoardViewResponse(freeBoard));
 		}
-		
 		return "board/newFreeBoard.html";
 	}
 	
-	
+	// 게시판 글 형식
 	@GetMapping("/freeboards")
 	public String getFreeBoardAndSearch(@PageableDefault(size = 10) Pageable pageable, Model model,
             @RequestParam(required = false) String keyword,  @RequestParam(required = false) String sortBy) {
