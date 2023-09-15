@@ -376,3 +376,17 @@ body::-webkit-scrollbar {
    background-color:#faf4f4;
    cursor:pointer;
 }
+
+.map-info-hours{
+	margin-left: 0;
+}
+
+.review-show-btn{
+	margin-bottom:5px;
+	color: white;
+	background-color: #C91C1C;
+}
+
+.review-show-btn:hover{
+	background-color: #8a0808;
+}
