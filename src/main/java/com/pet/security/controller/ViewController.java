@@ -50,13 +50,6 @@ public class ViewController {
         return "security/join.html";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("loginId", user.getUsername());
-        model.addAttribute("loginRoles", user.getAuthorities());
-        return "/security/dashboard.html";
-    }
-
     @GetMapping("/setting/admin")
     @AdminAuthorize
     public String adminSettingPage() {

@@ -1,13 +1,14 @@
 <!doctype html>
-<html lang="ko" xmlns="http://thymeleaf.org">
+<html lang="ko" xmlns="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>자유게시판</title>
 
 <!-- font style -->
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+<link rel="stylesheet" as="style" crossorigin
+	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 
 <!-- Template Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
@@ -25,21 +26,18 @@
 <script src="https://kit.fontawesome.com/3eb7b16202.js"
 	crossorigin="anonymous"></script>
 
-<!-- Template Javascript -->
-<script src="/js/main.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
-
 	<div class="container-xxl bg-white p-0">
-		<!-- header Start -->
-		<div id="header-container"></div>
-		<!-- header End -->
+		<!-- header start -->
+		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+		<!-- header end -->
 
 		<div class="container mt-5" style="width: 80%;">
 			<a href="/freeboards" class="fs-3 fw-bold fc" style="color: black;">자유
 				게시판 목록</a>
-
 			<button type="button" id="create-btn"
 				th:onclick="|location.href='@{/new-freeboard}'|"
 				class="bg-transparent border border-0 fs-3 mx-3"
@@ -47,15 +45,17 @@
 				<i id="pencil" class="fa-solid fa-pencil" style="color: #c91c1c;"></i>
 			</button>
 
-<!-- 최신순과 조회순 버튼 추가 -->
-<form id="sortByForm" method="get">
-    <input type="hidden" name="sortBy" id="sortByInput" th:value="${sortBy}" />
-</form>
-<!-- 최신순 정렬 버튼 (사용자 정의 스타일) -->
-<button type="button" class="btn custom-button" onclick="changeSort('latest')">최신순</button>
-<!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
-<button type="button" class="btn custom-button" onclick="changeSort('most-visited')">조회순</button>
-
+			<!-- 최신순과 조회순 버튼 추가 -->
+			<form id="sortByForm" method="get">
+				<input type="hidden" name="sortBy" id="sortByInput"
+					th:value="${sortBy}" />
+			</form>
+			<!-- 최신순 정렬 버튼 (사용자 정의 스타일) -->
+			<button type="button" class="btn custom-button"
+				onclick="changeSort('latest')">최신순</button>
+			<!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
+			<button type="button" class="btn custom-button"
+				onclick="changeSort('most-visited')">조회순</button>
 
 			<table class="table table-hover">
 				<thead>
@@ -64,7 +64,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>날짜</th>
-						 <th>조회수</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 
@@ -78,38 +78,40 @@
 							<td th:text="${item.nickname}"></td>
 							<td
 								th:text="${#temporals.format(item.freeRdate, 'yyyy-MM-dd HH:mm')}"></td>
-<td th:text="${item.freeVisit}"></td>
-                    
+							<td th:text="${item.freeVisit}"></td>
 						</div>
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
 
-		<br>
-		<br>
+		<br><br>
 
-	<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <!-- 이전 페이지 링크 -->
-        <li class="page-item" th:classappend="${startPage == freeBoard.pageable.pageNumber + 1} ? 'disabled'">
-            <a class="page-link" th:href="@{/freeboards(page=${freeBoard.pageable.pageNumber - 1}, sortBy=${sortBy})}" tabindex="-1"> < </a>
-        </li>
-       
-        <!-- 페이지 번호 링크 -->
-        <li class="page-item" th:classappend="${num == freeBoard.pageable.pageNumber + 1} ? 'active'" th:each="num : ${#numbers.sequence(startPage, endPage)}">
-            <a class="page-link" th:href="@{/freeboards(page=${num-1}, sortBy=${sortBy})}" th:text="${num}"></a>
-        </li>
-       
-        <!-- 다음 페이지 링크 -->
-        <li class="page-item" th:classappend="${endPage == freeBoard.pageable.pageNumber + 1} ? 'disabled'">
-            <a class="page-link" th:href="@{/freeboards(page=${freeBoard.pageable.pageNumber + 1}, sortBy=${sortBy})}"> > </a>
-        </li>
-    </ul>
-    
-</nav>
-
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<!-- 이전 페이지 링크 -->
+				<li class="page-item"
+					th:classappend="${startPage == freeBoard.pageable.pageNumber + 1} ? 'disabled'">
+					<a class="page-link"
+					th:href="@{/freeboards(page=${freeBoard.pageable.pageNumber - 1}, sortBy=${sortBy})}"
+					tabindex="-1"> < </a>
+				</li>
+				<!-- 페이지 번호 링크 -->
+				<li class="page-item"
+					th:classappend="${num == freeBoard.pageable.pageNumber + 1} ? 'active'"
+					th:each="num : ${#numbers.sequence(startPage, endPage)}"><a
+					class="page-link"
+					th:href="@{/freeboards(page=${num-1}, sortBy=${sortBy})}"
+					th:text="${num}"></a></li>
+				<!-- 다음 페이지 링크 -->
+				<li class="page-item"
+					th:classappend="${endPage == freeBoard.pageable.pageNumber + 1} ? 'disabled'">
+					<a class="page-link"
+					th:href="@{/freeboards(page=${freeBoard.pageable.pageNumber + 1}, sortBy=${sortBy})}">
+						> </a>
+				</li>
+			</ul>
+		</nav>
 
 		<a th:if="${page != nowPage}"
 			th:href="@{/freeboards(page = ${page -1}, keyword = ${param.keyword})}"
@@ -117,13 +119,6 @@
 
 		<form class="my-5 pagination justify-content-center"
 			action="/freeboards" method="GET">
-
-			<!-- <label for="search-type" hidden>유형</label>
-     <select id="search-type" name="search-type">
-      	<option>제목</option>
-        <option>작성자</option>
-
-     </select> -->
 
 			<label for="keyword" hidden>검색어</label> <input
 				class="rounded-pill border border-1" id="keyword" type="search"
@@ -136,17 +131,13 @@
 			</button>
 		</form>
 
-
-<!-- footer Start -->
-		<div id="footer-container"></div>
+		<!-- footer Start -->
+		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 		<!-- footer End -->
 	</div>
-	<!-- bootstrap library -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
 
-	<script src="/js/freeBoard.js"></script>
+	<!-- Template Javascript -->
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/freeBoard.js}"></script>
 </body>
 </html>

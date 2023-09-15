@@ -47,7 +47,7 @@ public class SpringSecurityConfig {
                         .loginProcessingUrl("/login-process")  // submit 받을 url
                         .usernameParameter("userid")  // submit할 아이디
                         .passwordParameter("password")  // submit할 비밀번호
-                        .defaultSuccessUrl("/dashboard?success=true", true)  // 로그인 성공 시 이동하는 페이지
+                        .defaultSuccessUrl("/?success=true", true)  // 로그인 성공 시 이동하는 페이지
                         .failureUrl("/login?error=true") //로그인 실패 시 이동하는 페이지
                         .permitAll()
                 )

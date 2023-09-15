@@ -1,5 +1,6 @@
 package com.pet.ques.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import com.pet.ques.dto.QuesCommentListViewResponse;
 import com.pet.ques.service.QuesBoardService;
 import com.pet.ques.service.QuesCommentService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -33,9 +35,26 @@ public class QuesBoardViewController {
 
 	// 게시글 보기
 	@GetMapping("/questions/{quesNo}")
-	public String showQuestion(@PathVariable Long quesNo, Model model, HttpSession session) {
+	public String showQuestion(@PathVariable Long quesNo, Model model, HttpSession session, HttpServletRequest request) {
+		// 현재 로그인한 사용자 정보 가져오기
+		Principal principal = request.getUserPrincipal();
+		
+		String currentUserid = null; // 초기화
+		
+		if (principal != null) {
+			currentUserid = principal.getName();
+		} else {
+			// 사용자가 인증되지 않은 경우에 처리
+			currentUserid = "anonymous";
+		}
+		
+		// 글 정보 가져오기
 		QuesBoard question = quesBoardService.getQues(quesNo, session);
-
+		// 글 작성자 정보 가져오기
+		String author = question.getUserid();
+		// 글 작성자의 닉네임 가져오기
+		String nickname = quesBoardService.getNickname(quesNo);
+		
 		// 댓글 목록을 가져오기
 		List<QuesComment> comments =
 				quesCommentService.getCommentsByQuesNo(quesNo);
@@ -46,6 +65,9 @@ public class QuesBoardViewController {
 
 		model.addAttribute("question", question);
 		model.addAttribute("comments", commentResponses);
+		model.addAttribute("currentUserid", currentUserid);
+		model.addAttribute("author", author);
+		model.addAttribute("nickname", nickname);
 
 		return "/board/question.html";
 	}
@@ -69,7 +91,6 @@ public class QuesBoardViewController {
 		Page<QuesBoard> boards;
 
 		if (keyword == null) {
-
 			if ("most-visited".equals(sortBy)) {
 				// 조회순 정렬
 				pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
