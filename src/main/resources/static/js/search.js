@@ -166,12 +166,6 @@ document.addEventListener("DOMContentLoaded", function() {
                const nameElement = document.createElement("p");
 			   nameElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${place.name}`;
                placeDiv.appendChild(nameElement);
-               
-               nameElement.addEventListener('click', function(){
-				  //  const placeInfo = encodeURIComponent(place.no);
-				  localStorage.setItem("placeNo", place.no);
-				   window.location.href= `review/${place.no}`;
-			   })
 
                const addressElement = document.createElement("p");
                addressElement.innerText = place.addr;
@@ -181,9 +175,27 @@ document.addEventListener("DOMContentLoaded", function() {
 			   telElement.innerHTML = `<i class="fa-solid fa-phone"></i> ${place.tel}`;
                placeDiv.appendChild(telElement);
 
-               const hoursElement = document.createElement("p");
-			   hoursElement.innerHTML = `<i class="fa-solid fa-clock"></i> ${place.time}`;
-               placeDiv.appendChild(hoursElement);
+				const flexElement = document.createElement("div");
+				flexElement.style.display = "flex"; // flex 컨테이너로 설정
+				flexElement.style.justifyContent = "space-between"; // 요소들 사이의 공간을 최대화
+				
+				const hoursElement = document.createElement("p");
+				hoursElement.innerHTML = `<i class="fa-solid fa-clock"></i> ${place.time}`;
+				
+				const reviewButton = document.createElement("button");
+				reviewButton.innerText = '리뷰 보기 >';
+				reviewButton.style.border = "1px";
+				
+				flexElement.appendChild(hoursElement);
+				flexElement.appendChild(reviewButton);
+				
+				placeDiv.appendChild(flexElement);
+				
+				reviewButton.addEventListener('click', function(){
+				  //  const placeInfo = encodeURIComponent(place.no);
+				  localStorage.setItem("placeNo", place.no);
+				   window.location.href= `review/${place.no}`;
+			   });
                
               // 위 태그들에 CSS 클래스 추가
               placeDiv.classList.add("map-info-div");
@@ -191,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
               addressElement.classList.add("map-info-address");
               telElement.classList.add("map-info-tel");
               hoursElement.classList.add("map-info-hours");
-
+			  reviewButton.classList.add("review-show-btn");
 
                // 아래쪽 경계 추가
                if (index < responseData.length ) {
