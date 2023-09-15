@@ -20,9 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
 					reviewContent: content,
 					no: placeNo
 				}
-				if(content.trim()===''){
-					Swal.fire('리뷰를 입력해주세요!');
-			} else {
 				fetch("/api/reviews", {
 					method: "POST",
 					headers: {
@@ -30,14 +27,15 @@ document.addEventListener("DOMContentLoaded", function() {
 					},
 					body: JSON.stringify(commentData)
 				})
-					.then(response => response.json())
-					.then(data => {
-						location.reload();
-					})
-					.catch(error => {
-						console.error("Error:", error);
-					});
-				}
+				.then(response => response.json())
+				.then(data => {
+					location.reload();
+				})
+				.catch(error => {
+					console.error("Error:", error);
+				});
+			} else{
+				Swal.fire('리뷰를 입력해주세요!');
 			}
 		})()
 	});

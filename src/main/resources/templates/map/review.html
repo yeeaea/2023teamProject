@@ -53,6 +53,7 @@
                      class="btn btn-outline-primary bi bi-pencil-square"
                      style="font-size: 14px; padding: .275em .5em; float:right; margin-left: auto;  margin-right: 10px;">
                      리뷰 작성</button>
+                     <input type="hidden" id="placeNo" th:value="${place.no}">
                </div>
             </article>            
 
@@ -101,14 +102,6 @@
          </li>
       </ul>
 
-            <form id="comment-form">
-               <input type="hidden" id="placeNo" th:value="${place.no}">
-               <div class="card-body mt-3">
-                  <textarea class="form-control" id="reviewContent"
-                     style="font-size: 14px;" placeholder="댓글을 입력하세요"
-                     rows="4"></textarea>
-               </div>
-            </form>
          </div>
       </div>
    </div>
