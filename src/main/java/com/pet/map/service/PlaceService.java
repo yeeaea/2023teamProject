@@ -1,6 +1,7 @@
 package com.pet.map.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,19 @@ public class PlaceService {
         List<Place> places = placeRepository.findByTypeAndSidoAndGugun(type, sido, gugun);
 
         return places;
+    }
+    
+    public List<Place> findAll(){
+    	List<Place> places = placeRepository.findAll();
+    	
+    	return places;
+    }
+    
+    public Place getPlaceByNo(Long no) {
+    	// plaeRepository를 사용하여 데이터베이스에서 Place조회
+    	Optional<Place> placeOptional = placeRepository.findById(no);
+    	
+    	// Optional을 사용하여 Place를 반환하거나 null을 반환
+    	return placeOptional.orElse(null);
     }
 }

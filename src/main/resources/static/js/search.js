@@ -1,16 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-   // AJAX 요청을 만들기 위한 준비
-   const xhr = new XMLHttpRequest();
-   const tableBody = document.getElementById("searchResults");
-
-   // URL에서 쿼리 파라미터 추출
-   const urlParams = new URLSearchParams(window.location.search);
-   const selectedType = urlParams.get("type");
-   const selectedSido = urlParams.get("sido");
-   const selectedGugun = urlParams.get("gugun");
-   const lat = [];
-   const lon = [];
-
+   
    var mapContainer = document.getElementById('map');
 
    // 현재 나의 위치 이미지
@@ -98,6 +87,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
    }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+   
+   // AJAX 요청을 만들기 위한 준비
+   const xhr = new XMLHttpRequest();
+   const tableBody = document.getElementById("searchResults");
+
+   // URL에서 쿼리 파라미터 추출
+   const urlParams = new URLSearchParams(window.location.search);
+   const selectedType = urlParams.get("type");
+   const selectedSido = urlParams.get("sido");
+   const selectedGugun = urlParams.get("gugun");
+   const lat = [];
+   const lon = [];
 
    // 검색 페이지 URL
    const url = `/api/places/search?type=${selectedType}&sido=${selectedSido}&gugun=${selectedGugun}`;
@@ -108,11 +110,11 @@ document.addEventListener("DOMContentLoaded", function() {
          if (xhr.status === 200) {
             const responseData = JSON.parse(xhr.responseText);
 
-            // 마커를 담을 배열 생성
-            const markers = [];
-
             // 검색 결과를 나타낼 div 요소 선택
             const searchResultDiv = document.getElementById("searchResults");
+
+            // 마커를 담을 배열 생성
+            const markers = [];
 
             searchResultDiv.innerHTML = '';
 
@@ -164,6 +166,12 @@ document.addEventListener("DOMContentLoaded", function() {
                const nameElement = document.createElement("p");
 			   nameElement.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${place.name}`;
                placeDiv.appendChild(nameElement);
+               
+               nameElement.addEventListener('click', function(){
+				  //  const placeInfo = encodeURIComponent(place.no);
+				  localStorage.setItem("placeNo", place.no);
+				   window.location.href= `review/${place.no}`;
+			   })
 
                const addressElement = document.createElement("p");
                addressElement.innerText = place.addr;

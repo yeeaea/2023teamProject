@@ -18,8 +18,4 @@ public class PlaceDto {
 	   private double lat;
 	   private double lon;
 	   
-	   
-	
-	   
-	   
 }
