@@ -1,61 +1,66 @@
 <!doctype html>
-<html lang="ko" xmlns="http://thymeleaf.org">
+<html lang="ko" xmlns="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>업체 검색</title>
 
 <!-- font style -->
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+<link rel="stylesheet" as="style" crossorigin
+	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
 
 <!-- Template Stylesheet -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" th:href="@{/css/style.css}" />
 
 <!-- Bootstrap Stylesheet -->
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 
 <!-- Icon Font Stylesheet -->
 <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-   rel="stylesheet">
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet" />
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-   rel="stylesheet">
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/3eb7b16202.js"
-   crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script>
+
 <!-- Owl Carousel CSS 파일 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
 <!-- jQuery와 Owl Carousel JavaScript 파일 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="/js/main.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 </head>
 
 <body>
-      <!-- header Start -->
-      <div id="header-container"></div>
-      <!-- header End -->
-      
-   <div class="container-xxl bg-white">
+	<div class="container-xxl bg-white p-0">
+		<!-- header start -->
+		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+		<!-- header end -->
 
-<!-- 
+		<div class="container-xxl bg-white">
+
+			<!-- 
       <div class="container mt-5">
          <a href="/freeboards" class="fs-3 fw-bold fc" style="color: black;">검색 결과</a>
          <button id="mylocation">현재 위치 받아오기</button>
- -->         
-         <!--  지도 검색 결과 표시 -->
-         
-         <div style="height:770px;" class="d-flex">
-            <div id="map" style="width:90%; height:100%;"></div>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29ece20f213e91f2186db3d10c48da13&libraries=clusterer"></script>
-            
-<!-- 
+ -->
+			<!--  지도 검색 결과 표시 -->
+
+			<div style="height: 770px;" class="d-flex mt-5">
+				<div id="map" style="width: 90%; height: 100%;"></div>
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=29ece20f213e91f2186db3d10c48da13&libraries=clusterer"></script>
+
+				<!-- 
             <table id="searchTable" class="table table-hover" style="border:1px solid red">
 
             <thead>
@@ -68,33 +73,37 @@
                </tr>
             </thead>
             <tbody id = "searchResults" class="row-6">
--->               <!-- 검색결과 -->
-<!--            </tbody>
+-->
+				<!-- 검색결과 -->
+				<!--            </tbody>
             </table>
          </div>
- -->        
-		<div id="search-data" style="height:100%">
-			<div id="search-div" style="height: 11%; background-color: #C91C1C;">
-				<div class="fs-2 fw-bold fc mx-4" style="color: white; padding-top:7px;">지역 주변 병원
-					<i class="fa-solid fa-syringe"></i>
+ -->
+				<div id="search-data" style="height: 100%">
+					<div id="search-div"
+						style="height: 11%; background-color: #C91C1C;">
+						<div class="fs-2 fw-bold fc mx-4"
+							style="color: white; padding-top: 7px;">
+							지역 주변 병원 <i class="fa-solid fa-syringe"></i>
+						</div>
+						<button id="mylocation">
+							<i class="fa-solid fa-location-crosshairs"></i> 현재 위치 받아오기
+						</button>
+					</div>
+					<div id="searchResults"
+						style="width: 400px; height: 90%; overflow-y: scroll;">
+						<!-- 검색결과 -->
+					</div>
 				</div>
-	         	<button id="mylocation">
-	         		<i class="fa-solid fa-location-crosshairs"></i>
-	         		현재 위치 받아오기</button>
-			</div>
-			<div id="searchResults" style="width: 400px; height:90%; overflow-y: scroll;">
-				<!-- 검색결과 -->
 			</div>
 		</div>
-      </div>
 
-
-
-   <!-- bootstrap library -->
-   <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"></script>
-   <script src="/js/search.js"></script>
+		<!-- footer Start -->
+		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+		<!-- footer End -->
+	</div>
+	<!-- Template Javascript -->
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/search.js}"></script>
 </body>
 </html>

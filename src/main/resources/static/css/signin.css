@@ -4,13 +4,13 @@ body {
 }
 
 .form-signin {
-	text-align: center;
-	max-width: 50%;
+	max-width: 30%;
 	padding: 1rem;
 	margin: 0 auto
 }
 
 .form-signin .login-text {
+	text-align: center;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }

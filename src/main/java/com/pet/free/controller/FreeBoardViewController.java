@@ -50,16 +50,15 @@ public class FreeBoardViewController {
 	    
 	    // 글 정보 가져오기
 		FreeBoard freeBoard = freeBoardService.getFree(freeNo, session);
-		
 		// 글 작성자 정보 가져오기
 	    String author = freeBoard.getUserid();
-	    
 	    // 글 작성자의 닉네임 가져오기
 	    String nickname = freeBoardService.getNickname(freeNo);
 		
 		// 댓글 목록을 가져오기
         List<FreeComment> comments =
         		freeCommentService.getCommentsByFreeNo(freeNo);
+        
         List<FreeCommentListViewResponse> commentResponses =
         		comments.stream()
                 .map(FreeCommentListViewResponse::new)
@@ -120,7 +119,5 @@ public class FreeBoardViewController {
 
 		return "board/freeBoardList.html";
 	}
-	
-	
 	
 }

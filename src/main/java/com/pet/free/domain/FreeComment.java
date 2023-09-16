@@ -15,18 +15,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Table(name="free_comment")
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FreeComment {
 
 	@Id
@@ -48,10 +49,16 @@ public class FreeComment {
 	@LastModifiedDate
 	@Column(name = "free_cmt_udate")
 	private LocalDateTime freeCmtUdate;
+	
+	private String userid;
+	
+	private String nickname;
 
 	@Builder
-	public FreeComment(String freeCmtContent) {
+	public FreeComment(String freeCmtContent, String userid, String nickname) {
 		this.freeCmtContent = freeCmtContent;
+		this.userid = userid;
+		this.nickname = nickname;
 	}
 
 	public void update(String freeCmtContent) {

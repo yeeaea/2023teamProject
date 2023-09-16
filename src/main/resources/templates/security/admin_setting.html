@@ -1,18 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>관리자 설정</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>관리자 설정</title>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+	crossorigin="anonymous">
+
+<!-- Template Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/signin.css}"/>
+
+<!-- Bootstrap Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
 </head>
 
 <body>
-<div class="container">
-    <h2 class="form-signin-heading text-center mb-5">관리자 설정 페이지 입니다.</h2>
-</div>
+	<div class="container-xxl bg-white p-0">
+		<!-- header start -->
+		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+		<!-- header end -->
+
+		<div class="container">
+			<h2 class="form-signin-heading text-center mb-5">관리자 설정 페이지 입니다.</h2>
+		</div>
+
+		<!-- footer Start -->
+		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+		<!-- footer End -->
+	</div>
 </body>
 </html>
