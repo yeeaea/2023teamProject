@@ -48,10 +48,16 @@ public class QuesComment {
 	@LastModifiedDate
 	@Column(name= "ques_cmt_udate")
 	private LocalDateTime quesCmtUdate;
+	
+	private String cmtUserid;
+	
+	private String cmtNickname;
 
 	@Builder
-	public QuesComment(String quesCmtContent) {
+	public QuesComment(String quesCmtContent, String cmtUserid, String cmtNickname) {
 		this.quesCmtContent = quesCmtContent;
+		this.cmtUserid = cmtUserid;
+		this.cmtNickname = cmtNickname;
 	}
 
 	public void update(String quesCmtContent) {

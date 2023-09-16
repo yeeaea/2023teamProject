@@ -60,23 +60,23 @@ public class FreeCommentService {
 
 	// 댓글 수정
 	@Transactional
-	public FreeComment update(Long freeNo, String freeCmtContent) {
-		FreeComment freeComment = freeCommentRepo.findById(freeNo)
+	public FreeComment update(Long freeCmtNo, UpdateFreeCommentRequest dto) {
+		FreeComment freeComment = freeCommentRepo.findById(freeCmtNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException("수정할 댓글이 없습니다."));
 
 		freeComment.setFreeCmtRdate(LocalDateTime.now());
-		freeComment.update(freeCmtContent);
+		freeComment.update(dto.getFreeCmtContent());
 
 		return freeCommentRepo.save(freeComment);
 	}
 	
 	// 댓글 작성자의 닉네임을 가져오는 메소드
-	public String getNickname(Long FreeCmtNo) {
-		FreeComment freeComment = freeCommentRepo.findById(FreeCmtNo).orElse(null);
+	public String getNickname(Long freeCmtNo) {
+		FreeComment freeComment = freeCommentRepo.findById(freeCmtNo).orElse(null);
 		
 		if (freeComment != null) {
-			return freeComment.getNickname();
+			return freeComment.getCmtNickname();
 		}
 		return null;
 	}

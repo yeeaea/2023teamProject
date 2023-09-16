@@ -14,10 +14,14 @@ import lombok.Setter;
 public class QuesCommentRequest {
 	private Long quesNo;
 	private String quesCmtContent;
+	private String cmtUserid;
+	private String cmtNickname;
 
 	public QuesComment toEntity() {
 		return QuesComment.builder()
 				.quesCmtContent(quesCmtContent)
+				.cmtUserid(cmtUserid)
+				.cmtNickname(cmtNickname)
 				.build();
 	}
 

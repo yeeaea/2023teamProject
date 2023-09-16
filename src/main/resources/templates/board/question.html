@@ -49,7 +49,8 @@
 								<br />
 								<div class="d-flex justify-content-start my-3">
 									<div th:text="${nickname}" class="mx-2" style="color: #949494"></div>
-									<div style="font-size: 13px" class="ms-auto text-muted fst-italic mb-2 justify-content"
+									<div style="font-size: 13px"
+										class="ms-auto text-muted fst-italic mb-2 justify-content"
 										th:text="|작성일자 ${#temporals.format(question.quesRdate, 'yyyy-MM-dd HH:mm')}|"></div>
 								</div>
 								<hr style="width: 100%; margin: 10px auto; color: #b1b1b1">
@@ -93,19 +94,22 @@
 						<div id="edit-cmt-box"
 							class="d-flex justify-content-between align-items-center">
 							<div>
-								<!-- 댓글 번호 -->
-								<span class="comment-no" style="font-size: small"
-									th:text="${comment.quesCmtNo}"></span>
+								<!-- 댓글 번호 및 닉네임 -->
+								<span class="comment-no" style="display: none;" type="hidden"
+									th:text="${comment.quesCmtNo}"></span> <span
+									class="comment-nickname" style="font-size: small"
+									th:text="${nickname}"></span>
 								<!-- 댓글 생성일 -->
 								<span style="font-size: x-small" class="comment-date"
 									th:text="${#temporals.format(comment.quesCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
 								<!-- 수정 버튼 -->
-								<button type="button"
+								<button type="button" th:if="${currentUserid == author}"
 									class="btn bi bi-pencil-square edit-comment-btn"
 									style="font-size: 12px; padding: .1em .5em;"
 									data-quesCmtNo="${comment.quesCmtNo}">수정</button>
 								<!-- 삭제 버튼 -->
-								<button type="button" class="btn bi bi-trash cmt-delete-btn"
+								<button type="button" th:if="${currentUserid == author}"
+									class="btn bi bi-trash cmt-delete-btn"
 									style="font-size: 12px; padding: .1em .5em;"
 									data-quesCmtNo="${comment.quesCmtNo}">삭제</button>
 								<!-- 댓글 내용 -->

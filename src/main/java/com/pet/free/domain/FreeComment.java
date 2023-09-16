@@ -50,15 +50,15 @@ public class FreeComment {
 	@Column(name = "free_cmt_udate")
 	private LocalDateTime freeCmtUdate;
 	
-	private String userid;
+	private String cmtUserid;
 	
-	private String nickname;
+	private String cmtNickname;
 
 	@Builder
-	public FreeComment(String freeCmtContent, String userid, String nickname) {
+	public FreeComment(String freeCmtContent, String cmtUserid, String cmtNickname) {
 		this.freeCmtContent = freeCmtContent;
-		this.userid = userid;
-		this.nickname = nickname;
+		this.cmtUserid = cmtUserid;
+		this.cmtNickname = cmtNickname;
 	}
 
 	public void update(String freeCmtContent) {

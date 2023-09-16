@@ -12,15 +12,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FreeCommentRequest {
+	private Long freeNo;
 	private String freeCmtContent;
-	private String userid;
-	private String nickname;
+	private String cmtUserid;
+	private String cmtNickname;
 
 	public FreeComment toEntity() {
 		return FreeComment.builder()
 				.freeCmtContent(freeCmtContent)
-				.userid(userid)
-				.nickname(nickname)
+				.cmtUserid(cmtUserid)
+				.cmtNickname(cmtNickname)
 				.build();
 	}
 

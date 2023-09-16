@@ -27,31 +27,24 @@ public class QuesCommentApiController {
 
 	private final QuesCommentService quesCommentService;
 
-	// 댓글 저장
+	// 댓글 등록
 	@PostMapping("/api/quescomments")
 	public ResponseEntity<QuesCommentResponse> addQuesComment(@RequestBody QuesCommentRequest dto) {
-		QuesComment savedQuesComment =
-				quesCommentService.saveComment(dto, dto.getQuesNo());
+		QuesComment savedQuesComment = quesCommentService.saveComment(dto, dto.getQuesNo());
 
-		return ResponseEntity
-				.status(HttpStatus.CREATED)
-				.body(new QuesCommentResponse(savedQuesComment));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new QuesCommentResponse(savedQuesComment));
 	}
 
-	// 댓글 전체 조회
+	// 댓글 리스트
 	@GetMapping("/api/quescomments")
 	public ResponseEntity<List<QuesCommentResponse>> findAllQuesComments() {
-		List<QuesCommentResponse> quescomments =
-				quesCommentService
-				.findAll()
-				.stream()
-				.map(QuesCommentResponse::new)
+		List<QuesCommentResponse> quescomments = quesCommentService.findAll().stream().map(QuesCommentResponse::new)
 				.toList();
 
 		return ResponseEntity.ok().body(quescomments);
 	}
 
-	// 댓글 조회
+	// 댓글 가져오기
 	@GetMapping("/api/quescomments/{quesCmtNo}")
 	public ResponseEntity<QuesCommentResponse> QuesComment(@PathVariable Long quesCmtNo) {
 		QuesComment quesComment = quesCommentService.findByQuesCmtNo(quesCmtNo);
@@ -67,6 +60,7 @@ public class QuesCommentApiController {
 		return ResponseEntity.ok().build();
 	}
 
+	// 댓글 수정
 	@PutMapping("/api/quescomments/{quesCmtNo}")
 	public ResponseEntity<QuesComment> updateQuesComment(@PathVariable Long quesCmtNo,
 			@RequestBody UpdateQuesCommentRequest dto) {

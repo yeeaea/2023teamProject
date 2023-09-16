@@ -6,7 +6,9 @@ create table ques_board(
     ques_udate   TIMESTAMP,
     ques_filename VARCHAR(150),
     ques_filepath VARCHAR(300),
-    ques_visit bigint default 0
+    ques_visit bigint default 0,
+    userid VARCHAR(1000),
+    nickname VARCHAR(30)
 );
 
 
