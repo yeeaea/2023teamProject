@@ -175,6 +175,28 @@ body::-webkit-scrollbar {
 }
 
 /*** mainpage text img ***/
+@media (min-width: 1200px) {
+	.main-text-title {
+		font-size: 4rem;
+	}
+	
+	.main-text-middle,
+	.main-text-last {
+		font-size: 1.8rem;
+	}
+}
+
+@media (max-width: 1200px) {
+  .main-text-title {
+    font-size: 3rem;
+  }
+  
+  .main-text-middle,
+  .main-text-last {
+    font-size: 1.3rem;
+  }
+}
+
 .main-text-box {
 	transition: .5s;
 	position: absolute; z-index: 2;
@@ -191,29 +213,34 @@ body::-webkit-scrollbar {
 }
 
 .main-text-title {
-	font-size: 4rem;
 	color: var(--primary);
 }
 
 .main-text-middle, .main-text-last {
 	color: #0E2E50;
-	font-size: 1.8rem;
 }
 
-.main-img {
-	margin-top: 150px;
+.main-img-box {
 	position: relative;
 	text-align: center;
 	z-index: 1;
+	max-width: 100%;
+	height: auto;
+}
+
+.main-img  {
+	position: relative;
+	z-index: -1;
+	height: 100%;
+	width: 100%;
 }
 
 /*** sido ***/
 .map-search {
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    z-index: 1;
     left: 0;
     right: 0;
-    height: 300px;
 }
 
 .map-box {

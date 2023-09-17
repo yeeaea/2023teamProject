@@ -43,10 +43,16 @@
     }
 }
 
+html,
+body {
+  /* white space bug fix in chrome */
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+
 body {
     margin: 0;
-    font-family: "Heebo", sans-serif;
-    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #666565;
@@ -721,7 +727,8 @@ progress {
     max-width: 100%;
     padding-right: calc(var(--bs-gutter-x) / 2);
     padding-left: calc(var(--bs-gutter-x) / 2);
-    margin-top: var(--bs-gutter-y)
+    margin-top: var(--bs-gutter-y);
+    margin-bottom: 5px
 }
 
 .col {
@@ -8362,10 +8369,6 @@ fieldset:disabled .btn {
 
 .text-reset {
     color: inherit !important
-}
-
-.bg-primary {
-    background-color: #C91C1C !important
 }
 
 .bg-secondary {
