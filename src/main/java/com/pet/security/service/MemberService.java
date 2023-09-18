@@ -1,21 +1,25 @@
 package com.pet.security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.pet.security.domain.Member;
 import com.pet.security.repository.MemberRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class MemberService {
+	private final PasswordEncoder passwordEncoder;
     private final MemberRepository repository;
 
     @Autowired
-    public MemberService(MemberRepository repository) {
+    public MemberService(MemberRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Member findOne(String userid) {
+    public Member findByUserid(String userid) {
         return repository.findByUserid(userid);
     }
     
@@ -30,4 +34,35 @@ public class MemberService {
     	// 사용자 정보가 없을 경우
         return "사용자 닉네임 없음";
     }
+    
+    @Transactional
+    public void updateMember(Member member) {
+    	Member persistance = repository.findByUserid(member.getUserid());
+    	
+    	String rawPassword = member.getPassword();
+    	String encPassword = passwordEncoder.encode(rawPassword);
+    	
+    	persistance.setPassword(encPassword);
+    	persistance.setNickname(member.getNickname());
+    	persistance.setEmail(member.getEmail());
+    }
+    
+    public void deleteMember(String userid) {
+    	Member member = repository.findByUserid(userid);
+    	if (member != null) {
+    		repository.delete(member);
+    	}
+    }
+    
+    public String getPassword(String userid) {
+    	Member member = repository.findByUserid(userid);
+    	
+    	if (member != null) {
+    		return member.getPassword();
+    	}
+    	
+    	return "비밀번호 찾을 수 없음";
+    }
+    
+    
 }
