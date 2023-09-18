@@ -44,7 +44,7 @@
 
 							<div style="width: 90%; height: 90%; margin: 30px auto">
 								<a href="/questions">질문게시판 > </a> <br />
-								<p style="height: 20px;" class="fw-bolder mb-1 fs-2"
+								<p style="height: 20px;" class="fw-bolder mt-1 mb-0 fs-2"
 									th:text="${question.quesTitle}"></p>
 								<br />
 								<div class="d-flex justify-content-start my-3">
@@ -55,7 +55,7 @@
 								</div>
 								<hr style="width: 100%; margin: 10px auto; color: #b1b1b1">
 								<section class="mb-5" style="width: 90%; margin: 0 auto;">
-									<p class="fs-5 mb-4" th:text="${question.quesContent}"
+									<p class="fs-6 mt-3 mb-4" th:text="${question.quesContent}"
 										style="word-break: break-all;"></p>
 									<img th:if="${question.quesFilepath != null}"
 										th:src="@{${question.quesFilepath}}" width="400" height="400" />
@@ -64,7 +64,7 @@
 							</div>
 
 							<div style="margin: 0 auto;"
-								class="d-flex justify-content-center">
+								class="d-flex justify-content-center mb-3">
 								<button type="button" id="modify-btn"
 									th:if="${currentUserid == author}"
 									th:onclick="|location.href='@{/new-question?quesNo={quesNo}(quesNo=${question.quesNo})}'|"
@@ -72,8 +72,6 @@
 								<button type="button" id="delete-btn"
 									th:if="${currentUserid == author}"
 									class="btn btn-secondary btn-sm" style="margin-right: 10px;">삭제</button>
-								<button type="button" id="list-btn"
-									class="btn btn-secondary btn-sm">글 목록</button>
 							</div>
 						</div>
 					</article>
