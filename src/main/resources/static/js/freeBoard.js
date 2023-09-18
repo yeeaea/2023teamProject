@@ -158,20 +158,16 @@ submitButton.addEventListener("click", () => {
 	const freeCmtContent = document.getElementById("freeCmtContent").value;
 	const freeNo = document.getElementById("freeNo").value;
 	
-	// 댓글 내용이 비어있는지 확인
-	if (!quesCmtContent.trim()) {
-		alert("댓글 내용을 입력하세요."); // 댓글 내용이 비어있을 때 경고 메시지 표시
-		return; // 함수 종료
-	}
-	
 	// 댓글 데이터 생성
 	const commentData = {
-		freeCmtContent: freeCmtContent,
-		freeNo: freeNo,
+   		freeCmtContent: freeCmtContent,
+    	freeNo: freeNo
 	};
 
 	if (freeCmtContent.trim() === "") {
 		alert("댓글 내용을 입력해주세요!");
+		return;
+		
 	} else {
 		// 서버로 댓글 데이터 전송
 		fetch("/api/freecomments", {

@@ -76,7 +76,7 @@ public class FreeCommentService {
 		FreeComment freeComment = freeCommentRepo.findById(freeCmtNo).orElse(null);
 		
 		if (freeComment != null) {
-			return freeComment.getCmtNickname();
+			return freeComment.getNickname();
 		}
 		return null;
 	}
