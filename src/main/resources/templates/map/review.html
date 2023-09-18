@@ -45,14 +45,16 @@
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
+
 	<div class="container-xxl bg-white p-0">
 		<!-- header start -->
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
-		
+
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-lg-8">
@@ -68,11 +70,25 @@
 							</p>
 							<p th:text="${place.addr}"
 								style="width: 100%; text-align: center;"></p>
-							<button type="button" id="submit-review" sec:authorize="isAuthenticated()"
+							<button type="button" id="submit-review"
 								sec:authorize="isAuthenticated()"
 								class="btn btn-outline-primary bi bi-pencil-square"
 								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%;">
 								리뷰 작성</button>
+								
+								
+							<button id="show">팝업열기</button>
+
+							<div class="background">
+							  <div class="window">
+							    <div class="popup">
+							      <h1>리뷰 작성하기</h1>
+							      <input >
+							      <button id="close">팝업닫기</button>
+							    </div>
+							  <div>
+							<div>
+								
 							<input type="hidden" id="placeNo" th:value="${place.no}">
 							<div id="review-list-box"
 								style="width: 100%; height: auto; margin-top: 20px;">
