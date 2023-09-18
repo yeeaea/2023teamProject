@@ -85,7 +85,8 @@ public class FreeBoardApiController {
 	@PutMapping("/api/freeboards/{freeNo}")
 	public ResponseEntity<FreeBoard> updatefreeBoard(@PathVariable Long freeNo,
 			@RequestParam("freeTitle") String freeTitle, @RequestParam("freeContent") String freeContent,
-			@RequestParam(name = "file", required = false) MultipartFile file, Principal principal) throws IOException {
+			@RequestParam(name = "file", required = false) MultipartFile file, 
+			@RequestParam(value = "deleteImage", defaultValue = "true") boolean deleteImage, Principal principal) throws IOException {
 		// 현재 로그인한 사용자 id
 		String currentUserid = principal.getName();
 		// FreeNo를 사용하여 글을 데이터베이스에서 가져옴
@@ -109,7 +110,7 @@ public class FreeBoardApiController {
 		existingFreeBoard.setFreeTitle(freeTitle);
 		existingFreeBoard.setFreeContent(freeContent);
 
-		FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, freeTitle, freeContent, file);
+		FreeBoard updatedFreeBoard = freeBoardService.update(freeNo, freeTitle, freeContent, file, deleteImage);
 
 		return ResponseEntity.ok().body(updatedFreeBoard);
 	}

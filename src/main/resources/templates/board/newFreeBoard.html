@@ -66,8 +66,11 @@
 								id="freeContent" th:text="${freeBoard.freeContent}" style="border-radius: 20px" 
 							onkeyup="countingLength('freeContent', 'counterWord');"></textarea>
 						</section>
-
-						<input type="file" name="file" class="form-control"> <br>
+						
+						<div class="d-flex mb-4">
+							<input type="file" name="file" class="form-control" id="imageUpload"> <br>
+							<button type="button" id="deleteImg" class="btn-close mt-2" aria-label="Close"></button>
+						</div>
 
 						<div class="d-grid gap-2">
 							<button th:if="${freeBoard.freeNo} != null" type="button"

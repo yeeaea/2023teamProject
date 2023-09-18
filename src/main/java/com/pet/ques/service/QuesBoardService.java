@@ -80,8 +80,8 @@ public class QuesBoardService {
 
 	// 글 수정
 	@Transactional
-	public QuesBoard update(Long quesNo, String quesTitle,
-			String quesContent, MultipartFile file) throws IOException {
+	public QuesBoard update(Long quesNo, String quesTitle, String quesContent, 
+		MultipartFile file, boolean deleteImage) throws IOException {
 		QuesBoard quesBoard = quesBoardRepo.findById(quesNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException(quesNo + "번 글이 존재하지 않습니다."));
@@ -90,6 +90,19 @@ public class QuesBoardService {
 
 		String projectPath =
 				System.getProperty("user.dir") + "/src/main/resources/static/files";
+		
+		 // 이미지 삭제 버튼이 눌렸을 때 이미지 삭제
+	    if (deleteImage) {
+	        if (quesBoard.getQuesFilename() != null) {
+	            String filePath = projectPath + "/" + quesBoard.getQuesFilename();
+	            File imageFile = new File(filePath);
+	            if (imageFile.exists()) {
+	                imageFile.delete();
+	            }
+	            quesBoard.setQuesFilename(null);
+	            quesBoard.setQuesFilepath(null);
+	        }
+	    }
 
 		// 파일이 없는 경우에 대한 처리 추가
 		if (file != null && !file.isEmpty()) {
@@ -99,17 +112,6 @@ public class QuesBoardService {
 			file.transferTo(saveFile);
 			quesBoard.setQuesFilename(fileName);
 			quesBoard.setQuesFilepath("/files/" + fileName);
-		}else {
-	        // 이미지 파일이 업로드되지 않은 경우 이미지 삭제 로직 추가
-	        if (quesBoard.getQuesFilepath() != null) {
-	            String filePath = projectPath + quesBoard.getQuesFilepath();
-	            File imageFile = new File(filePath);
-	            if (imageFile.exists()) {
-	                imageFile.delete();
-	                quesBoard.setQuesFilename(null);
-	                quesBoard.setQuesFilepath(null);
-	            }
-	        }
 		}
 		// 수정된 엔티티를 저장하고 반환
 		return quesBoardRepo.save(quesBoard);
