@@ -14,14 +14,14 @@ import lombok.Setter;
 public class FreeCommentRequest {
 	private Long freeNo;
 	private String freeCmtContent;
-	private String cmtUserid;
-	private String cmtNickname;
+	private String userid;
+	private String nickname;
 
 	public FreeComment toEntity() {
 		return FreeComment.builder()
 				.freeCmtContent(freeCmtContent)
-				.cmtUserid(cmtUserid)
-				.cmtNickname(cmtNickname)
+				.userid(userid)
+				.nickname(nickname)
 				.build();
 	}
 

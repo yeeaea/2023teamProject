@@ -1,5 +1,6 @@
 package com.pet.free.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import com.pet.free.dto.FreeCommentRequest;
 import com.pet.free.dto.FreeCommentResponse;
 import com.pet.free.dto.UpdateFreeCommentRequest;
 import com.pet.free.service.FreeCommentService;
+import com.pet.security.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,17 +26,28 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class FreeCommentApiController {
 
+	private final MemberService memberService;
 	private final FreeCommentService freeCommentService;
 
 	// 댓글 등록
 	@PostMapping("/api/freecomments")
-	public ResponseEntity<FreeCommentResponse> addFreeComment(@RequestBody FreeCommentRequest dto) {
-		FreeComment savedFreeComment = 
-				freeCommentService.saveComment(dto, dto.getFreeNo());
-		
-		return ResponseEntity
-				.status(HttpStatus.CREATED)
-				.body(new FreeCommentResponse(savedFreeComment));
+	public ResponseEntity<FreeCommentResponse> addFreeComment(@RequestBody FreeCommentRequest dto, Principal principal) {
+		if (principal != null) {
+			String userid = principal.getName();
+			String nickname = memberService.getNickname(userid);
+			
+			dto.setUserid(userid);
+			dto.setNickname(nickname);
+				
+			FreeComment savedFreeComment = 
+					freeCommentService.saveComment(dto, dto.getFreeNo());
+			
+			return ResponseEntity
+					.status(HttpStatus.CREATED)
+					.body(new FreeCommentResponse(savedFreeComment));
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		}
 	}
 	
 	// 댓글 리스트

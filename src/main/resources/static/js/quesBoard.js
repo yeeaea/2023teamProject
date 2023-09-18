@@ -25,7 +25,6 @@ if (modifyButton) {
 	modifyButton.addEventListener("click", event => {
 		event.preventDefault();
 
-		// let freeNo = document.getElementById('quesBoard-quesNo').value;
 		let quesNo = document.getElementById('question-quesNo').value;
 		let title = document.getElementById("quesTitle").value;
 		let content = document.getElementById("quesContent").value;
@@ -159,12 +158,6 @@ submitButton.addEventListener("click", () => {
 	const quesCmtContent = document.getElementById("quesCmtContent").value;
 	const quesNo = document.getElementById("quesNo").value;
 	
-	// 댓글 내용이 비어있는지 확인
-	if (!quesCmtContent.trim()) {
-		alert("댓글 내용을 입력하세요."); // 댓글 내용이 비어있을 때 경고 메시지 표시
-		return; // 함수 종료
-	}
-	
 	// 댓글 데이터 생성
 	const commentData = {
 		quesCmtContent: quesCmtContent,
@@ -173,6 +166,8 @@ submitButton.addEventListener("click", () => {
 
 	if (quesCmtContent.trim() === "") {
 		alert("댓글 내용을 입력해주세요!");
+		return;
+		
 	} else {
 		// 서버로 댓글 데이터 전송
 		fetch("/api/quescomments", {
