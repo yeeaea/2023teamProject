@@ -443,9 +443,9 @@ body::-webkit-scrollbar {
 
 /* 병원목록 스크롤바 생성 */
 #searchResults{
-   width: 400px; 
-   height: 90%;
-   overflow-y: scroll;
+	width: 400px; 
+	height: 90%;
+	overflow-y: scroll;
 }
 #searchResults::-webkit-scrollbar {
     width: 10px;  /* 스크롤바의 너비 */

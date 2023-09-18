@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
             clusterer.addMarkers(markers);
          } else {
             // 서버에서 오류 응답을 받은 경우에 대한 처리
-            console.error("서버에서 오류 응답을 받았습니다.");
+            console.error("서버에서 오류 응답을 받았습니다." + xhr.status);
          }
       }
    };
