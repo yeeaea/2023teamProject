@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
                         
                         .requestMatchers("/", "/api/places/**", "/api/valid/**","/search","/login","/questions/**","/status", 
                         				 "/img/**","/css/**","/js/**", "/files/**", "/html/**", "/lib/**", "/scss/**",
-                        				 "/join", "/auth/join", "/freeboards/**").permitAll() // 누구나 접근 가능한 페이지
+                        				 "/join", "/auth/join", "/freeboards/**", "/review/**").permitAll() // 누구나 접근 가능한 페이지
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
