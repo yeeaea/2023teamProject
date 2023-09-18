@@ -103,17 +103,17 @@
 									<span class="comment-no" style="display: none;" type="hidden"
 										th:text="${comment.freeCmtNo}"></span> <span
 										class="comment-nickname" style="font-size: small"
-										th:text="${nickname}"></span>
+										th:text="${comment.nickname}"></span>
 									<!-- 댓글 생성일 -->
 									<span style="font-size: x-small" class="comment-date"
 										th:text="${#temporals.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
 									<!-- 수정 버튼 -->
-									<button type="button" th:if="${currentUserid == author}"
+									<button type="button" th:if="${currentUserid == comment.userid}"
 										class="btn bi bi-pencil-square edit-comment-btn"
 										style="font-size: 12px; padding: .1em .5em;"
 										data-freeCmtNo="${comment.freeCmtNo}">수정</button>
 									<!-- 삭제 버튼 -->
-									<button type="button" th:if="${currentUserid == author}"
+									<button type="button" th:if="${currentUserid == comment.userid}"
 										class="btn bi bi-trash cmt-delete-btn"
 										style="font-size: 12px; padding: .1em .5em;"
 										data-freeCmtNo="${comment.freeCmtNo}">삭제</button>

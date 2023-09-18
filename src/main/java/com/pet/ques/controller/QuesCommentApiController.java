@@ -1,5 +1,6 @@
 package com.pet.ques.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import com.pet.ques.dto.QuesCommentRequest;
 import com.pet.ques.dto.QuesCommentResponse;
 import com.pet.ques.dto.UpdateQuesCommentRequest;
 import com.pet.ques.service.QuesCommentService;
+import com.pet.security.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,15 +26,26 @@ import lombok.RequiredArgsConstructor;
 @RestController
 
 public class QuesCommentApiController {
-
+	
+	private final MemberService memberService;
 	private final QuesCommentService quesCommentService;
 
 	// 댓글 등록
 	@PostMapping("/api/quescomments")
-	public ResponseEntity<QuesCommentResponse> addQuesComment(@RequestBody QuesCommentRequest dto) {
-		QuesComment savedQuesComment = quesCommentService.saveComment(dto, dto.getQuesNo());
+	public ResponseEntity<QuesCommentResponse> addQuesComment(@RequestBody QuesCommentRequest dto, Principal principal) {
+		if (principal != null) {
+			String userid = principal.getName();
+			String nickname = memberService.getNickname(userid);
+			
+			dto.setUserid(userid);
+			dto.setNickname(nickname);
+		
+			QuesComment savedQuesComment = quesCommentService.saveComment(dto, dto.getQuesNo());
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(new QuesCommentResponse(savedQuesComment));
+			return ResponseEntity.status(HttpStatus.CREATED).body(new QuesCommentResponse(savedQuesComment));
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		}
 	}
 
 	// 댓글 리스트

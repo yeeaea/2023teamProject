@@ -73,7 +73,7 @@ public class QuesCommentService {
 		QuesComment quesComment = quesCommentRepo.findById(quesCmtNo).orElse(null);
 
 		if (quesComment != null) {
-			return quesComment.getCmtNickname();
+			return quesComment.getNickname();
 		}
 		return null;
 	}

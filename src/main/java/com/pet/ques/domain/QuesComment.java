@@ -49,15 +49,15 @@ public class QuesComment {
 	@Column(name= "ques_cmt_udate")
 	private LocalDateTime quesCmtUdate;
 	
-	private String cmtUserid;
+	private String userid;
 	
-	private String cmtNickname;
+	private String nickname;
 
 	@Builder
-	public QuesComment(String quesCmtContent, String cmtUserid, String cmtNickname) {
+	public QuesComment(String quesCmtContent, String userid, String nickname) {
 		this.quesCmtContent = quesCmtContent;
-		this.cmtUserid = cmtUserid;
-		this.cmtNickname = cmtNickname;
+		this.userid = userid;
+		this.nickname = nickname;
 	}
 
 	public void update(String quesCmtContent) {
