@@ -518,3 +518,22 @@ body::-webkit-scrollbar {
   transform: translate(-50%, -50%);
   transition: all .5s;
 }
+
+.swal2-cancel {
+    margin-top: 5%;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 가운데 정렬을 위해 추가 */
+    width: 100%; /* 전체 너비를 차지하도록 설정 */
+}
+
+/* 버튼을 가로로 나란히 배치 */
+div > button > .btn{
+    display: inline-block;
+    margin-right: 10px; /* 버튼 간격 조절 */
+    vertical-align: middle; /* 버튼 수직 정렬 */
+}

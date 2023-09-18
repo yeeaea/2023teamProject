@@ -17,12 +17,16 @@ public class ReviewRequest {
 	private String reviewContent;
 	private String userid;
 	private String nickname;
+	private float reviewScore;
+	private String star;
 	
 	public PlaceReview toEntity() {
 		return PlaceReview.builder()
 				.reviewContent(reviewContent)
 				.userid(userid)
 				.nickname(nickname)
+				.reviewScore(reviewScore)
+				.star(star)
 				.build();
 	}
 }

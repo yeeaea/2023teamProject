@@ -49,6 +49,8 @@ public class PlaceReview {
    @Column(name="review_score")
    private float reviewScore;
    
+   private String star;
+   
    @CreatedDate
    @Column(name = "review_rdate")
    private LocalDateTime reviewRdate;
@@ -60,10 +62,12 @@ public class PlaceReview {
    private String nickname;
    
    @Builder
-   public PlaceReview(String reviewContent, String userid, String nickname) {
+   public PlaceReview(String reviewContent, String userid, String nickname, float reviewScore, String star) {
       this.reviewContent = reviewContent;
       this.userid = userid;
       this.nickname = nickname;
+      this.reviewScore = reviewScore;
+      this.star = star;
    }
    
    public void update(String reviewContent) {

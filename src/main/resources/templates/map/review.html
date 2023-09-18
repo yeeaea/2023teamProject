@@ -70,24 +70,37 @@
 							</p>
 							<p th:text="${place.addr}"
 								style="width: 100%; text-align: center;"></p>
-							<button type="button" id="submit-review"
+							<button type="button" id="show"
 								sec:authorize="isAuthenticated()"
 								class="btn btn-outline-primary bi bi-pencil-square"
 								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%;">
 								리뷰 작성</button>
-								
-								
-							<button id="show">팝업열기</button>
 
 							<div class="background">
-							  <div class="window">
-							    <div class="popup">
-							      <h1>리뷰 작성하기</h1>
-							      <input >
-							      <button id="close">팝업닫기</button>
+							    <div class="window">
+							        <div class="popup">
+							            <h2 style="margin-top: 5%; text-align: center;">리뷰 작성하기</h2>
+							            <div  style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+							            <fieldset class="rate">
+			                                <input type="radio" id="rating10" name="rating" value=5><label for="rating10" title="5점"></label>
+			                                <input type="radio" id="rating8" name="rating" value=4><label for="rating8" title="4점"></label>
+			                                <input type="radio" id="rating6" name="rating" value=3><label for="rating6" title="3점"></label>
+			                                <input type="radio" id="rating4" name="rating" value=2><label for="rating4" title="2점"></label>
+			                                <input type="radio" id="rating2" name="rating" value=1><label for="rating2" title="1점"></label>
+			
+			                            </fieldset>
+			                            </div>
+							            <div id="swal-content" class="swal2-content" style="height: 60%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top:3%;">
+							                <textarea id="review-input" class="swal2-input" placeholder="200글자 내로 입력.." style="height: 100%; width: 90%; font-size: 16px;" maxlength="200" wrap="soft"></textarea>
+							            </div>
+							            <div style="text-align:center;">
+							            <button id="submit-review" class="btn-submit">등록</button>
+							            <button id="close" class="btn-cancel" style="margin-top: 5%;">취소</button>
+							            </div>
+							        </div>
 							    </div>
-							  <div>
-							<div>
+							</div>
+
 								
 							<input type="hidden" id="placeNo" th:value="${place.no}">
 							<div id="review-list-box"
@@ -101,6 +114,9 @@
 											<div>
 												<span class="review-no" style=" display: none;"
 													th:text="${review.reviewNo}"></span>
+												<span class="review-score" style=" display: none;"
+													th:text="${review.reviewScore}"></span>
+												<!-- 작성자 닉네임 -->
 												<span style="font-size: small;"
 													th:text="${review.nickname}"></span>
 												<!-- 댓글 생성일 -->
@@ -111,6 +127,8 @@
 													class="btn bi bi-trash review-delete-btn"
 													style="font-size: 12px; padding: .1em .5em;"
 													data-reviewNo="${review.reviewNo}">삭제</button>
+												<!-- 별점 -->
+												<p th:text="${review.star}"></p>
 												<!-- 댓글 내용 -->
 												<span class="mt-2 review-content"
 													th:text="${review.reviewContent}"
