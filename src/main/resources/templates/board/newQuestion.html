@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>질문게시판 글수정</title>
+<title>질문게시판 글 작성하기</title>
 
 <!-- font style -->
 <link rel="stylesheet" as="style" crossorigin
@@ -34,11 +34,11 @@
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
 
-		<div class="d-flex flex-row bd-highlight mt-5">
+		<div class="d-flex flex-row bd-highlight mt-5  justify-content-center align-items-center">
 			<div class="fs-4 mx-3" style="width: 20px; height: 50px;">
 				<i class="fa-solid fa-pencil" style="color: #000000;"></i>
 			</div>
-			<h4>질문 게시판 글 작성하기</h4>
+			<h4 class="text-center">질문 게시판 글 작성하기</h4>
 		</div>
 
 		<form id="question-form" action="/api/questions" method="post"
@@ -57,19 +57,23 @@
 						</header>
 
 						<section class="mb-5">
-							<!-- 내용 입력 -->
-							<div class="textLengthWrap d-flex flex-row" style="float: right;">
-								<div class="count">
-									<span>0</span>/1000
-								</div>
-							</div>
-							<textarea rows="10" placeholder="글 내용" class="form-control h-25"
-								style="border-radius: 20px" id="quesContent"
-								th:text="${question.quesContent}"></textarea>
+						    <!-- 내용 입력 -->
+						    <div class="textLengthWrap d-flex flex-row" style="float: right;">
+						        <div class="count">
+						            <span id="counterWord" style = "margin: 8px;">0/1000자</span>
+						        </div>
+						    </div>
+						    <div>
+					        <textarea rows="10" placeholder="글 내용" class="form-control h-25"
+					            style="border-radius: 20px" id="quesContent"
+					            th:text="${question.quesContent}" onkeyup="countingLength('quesContent', 'counterWord');"></textarea>
+   							</div>
 						</section>
 
-						<input type="file" name="file" class="form-control"> <br>
-
+						<input type="file" name="file" class="form-control" id="imageUpload"> <br>
+						
+						<button type="button" id="deleteImg" style="width:100px; height:50px"></button>
+						 
 						<div class="d-grid gap-2">
 							<button th:if="${question.quesNo} != null" type="button"
 								id="modify-btn" class="btn btn-primary btn-sm"

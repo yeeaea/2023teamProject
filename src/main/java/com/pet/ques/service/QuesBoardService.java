@@ -43,12 +43,7 @@ public class QuesBoardService {
 			dto.setQuesFilename(fileName);
 			dto.setQuesFilepath("/files/" + fileName);
 
-		} else {
-			// 파일이 없는 경우, 파일 관련 정보를 null로 설정
-			dto.setQuesFilename(null);
-			dto.setQuesFilepath(null);
 		}
-
 		return quesBoardRepo.save(dto.toEntity());
 	}
 
@@ -104,6 +99,17 @@ public class QuesBoardService {
 			file.transferTo(saveFile);
 			quesBoard.setQuesFilename(fileName);
 			quesBoard.setQuesFilepath("/files/" + fileName);
+		}else {
+	        // 이미지 파일이 업로드되지 않은 경우 이미지 삭제 로직 추가
+	        if (quesBoard.getQuesFilepath() != null) {
+	            String filePath = projectPath + quesBoard.getQuesFilepath();
+	            File imageFile = new File(filePath);
+	            if (imageFile.exists()) {
+	                imageFile.delete();
+	                quesBoard.setQuesFilename(null);
+	                quesBoard.setQuesFilepath(null);
+	            }
+	        }
 		}
 		// 수정된 엔티티를 저장하고 반환
 		return quesBoardRepo.save(quesBoard);
