@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	commentList.addEventListener("click", (event) => {
 		const deleteButton = event.target;
 		if(deleteButton.classList.contains("review-delete-btn")){
-			const reviewItem = deleteButton.closet("li");
+			const reviewItem = deleteButton.closest("li");
 			
 			if(reviewItem){
 				const reviewNoElement = reviewItem.querySelector('.review-no');
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function(){
 						confirmButtonText: '확인',
            				cancelButtonText: '취소'
 					}).then((result) => {
+						
 						if(result.isConfirmed){
 							// 확인 버튼이 클릭된 경우 서버에 삭제 요청 보내고, 성공하면 삭제
 							fetch(`/api/reviews/${reviewNo}`, {
@@ -94,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function(){
 							.then(response => {
 								if(response.status === 200){
 									reviewItem.remove();
+									location.reload();
 								}else{
 									console.log("리뷰 삭제 실패");
 								}
@@ -107,4 +109,15 @@ document.addEventListener("DOMContentLoaded", function(){
 			}
 		}
 	});
-});
+	
+	function show () {
+	  document.querySelector(".background").className = "background show";
+	}
+	
+	function close () { 
+	  document.querySelector(".background").className = "background";
+	}
+	
+	document.querySelector("#show").addEventListener('click', show);
+	document.querySelector("#close").addEventListener('click', close);
+	});
