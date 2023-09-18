@@ -54,14 +54,10 @@ public class MemberService {
     	}
     }
     
-    public String getPassword(String userid) {
-    	Member member = repository.findByUserid(userid);
+    public String getPasswordByUserid(String userid) {
+    	Member member = repository.findPasswordByUserid(userid);
     	
-    	if (member != null) {
-    		return member.getPassword();
-    	}
-    	
-    	return "비밀번호 찾을 수 없음";
+    	 return member != null ? member.getPassword() : null;
     }
     
     
