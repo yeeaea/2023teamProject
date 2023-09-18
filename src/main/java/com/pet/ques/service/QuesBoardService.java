@@ -43,12 +43,7 @@ public class QuesBoardService {
 			dto.setQuesFilename(fileName);
 			dto.setQuesFilepath("/files/" + fileName);
 
-		} else {
-			// 파일이 없는 경우, 파일 관련 정보를 null로 설정
-			dto.setQuesFilename(null);
-			dto.setQuesFilepath(null);
 		}
-
 		return quesBoardRepo.save(dto.toEntity());
 	}
 

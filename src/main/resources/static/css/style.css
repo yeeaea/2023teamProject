@@ -417,3 +417,47 @@ body::-webkit-scrollbar {
 .review-show-btn:hover{
 	background-color: #8a0808;
 }
+
+/* 리뷰 상자 스크롤바 생성 */
+
+#review-list-box{
+    max-height: 500px; /* 스크롤바가 나타날 최대 높이를 지정 (원하는 높이로 조절) */
+    overflow-y: auto; /* 세로 스크롤바를 표시하도록 설정 */
+}
+
+#review-list-box::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+#review-list-box::-webkit-scrollbar-thumb {
+    height: 50px; /* 스크롤바의 길이 */
+    background: #C91C1C; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+#review-list-box::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+
+/* 병원목록 스크롤바 생성 */
+#searchResults{
+   width: 400px; 
+   height: 90%;
+   overflow-y: scroll;
+}
+#searchResults::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+
+#searchResults::-webkit-scrollbar-thumb {
+    height: 50px; /* 스크롤바의 길이 */
+    background: #C91C1C; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+#searchResults::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
