@@ -62,36 +62,36 @@
 							style="background-color: #faf4f4; border-radius: 30px; display: flex; flex-direction: column; align-items: flex-start; padding: 10px;">
 							<h1 th:text="${place.name}"
 								style="width: 100%; text-align: center; margin-top: 50px;"></h1>
-							<p style="width: 100%; text-align: center; margin-top: 10px;">★4.5
-								/ 5 리뷰 : 5 건</p>
+							<p style="width: 100%; text-align: center; margin-top: 10px;"
+								id="review-count">
+								<!-- 리뷰 수 -->
+							</p>
 							<p th:text="${place.addr}"
 								style="width: 100%; text-align: center;"></p>
 							<button type="button" id="submit-review" sec:authorize="isAuthenticated()"
+								sec:authorize="isAuthenticated()"
 								class="btn btn-outline-primary bi bi-pencil-square"
 								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%;">
 								리뷰 작성</button>
 							<input type="hidden" id="placeNo" th:value="${place.no}">
 							<div id="review-list-box"
-								style="width: 90%; height: auto; margin-left: auto; margin-right: auto; margin-top: 10px; background-color: white; border-radius: 10px;">
+								style="width: 100%; height: auto; margin-top: 20px;">
 								<ul id="review-list" class="list-group-flush"
-									style="list-style: none; padding: 12px;">
-									<li th:each="review : ${place.reviews}" class="list-group-item">
+									style="list-style: none; padding: 12px; width: 90%; height: auto; margin-left: auto; margin-right: auto;">
+									<li th:each="review : ${place.reviews}" class="list-group-item"
+										style="height: auto; margin-top: 20px; border-radius: 10px;">
 										<div id="edit-cmt-box"
 											class="d-flex justify-content-between align-items-center">
 											<div>
-												<!-- 댓글 번호 -->
-												<span class="review-no" style="font-size: small"
+												<span class="review-no" style=" display: none;"
 													th:text="${review.reviewNo}"></span>
+												<span style="font-size: small;"
+													th:text="${review.nickname}"></span>
 												<!-- 댓글 생성일 -->
 												<span style="font-size: x-small" class="review-date"
 													th:text="${#temporals.format(review.reviewRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-												<!-- 수정 버튼 -->
-												<button type="button"
-													class="btn bi bi-pencil-square edit-review-btn"
-													style="font-size: 12px; padding: .1em .5em;"
-													data-reviewNo="${review.reviewNo}">수정</button>
 												<!-- 삭제 버튼 -->
-												<button type="button"
+												<button type="button" th:if="${currentUserid == review.userid}"
 													class="btn bi bi-trash review-delete-btn"
 													style="font-size: 12px; padding: .1em .5em;"
 													data-reviewNo="${review.reviewNo}">삭제</button>
@@ -99,20 +99,7 @@
 												<span class="mt-2 review-content"
 													th:text="${review.reviewContent}"
 													style="display: block; font-size: 14px;"></span>
-												<!-- 수정 폼 -->
-												<div class="form-control edit-comment-form"
-													style="display: none; width: 100%;">
-													<textarea class="mt-2 edit-comment-textarea"
-														id="editfreeCmtContent"
-														style="font-size: 14px; color: #212529;"
-														onkeyup="countingLength(this);" rows="3"></textarea>
-													<span id="counterEdit"
-														style="font-size: 12px; margin: 8px;"></span>
-													<button style="font-size: 12px; padding: .1em .5em;"
-														class="btn save-comment-btn">저장</button>
-													<button style="font-size: 12px; padding: .1em .5em;"
-														class="btn cancel-comment-btn">취소</button>
-												</div>
+
 											</div>
 										</div>
 									</li>
@@ -124,7 +111,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- footer Start -->
 		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 		<!-- footer End -->

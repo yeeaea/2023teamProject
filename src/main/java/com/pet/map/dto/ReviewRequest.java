@@ -15,10 +15,14 @@ public class ReviewRequest {
 
 	private Long no;
 	private String reviewContent;
+	private String userid;
+	private String nickname;
 	
 	public PlaceReview toEntity() {
 		return PlaceReview.builder()
 				.reviewContent(reviewContent)
+				.userid(userid)
+				.nickname(nickname)
 				.build();
 	}
 }
