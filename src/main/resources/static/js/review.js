@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
+	
+	// 리뷰 개수 세는 부분입니다.
+	const reviewList = document.getElementById("review-list");
+	// 리뷰 개수를 계산
+	const reviewCount = reviewList.querySelectorAll("li").length;
+	// 리뷰 개수를 포함하는 요소를 선택
+	const reviewCountElement = document.getElementById("review-count");
+	
+	if(reviewCount == 0){
+		reviewCountElement.textContent = '등록된 리뷰가 없습니다.';
+	}else{
+		// 리뷰 개수를 업데이트 합니다.
+		reviewCountElement.textContent = `★4.5 / 5 리뷰 ${reviewCount} 건`;
+	}
+		
   const submitButton = document.getElementById("submit-review");
 
   submitButton.addEventListener("click", () => {
@@ -54,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+/*
 document.addEventListener("DOMContentLoaded", function () {
   const commentList = document.getElementById("review-list");
 
@@ -101,3 +116,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+*/
