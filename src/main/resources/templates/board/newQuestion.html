@@ -57,20 +57,23 @@
 						</header>
 
 						<section class="mb-5">
-							<!-- 내용 입력 -->
-							<div class="textLengthWrap d-flex flex-row" style="float: right;">
-								<div class="count">
-									<span>0</span>/1000
-								</div>
-							</div>
-							<textarea rows="10" placeholder="글 내용" class="form-control h-25"
-								style="border-radius: 20px" id="quesContent"
-								th:text="${question.quesContent}"></textarea>
+						    <!-- 내용 입력 -->
+						    <div class="textLengthWrap d-flex flex-row" style="float: right;">
+						        <div class="count">
+						            <span id="counterCmt" style = "margin: 8px;">0/1000자</span>
+						        </div>
+						    </div>
+						    <div>
+					        <textarea rows="10" placeholder="글 내용" class="form-control h-25"
+					            style="border-radius: 20px" id="quesContent"
+					            th:text="${question.quesContent}" onkeyup="countingLength('quesContent', 'counterCmt');"></textarea>
+   							</div>
 						</section>
 
-						<input type="file" name="file" class="form-control"> <br>
+						<input type="file" name="file" class="form-control" id="imageUpload"> <br>
+						<!-- 
 						<button type="button" id="deleteImg"></button>
-
+						 -->
 						<div class="d-grid gap-2">
 							<button th:if="${question.quesNo} != null" type="button"
 								id="modify-btn" class="btn btn-primary btn-sm"
