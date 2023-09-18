@@ -5,65 +5,92 @@ document.addEventListener("DOMContentLoaded", function(){
 	const reviewCount = reviewList.querySelectorAll("li").length;
 	// 리뷰 개수를 포함하는 요소를 선택
 	const reviewCountElement = document.getElementById("review-count");
-	
-	if(reviewCount == 0 ){
-		reviewCountElement.textContent = '등록된 리뷰가 없습니다.';
-	}else{
-		reviewCountElement.textContent = `★4.5 / 5 리뷰 ${reviewCount} 건`;
-	}
-	
+
+	// 등록 버튼
 	const submitButton = document.getElementById("submit-review");
+
 	
-	submitButton.addEventListener("click", () =>{
+	// 등록버튼을 클릭하면
+	submitButton.addEventListener("click", () => {
+		const reviewContent = document.getElementById("review-input").value;
 		const placeNo = document.getElementById("placeNo").value;
 		
-		(async () => {
-			const {value: content, dismiss: isDismissed } = await Swal.fire({
-				title: '리뷰 작성하기',
-				input: 'textarea',
-				inputPlaceholder: '200글자 내로 입력..',
-				inputAttributes: {
-					style: ' height: 200px; font-size: 16px;',
-					maxlength: 200,  // 최대 길이를 5로 제한
-					wrap: 'soft'
+		const score = parseInt(document.querySelector('input[type=radio][name=rating]:checked').value);
+		
+		var star = '';
+		switch(score){
+			case 1:
+				star = '⭐'; break;
+			case 2:
+				star = '⭐⭐'; break;
+			case 3:
+				star = '⭐⭐⭐'; break;
+			case 4:
+				star = '⭐⭐⭐⭐'; break;
+			case 5:
+				star = '⭐⭐⭐⭐⭐'; break;
+		}
+		
+		// 리뷰 데이터 생성
+		const reviewData = {
+			reviewContent: reviewContent,
+			no: placeNo,
+			reviewScore: score,
+			star: star
+		};
+		
+		if(reviewContent.trim() === ""){
+			alert("리뷰 내용을 입력해주세요 !");
+			return;
+		}else{
+			fetch("/api/reviews",{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
 				},
-				showCloseButton : true,
+				body: JSON.stringify(reviewData)
+			})
+			.then(response => response.json())
+			.then(data =>{
+				location.reload();
+			})
+			.catch(error =>{
+				console.error("Error: ", error);
 			});
-			
-			if(!isDismissed){ // 사용자가 닫기 버튼을 누르지 않았을 때
-				if(content){
-					if(content.length >= 200){
-						Swal.fire('리뷰는 200글자 이상 입력할 수 없습니다.');
-					} else if(content.length < 5){
-						Swal.fire('리뷰는 최소 5글자 이상 입력해야 합니다.');
-					} else{
-						const commentData = {
-							reviewContent: content,
-							no: placeNo
-						};
-						
-						fetch("/api/reviews", {
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify(commentData)
-						})
-						.then(response => response.json())
-						.then(data => {
-							location.reload();
-						})
-						.catch(error => {
-							console.error("Error: ", error);
-						});
-					}
-				} else{
-					Swal.fire('리뷰를 입력해주세요!');
-				}
-			}
-		})();
+		}
+	});
+
+	// 모든 리뷰 요소를 선택
+	const reviewScoreElements = document.querySelectorAll(".review-score");
+	
+	// 리뷰 점수를 저장할 배열 초기화
+	const reviewScores = [];
+	
+	// 모든 리뷰의 점수를 추출하여 배열에 저장
+	reviewScoreElements.forEach((element) => {
+	    const score = parseFloat(element.textContent);
+	    if (!isNaN(score)) {
+	        reviewScores.push(score);
+	    }
 	});
 	
+	// 리뷰 점수의 합계 계산
+	const totalScore = reviewScores.reduce((acc, score) => acc + score, 0);
+	
+	// 리뷰 평균 점수 계산
+	const averageScore = totalScore / reviewScores.length;
+	
+	// 평균 점수를 원하는 형식으로 출력하려면 소수점 이하 자리수를 제한할 수 있습니다.
+	const formattedAverageScore = averageScore.toFixed(1);
+	
+	if(reviewCount == 0){
+		reviewCountElement.textContent = '등록된 리뷰가 없습니다.';
+	}else{
+		reviewCountElement.textContent = `★${formattedAverageScore} / 5 ㅤㅤ리뷰 ${reviewCount} 건`;
+	}
+
+
+	// 리뷰 삭제
 	const commentList = document.getElementById("review-list");
 	
 	commentList.addEventListener("click", (event) => {
@@ -120,4 +147,5 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	document.querySelector("#show").addEventListener('click', show);
 	document.querySelector("#close").addEventListener('click', close);
-	});
+
+});
