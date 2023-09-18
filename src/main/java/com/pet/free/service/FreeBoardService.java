@@ -85,8 +85,8 @@ public class FreeBoardService {
 
 	// 글 수정
 	@Transactional
-	public FreeBoard update(Long freeNo, String freeTitle,
-			String freeContent, MultipartFile file) throws IOException {
+	public FreeBoard update(Long freeNo, String freeTitle, String freeContent, 
+		MultipartFile file, boolean deleteImage) throws IOException {
 		FreeBoard freeBoard = freeBoardRepository.findById(freeNo)
 				.orElseThrow(() ->
 					new IllegalArgumentException(freeNo + "번 글이 존재하지 않습니다."));
@@ -95,6 +95,19 @@ public class FreeBoardService {
 
 		String projectPath =
 				System.getProperty("user.dir") + "/src/main/resources/static/files";
+		
+		// 이미지 삭제 버튼이 눌렸을 때 이미지 삭제
+	    if (deleteImage) {
+	        if (freeBoard.getFreeFilename() != null) {
+	            String filePath = projectPath + "/" + freeBoard.getFreeFilename();
+	            File imageFile = new File(filePath);
+	            if (imageFile.exists()) {
+	                imageFile.delete();
+	            }
+	            freeBoard.setFreeFilename(null);
+	            freeBoard.setFreeFilepath(null);
+	        }
+	    }
 
 		// 파일이 없는 경우에 대한 처리 추가
 		if (file != null && !file.isEmpty()) {

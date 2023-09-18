@@ -18,6 +18,18 @@ if (deleteButton) {
 	});
 }
 
+// 이미지 삭제하기
+document.addEventListener("DOMContentLoaded", function() {
+	// 이미지 삭제 버튼 클릭 시 이벤트 핸들러 추가
+	document.getElementById("deleteImg").addEventListener("click", function() {
+		var confirmDelete = confirm("이미지를 삭제하시겠습니까?");
+		if (confirmDelete) {
+			// 이미지 업로드 필드의 값을 지우기 (파일 선택 취소)
+			document.getElementById("imageUpload").value = "";
+		}
+	});
+});
+
 // 수정 기능
 const modifyButton = document.getElementById("modify-btn");
 
@@ -62,19 +74,6 @@ if (modifyButton) {
 	});
 
 }
-
-// 이미지 삭제하기
-document.addEventListener("DOMContentLoaded", function() {
-	// 이미지 삭제 버튼 클릭 시 이벤트 핸들러 추가
-	document.getElementById("deleteImg").addEventListener("click", function() {
-		var confirmDelete = confirm("이미지를 삭제하시겠습니까?");
-		if (confirmDelete) {
-			// 이미지 업로드 필드의 값을 지우기 (파일 선택 취소)
-			document.getElementById("imageUpload").value = "";
-		}
-	});
-});
-
 
 // 생성 기능
 const createButton = document.getElementById("create-btn");

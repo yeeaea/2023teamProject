@@ -70,9 +70,10 @@
    							</div>
 						</section>
 
-						<input type="file" name="file" class="form-control" id="imageUpload"> <br>
-						
-						<button type="button" id="deleteImg" style="width:100px; height:50px"></button>
+						<div class="d-flex mb-4">
+							<input type="file" name="file" class="form-control" id="imageUpload"> <br>
+							<button type="button" id="deleteImg" class="btn-close mt-2" aria-label="Close"></button>
+						</div>
 						 
 						<div class="d-grid gap-2">
 							<button th:if="${question.quesNo} != null" type="button"

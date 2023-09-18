@@ -84,7 +84,8 @@ public class QuesBoardApiController {
 	@PutMapping("/api/questions/{quesNo}")
 	public ResponseEntity<QuesBoard> updateQuesBoard(@PathVariable Long quesNo,
 			@RequestParam("quesTitle") String quesTitle, @RequestParam("quesContent") String quesContent,
-			@RequestParam(name = "file", required = false) MultipartFile file, Principal principal) throws IOException {
+			@RequestParam(name = "file", required = false) MultipartFile file, 
+			@RequestParam(value = "deleteImage", defaultValue = "true") boolean deleteImage, Principal principal) throws IOException {
 		// 현재 로그인한 사용자 아이디
 		String currentUserid = principal.getName();
 		// QuesNo를 사용하여 글을 데이터베이스에서 가져오기
@@ -108,7 +109,7 @@ public class QuesBoardApiController {
 		existingQuesBoard.setQuesTitle(quesTitle);
 		existingQuesBoard.setQuesContent(quesContent);
 		
-		QuesBoard updatedQuesBoard = quesBoardService.update(quesNo, quesTitle, quesContent, file);
+		QuesBoard updatedQuesBoard = quesBoardService.update(quesNo, quesTitle, quesContent, file, deleteImage);
 
 		return ResponseEntity.ok().body(updatedQuesBoard);
 	}
