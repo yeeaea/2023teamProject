@@ -66,7 +66,7 @@
 								/ 5 리뷰 : 5 건</p>
 							<p th:text="${place.addr}"
 								style="width: 100%; text-align: center;"></p>
-							<button type="button" id="submit-review"
+							<button type="button" id="submit-review" sec:authorize="isAuthenticated()"
 								class="btn btn-outline-primary bi bi-pencil-square"
 								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%;">
 								리뷰 작성</button>
