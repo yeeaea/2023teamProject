@@ -174,6 +174,7 @@ $(document).ready(function() {
 			contentType: "application/json",
 			success: function(response) {
 				alert(response); // 성공 메시지 표시
+				location.reload();
 			},
 			error: function(error) {
 				console.error("회원 정보 업데이트 실패: " + error);
