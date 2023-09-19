@@ -3,7 +3,7 @@ const deleteButton = document.getElementById('delete-btn');
 
 if (deleteButton) {
 	deleteButton.addEventListener('click', event => {
-		const isConfirmed = confirm('삭제하시겠습니까?');
+		const isConfirmed = confirm('게시글을 삭제하시겠습니까?');
 		if (isConfirmed) {
 			let freeNo = document.getElementById('freeBoard-freeNo').value;
 
@@ -60,15 +60,15 @@ if (modifyButton) {
 			})
 				.then((response) => {
 					if (response.status === 200) {
-						alert("수정 완료");
+						alert("수정을 완료했습니다.");
 						location.replace(`/freeboards/${freeNo}`);
 					} else {
-						alert("수정 실패");
+						alert("수정을 실패했습니다.");
 					}
 				})
 				.catch((error) => {
 					console.error("Error:", error);
-					alert("수정 실패");
+					alert("수정을 실패했습니다.");
 				});
 		}
 	});
@@ -104,12 +104,12 @@ if (createButton) {
 					alert("등록이 완료되었습니다.");
 					location.replace("/freeboards");
 				} else {
-					alert("등록 실패");
+					alert("등록을 실패했습니다.");
 				}
 			})
 				.catch((error) => {
 					console.error("Error: ", error);
-					alert("등록 실패");
+					alert("등록을 실패했습니다.");
 				});
 		}
 	});
@@ -156,17 +156,17 @@ submitButton.addEventListener("click", () => {
 	// 댓글 내용과 질문 번호 가져오기
 	const freeCmtContent = document.getElementById("freeCmtContent").value;
 	const freeNo = document.getElementById("freeNo").value;
-	
+
 	// 댓글 데이터 생성
 	const commentData = {
-   		freeCmtContent: freeCmtContent,
-    	freeNo: freeNo
+		freeCmtContent: freeCmtContent,
+		freeNo: freeNo
 	};
 
 	if (freeCmtContent.trim() === "") {
 		alert("댓글 내용을 입력해주세요!");
 		return;
-		
+
 	} else {
 		// 서버로 댓글 데이터 전송
 		fetch("/api/freecomments", {
@@ -200,21 +200,25 @@ commentList.addEventListener('click', (event) => {
 			const freeCmtNo = parseInt(freeCmtNoElement.textContent);
 
 			if (!isNaN(freeCmtNo)) { // freeCmtNo가 숫자인 경우에만 실행
-				fetch(`/api/freecomments/${freeCmtNo}`, {
-					method: "DELETE"
-				})
-					.then(response => {
-						if (response.status === 200) {
-							// 삭제 요청이 성공하면 화면에서 해당 댓글을 제거합니다.
-							commentItem.remove();
-							console.log(`${freeCmtNo}번 댓글 삭제`);
-						} else {
-							console.error("댓글을 삭제 실패");
-						}
+				const confirmation = confirm('댓글을 삭제하시겠습니까?');
+
+				if (confirmation) {
+					fetch(`/api/freecomments/${freeCmtNo}`, {
+						method: "DELETE"
 					})
-					.catch(error => {
-						console.error("Error:", error);
-					});
+						.then(response => {
+							if (response.status === 200) {
+								// 삭제 요청이 성공하면 화면에서 해당 댓글을 제거합니다.
+								commentItem.remove();
+								console.log(`${freeCmtNo}번 댓글 삭제`);
+							} else {
+								console.error("댓글 삭제 실패");
+							}
+						})
+						.catch(error => {
+							console.error("Error:", error);
+						});
+				}
 			}
 		}
 	}
@@ -283,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							commentContent.textContent = updatedContent;
 							const now = new Date();
 							commentDate.textContent = now.toLocaleString();
+							alert("수정을 완료했습니다.");
 							location.reload();
 						} else {
 							console.error("댓글 수정 실패");
@@ -308,13 +313,13 @@ function countingLength(inputElementId, counterElementId) {
 	let inputElement = document.getElementById(inputElementId);
 	let counter = document.getElementById(counterElementId);
 
-	if (inputElement.value.length > 300) {
-		alert('댓글을 300자 이하로 입력해 주세요.');
-		inputElement.value = inputElement.value.substring(0, 300);
+	if (inputElement.value.length > 200) {
+		alert('최대 200자까지 입력 가능합니다.');
+		inputElement.value = inputElement.value.substring(0, 200);
 		inputElement.focus();
 	}
 
-	counter.innerText = inputElement.value.length + '/300자';
+	counter.innerText = inputElement.value.length + '/200자';
 }
 
 // 호출할 때 함수 이름을 다르게 지정하여 각각의 입력 필드에 적용
