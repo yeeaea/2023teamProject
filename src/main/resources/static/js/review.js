@@ -15,6 +15,13 @@ document.addEventListener("DOMContentLoaded", function(){
 		const reviewContent = document.getElementById("review-input").value;
 		const placeNo = document.getElementById("placeNo").value;
 		
+		const scoreInput = document.querySelector('input[type=radio][name=rating]:checked');
+    
+	    if (!scoreInput) {
+	        alert("별점을 선택해주세요!");
+	        return; // 함수 종료
+	    }
+		
 		const score = parseInt(document.querySelector('input[type=radio][name=rating]:checked').value);
 		
 		var star = '';

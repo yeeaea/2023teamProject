@@ -73,13 +73,13 @@
 							<button type="button" id="show"
 								sec:authorize="isAuthenticated()"
 								class="btn btn-outline-primary bi bi-pencil-square"
-								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%;">
+								style="font-size: 14px; padding: .275em .5em; float: right; margin-left: auto; margin-right: 5%; position:relative; z-index:1;">
 								리뷰 작성</button>
 
 							<div class="background">
 							    <div class="window">
 							        <div class="popup">
-							            <h2 style="margin-top: 5%; text-align: center;">리뷰 작성하기</h2>
+							            <h2 class="mt-5" style="text-align: center;">리뷰 작성하기</h2>
 							            <div  style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 							            <fieldset class="rate">
 			                                <input type="radio" id="rating10" name="rating" value=5><label for="rating10" title="5점"></label>
@@ -94,8 +94,8 @@
 							                <textarea id="review-input" class="swal2-input" placeholder="200글자 내로 입력.." style="height: 100%; width: 90%; font-size: 16px;" maxlength="200" wrap="soft"></textarea>
 							            </div>
 							            <div style="text-align:center;">
-							            <button id="submit-review" class="btn-submit">등록</button>
-							            <button id="close" class="btn-cancel" style="margin-top: 5%;">취소</button>
+							            <button id="submit-review" class="btn btn-primary btn-square reviewbtn-submit" style="margin-top: 5%;">등록</button>
+							            <button id="close" class="btn btn-secondary btn-square reviewbtn-cancel" style="margin-top: 5%;">취소</button>
 							            </div>
 							        </div>
 							    </div>
@@ -129,10 +129,11 @@
 													data-reviewNo="${review.reviewNo}">삭제</button>
 												<!-- 별점 -->
 												<p th:text="${review.star}"></p>
-												<!-- 댓글 내용 -->
+												<!-- 리뷰 내용 -->
 												<span class="mt-2 review-content"
-													th:text="${review.reviewContent}"
-													style="display: block; font-size: 14px;"></span>
+												    th:text="${review.reviewContent}"
+												    style="display: block; font-size: 14px; word-break: break-all;"></span>
+
 											</div>
 										</div>
 									</li>

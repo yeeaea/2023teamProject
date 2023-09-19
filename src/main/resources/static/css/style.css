@@ -57,7 +57,7 @@ body::-webkit-scrollbar {
 }
 
 .btn-square {
-	width: 38px;
+	width: 70px;
 	height: 38px;
 }
 
@@ -507,8 +507,8 @@ body::-webkit-scrollbar {
   border-radius: 20px;
   
   /* 임시 지정 */
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 80%;
   
   /* 초기에 약간 아래에 배치 */
   transform: translate(-50%, -40%);
@@ -519,20 +519,8 @@ body::-webkit-scrollbar {
   transition: all .5s;
 }
 
-.swal2-cancel {
-    margin-top: 5%;
-    background-color: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* 가운데 정렬을 위해 추가 */
-    width: 100%; /* 전체 너비를 차지하도록 설정 */
-}
-
 /* 버튼을 가로로 나란히 배치 */
-div > button > .btn{
+div > button > .reviewbtn{
     display: inline-block;
     margin-right: 10px; /* 버튼 간격 조절 */
     vertical-align: middle; /* 버튼 수직 정렬 */

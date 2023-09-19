@@ -3146,14 +3146,14 @@ fieldset:disabled .btn {
 
 .btn-secondary {
     color: #fff;
-    background-color: #C91C1C;
-    border-color: #C91C1C
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
 
 .btn-secondary:hover {
     color: #fff;
-    background-color: #C91C1C;
-    border-color: #C91C1C
+    background-color: #9f9f9f;
+    border-color: #9f9f9f;
 }
 
 .btn-check:focus+.btn-secondary,
