@@ -11,4 +11,5 @@ public interface QuesCommentRepository extends JpaRepository<QuesComment, Long> 
 
 	List<QuesComment> findByQuesBoard_QuesNo(Long quesNo);
 
-}
+	List<QuesComment> findByUserid(String userid);
+} 

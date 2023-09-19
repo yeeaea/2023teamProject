@@ -1,5 +1,6 @@
 package com.pet.ques.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -25,5 +26,7 @@ public interface QuesBoardRepository extends JpaRepository<QuesBoard, Long>{
     // 현재 글의 다음 글 가져오기
     @Query("SELECT q FROM QuesBoard q WHERE q.quesNo > :quesNo ORDER BY q.quesNo ASC")
     Optional<QuesBoard> findNextQuesNo(@Param("quesNo") Long quesNo);
+    
+    List<QuesBoard> findByUserid(String userid);
 
 }

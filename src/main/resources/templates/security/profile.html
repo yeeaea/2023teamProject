@@ -35,9 +35,12 @@
 		<!-- header end -->
 <div class="container">
     <form class="form-signin" id="update_form" action="/mypage/update" method="put">
+    	
     	<div class="login-text">
 			<h3>회원 정보 수정</h3>
 		</div>
+		<a href="/mypage/my-posts/freeboards">작성한 글 확인</a>
+		<a href="/mypage/my-comments/freeboards">작성한 댓글 확인</a>
 		<input type="text" th:value="${member.id}" hidden>
 	   <!-- 아이디 -->
 	   <div class="mb-2">
