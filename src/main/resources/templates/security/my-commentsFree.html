@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" xmlns="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="utf-8">
+
+<!-- font style -->
+<link rel="stylesheet" as="style" crossorigin
+	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+
+<!-- Template Stylesheet -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Bootstrap Stylesheet -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+<!-- Icon Font Stylesheet -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+	rel="stylesheet">
+<script src="https://kit.fontawesome.com/3eb7b16202.js"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container-xxl bg-white p-0">
+		<!-- header start -->
+		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
+		<!-- header end -->
+
+		<div class="container mt-5" style="width: 80%;">
+		<a href="/mypage/my-posts/freeboards" class="fs-3 fw-bold fc" style="color: black;">작성한 댓글 확인</a>
+			
+			<a href="/mypage/my-comments/freeboards" type="button" class="btn custom-button" style="font-weight:bold;">자유게시판</a>
+			<!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
+			<a href="/mypage/my-comments/questions" type="button" class="btn custom-button">질문게시판</a>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>댓글 내용</th>
+        		        <th>작성일</th>
+					</tr>
+				</thead>
+
+				<tbody class="row-6" th:each="comment : ${myComments}">
+					<tr>
+						<td>
+							<a th:text="${comment.freeCmtContent}"
+							   th:href="@{/freeboards/{freeNo}(freeNo=${comment.freeNo})}"></a>
+						</td>
+       				    <td th:text="${#dates.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></td>	
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<br>
+		<br>
+
+		
+
+		<!-- footer Start -->
+		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+		<!-- footer End -->
+	</div>
+
+	<!-- Template Javascript -->
+	<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

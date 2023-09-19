@@ -9,5 +9,6 @@ import com.pet.free.domain.FreeComment;
 public interface FreeCommentRepository extends JpaRepository<FreeComment, Long> {
 
 	List<FreeComment> findByFreeBoard_FreeNo(Long freeNo);
+	List<FreeComment> findByUserid(String userid);
 
 }

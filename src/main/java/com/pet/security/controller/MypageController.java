@@ -1,6 +1,7 @@
 package com.pet.security.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pet.free.domain.FreeBoard;
+import com.pet.free.domain.FreeComment;
+import com.pet.free.repository.FreeBoardRepository;
+import com.pet.free.repository.FreeCommentRepository;
+import com.pet.ques.domain.QuesBoard;
+import com.pet.ques.domain.QuesComment;
+import com.pet.ques.repository.QuesBoardRepository;
+import com.pet.ques.repository.QuesCommentRepository;
 import com.pet.security.domain.Member;
 import com.pet.security.service.MemberService;
 
@@ -26,20 +36,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
+@RequestMapping("/mypage")
 public class MypageController {
 
 	private final MemberService memberService;
 	
     private final PasswordEncoder passwordEncoder;
 
+    private final FreeBoardRepository freeBoardRepository;
+    private final FreeCommentRepository freeCommentRepository;
+    
+    private final QuesBoardRepository quesBoardRepository;
+    private final QuesCommentRepository quesCommentRepository;
 	
 	@Autowired
-	public MypageController(MemberService memberService, PasswordEncoder passwordEncoder) {
+	public MypageController(MemberService memberService, PasswordEncoder passwordEncoder, 
+							FreeBoardRepository freeBoardRepository, QuesBoardRepository quesBoardRepository,
+							FreeCommentRepository freeCommentRepository, QuesCommentRepository quesCommentRepository) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
+		this.freeBoardRepository = freeBoardRepository;
+		this.freeCommentRepository = freeCommentRepository;
+		this.quesBoardRepository = quesBoardRepository;
+		this.quesCommentRepository = quesCommentRepository;
 	}
 	
-	@GetMapping("/mypage/profile")
+	@GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
     public String profile(Principal principal, Model model) {
     	String userid = principal.getName();
@@ -48,7 +70,7 @@ public class MypageController {
     	return "/security/profile";
     }
 	
-	@PutMapping("/mypage/update")
+	@PutMapping("/update")
 	public ResponseEntity<String> update(@RequestBody Member member) {
 	    try {
 	        memberService.updateMember(member);
@@ -58,12 +80,12 @@ public class MypageController {
 	    }
 	}
 	
-	@GetMapping("/mypage/withdraw")
+	@GetMapping("/withdraw")
 	public String withdrawPage() {
 		return "/security/withdraw";
 	}
 	
-	@PostMapping("/mypage/withdraw")
+	@PostMapping("/withdraw")
 	public String withdraw(
             @RequestParam String password,
             HttpServletRequest request,
@@ -96,8 +118,47 @@ public class MypageController {
             return "redirect:/mypage/withdraw"; // 비밀번호 불일치 시 에러 메시지와 함께 탈퇴 페이지로 리다이렉트
         }
     }
-
-
-
-
+	
+	@GetMapping("/my-posts/freeboards")
+	public String myPostsFree(Model model, Principal principal) {
+		if(principal != null) {
+			String userid = principal.getName();
+			List<FreeBoard> myPosts = freeBoardRepository.findByUserid(userid);
+			model.addAttribute("myPosts", myPosts);
+		}
+		
+		return "/security/my-postsFree";
+	}
+	
+	@GetMapping("/my-posts/questions")
+	public String myPostsQues(Model model, Principal principal) {
+		if(principal != null) {
+			String userid = principal.getName();
+			List<QuesBoard> myPosts = quesBoardRepository.findByUserid(userid);
+			model.addAttribute("myPosts", myPosts);
+		}
+		
+		return "/security/my-postsQues";
+	}
+	
+	@GetMapping("/my-comments/freeboards")
+    public String myCommentsFree(Model model, Principal principal) {
+        if (principal != null) {
+            String userid = principal.getName();
+            List<FreeComment> myComments = freeCommentRepository.findByUserid(userid);
+            model.addAttribute("myComments", myComments);
+        }
+        return "mypage/my-commentsFree";
+    }
+	
+	@GetMapping("/my-comments/questions")
+    public String myCommentsQues(Model model, Principal principal) {
+        if (principal != null) {
+            String userid = principal.getName();
+            List<QuesComment> myComments = quesCommentRepository.findByUserid(userid);
+            model.addAttribute("myComments", myComments);
+        }
+        return "mypage/my-commentsQues";
+    }
+	
 }
