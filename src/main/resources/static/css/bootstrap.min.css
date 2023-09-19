@@ -4485,11 +4485,11 @@ fieldset:disabled .btn {
     margin-bottom: 0;
     list-style: none
 }
-
+/*
 .navbar-nav .nav-link {
     text-indent: 1em;
 }
-
+*/
 .navbar-nav .dropdown-menu {
     position: static
 }

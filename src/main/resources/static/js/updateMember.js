@@ -194,3 +194,16 @@ $(document).ready(function() {
       const selectedSection = document.getElementById(sectionId);
       selectedSection.classList.add('active');
     }
+
+    
+    // 현재 페이지 URL
+        let currentPageUrl = window.location.href;
+
+        // 모든 메뉴 항목에 대해 순회하며 현재 페이지와 비교
+        let menuItems = document.querySelectorAll(".navbar-nav .nav-link");
+        menuItems.forEach(function(item) {
+            let menuItemUrl = item.getAttribute("href");
+            if (currentPageUrl === menuItemUrl) {
+                item.classList.add("active"); // 선택한 메뉴 항목에 'active' 클래스 추가
+            }
+        });
