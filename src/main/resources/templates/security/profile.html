@@ -37,15 +37,17 @@
 		<!-- header start -->
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
-
+	<nav class="navbar navbar-expand-sm mt-5 mb-2"
+			style="width: 50%; margin: 0 auto;">
+			<ul class="navbar-nav" style="margin: 0 auto;">
+				<li class="nav-item"><a class="nav-link" href="/mypage/profile">회원 정보 수정</a></li>
+				<li class="nav-item"><a class="nav-link" href="/mypage/my-posts/freeboards">내가 쓴 글</a></li>
+				<li class="nav-item"><a class="nav-link" href="/mypage/my-comments/freeboards">내가 쓴 댓글</a></li>
+			</ul>
+	</nav>
 <div class="container">
     <form class="form-signin" id="update_form" action="/mypage/update" method="put">
-    	
-    	<div class="login-text">
-			<h3>회원 정보 수정</h3>
-		</div>
-		<a href="/mypage/my-posts/freeboards">작성한 글 확인</a>
-		<a href="/mypage/my-comments/freeboards">작성한 댓글 확인</a>
+		
 		<input type="text" th:value="${member.id}" hidden>
 	   <!-- 아이디 -->
 	   <div class="mb-2">
