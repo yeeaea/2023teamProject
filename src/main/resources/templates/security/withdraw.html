@@ -44,9 +44,9 @@
 	      <div class="login-text">비밀번호를 한 번 더 입력하세요</div>
 	       <input type="password" class="form-control" name="password" id="password" required>
 	   </div>
-		<button class="btn btn-lg btn-primary btn-block mb-5" type="submit" id="withdrawButton">회원 탈퇴</button>
+		<button class="btn btn-lg btn-primary btn-block mb-3" type="submit" id="withdrawButton">회원 탈퇴</button>
 		
-		<div th:if="${withdrawFailure}" class="alert alert-success">
+		<div th:if="${withdrawFailure}" class="alert alert-danger" style="font-size: 14px;">
 	    	회원 탈퇴가 실패하였습니다. 비밀번호를 확인해주세요.
 		</div>		
 	</form>
