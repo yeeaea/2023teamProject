@@ -106,19 +106,21 @@
 									<span style="font-size: x-small" class="comment-date"
 										th:text="${#temporals.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
 									<!-- 수정 버튼 -->
-									<button type="button" th:if="${currentUserid == comment.userid}"
+									<button type="button"
+										th:if="${currentUserid == comment.userid}"
 										class="btn bi bi-pencil-square edit-comment-btn"
 										style="font-size: 12px; padding: .1em .5em;"
 										data-freeCmtNo="${comment.freeCmtNo}">수정</button>
 									<!-- 삭제 버튼 -->
-									<button type="button" th:if="${currentUserid == comment.userid}"
+									<button type="button"
+										th:if="${currentUserid == comment.userid}"
 										class="btn bi bi-trash cmt-delete-btn"
 										style="font-size: 12px; padding: .1em .5em;"
 										data-freeCmtNo="${comment.freeCmtNo}">삭제</button>
 									<!-- 댓글 내용 -->
 									<span class="mt-2 comment-content"
 										th:text="${comment.freeCmtContent}"
-										style="display: block; font-size: 14px;"></span>
+										style="display: block; font-size: 14px; word-break: break-all;"></span>
 									<!-- 수정 폼 -->
 									<div class="form-control edit-comment-form"
 										style="display: none; width: 100%;">
@@ -126,7 +128,7 @@
 											id="editfreeCmtContent"
 											style="font-size: 14px; color: #212529;"
 											onkeyup="countingLength(this);" rows="3"></textarea>
-										<span id="counterEdit" style="font-size: 12px; margin: 8px;"></span>
+										<span id="counterEdit" style="font-size: 12px; margin: 8px;">0/200자</span>
 										<button style="font-size: 12px; padding: .1em .5em;"
 											class="btn save-comment-btn">저장</button>
 										<button style="font-size: 12px; padding: .1em .5em;"
@@ -146,7 +148,7 @@
 								onkeyup="countingLength(this);" rows="4"></textarea>
 						</div>
 						<div class="card-body" style="float: right;">
-							<span id="counterCmt" style="font-size: 12px; margin: 8px;"></span>
+							<span id="counterCmt" style="font-size: 12px; margin: 8px;">0/200자</span>
 							<button type="button" id="submit-comment"
 								class="btn btn-outline-primary bi bi-pencil-square"
 								style="font-size: 14px; padding: .275em .5em;">등록</button>
@@ -165,6 +167,5 @@
 	<!-- Template Javascript -->
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/freeBoard.js}"></script>
-	<script th:src="@{/js/contentCount.js}"></script>
 </body>
 </html>

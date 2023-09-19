@@ -115,7 +115,7 @@
 								<!-- 댓글 내용 -->
 								<span class="mt-2 comment-content"
 									th:text="${comment.quesCmtContent}"
-									style="display: block; font-size: 14px;"></span>
+									style="display: block; font-size: 14px; word-break: break-all;"></span>
 								<!-- 수정 폼 -->
 								<div class="form-control edit-comment-form"
 									style="display: none; width: 100%;">
@@ -143,7 +143,7 @@
 							onkeyup="countingLength(this);" rows="4"></textarea>
 					</div>
 					<div class="card-body" style="float: right;">
-						<span id="counterCmt" style="font-size: 12px; margin: 8px;"></span>
+						<span id="counterCmt" style="font-size: 12px; margin: 8px;">0/200자</span>
 						<button type="button" id="submit-comment"
 							class="btn btn-outline-primary bi bi-pencil-square"
 							style="font-size: 14px; padding: .275em .5em;">등록</button>
