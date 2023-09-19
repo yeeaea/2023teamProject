@@ -148,7 +148,7 @@ public class MypageController {
             List<FreeComment> myComments = freeCommentRepository.findByUserid(userid);
             model.addAttribute("myComments", myComments);
         }
-        return "mypage/my-commentsFree";
+        return "/security/my-commentsFree";
     }
 	
 	@GetMapping("/my-comments/questions")
@@ -158,7 +158,7 @@ public class MypageController {
             List<QuesComment> myComments = quesCommentRepository.findByUserid(userid);
             model.addAttribute("myComments", myComments);
         }
-        return "mypage/my-commentsQues";
+        return "/security/my-commentsQues";
     }
 	
 }

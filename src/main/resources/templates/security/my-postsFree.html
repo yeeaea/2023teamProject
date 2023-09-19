@@ -3,7 +3,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-<meta charset="utf-8">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+	crossorigin="anonymous">
 
 <!-- font style -->
 <link rel="stylesheet" as="style" crossorigin
@@ -24,6 +28,8 @@
 	rel="stylesheet" />
 <script src="https://kit.fontawesome.com/3eb7b16202.js"
 	crossorigin="anonymous"></script>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
@@ -32,12 +38,25 @@
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
 
-		<div class="container mt-5" style="width: 80%;">
-		<a href="/mypage/my-posts/freeboards" class="fs-3 fw-bold fc" style="color: black;">작성한 글 확인</a>
-			
-			<a href="/mypage/my-posts/freeboards" type="button" class="btn custom-button" style="font-weight:bold;">자유게시판</a>
-			<!-- 조회순 정렬 버튼 (사용자 정의 스타일) -->
-			<a href="/mypage/my-posts/questions" type="button" class="btn custom-button">질문게시판</a>
+		<nav class="navbar navbar-expand-sm mt-5 mb-3 profile fs-5"
+			style="width: 100%;">
+			<ul class="navbar-nav" style="margin: 0 auto; font-weight: bold;">
+				<li class="nav-item me-5"><a class="nav-link"
+					href="/mypage/profile">회원 정보 수정</a></li>
+				<li class="nav-item me-5"><a class="nav-link"
+					href="/mypage/my-posts/freeboards">내가 쓴 글</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/mypage/my-comments/freeboards">내가 쓴 댓글</a></li>
+			</ul>
+		</nav>
+
+		<div class="container mt-5" style="width: 80%;" id="content-wrap">
+			<a href="" class="fs-3 fw-bold fc" style="color: black;">작성한 글 확인</a><br>
+			<a
+				href="/mypage/my-posts/freeboards" type="button"
+				class="btn custom-button" style="font-weight: bold;">자유게시판</a> <a
+				href="/mypage/my-posts/questions" type="button"
+				class="btn custom-button">질문게시판</a>
 
 			<table class="table table-hover">
 				<thead>
@@ -45,32 +64,25 @@
 						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>날짜</th>
+						<th>작성일시</th>
 						<th>조회수</th>
 					</tr>
 				</thead>
 
 				<tbody class="row-6" th:each="post: ${myPosts}">
 					<tr>
-						<div>
-							<td th:text="${post.freeNo}"></td>
-							<td><a
-								th:href="@{/freeboards/{freeNo}(freeNo=${post.freeNo})}"
-								th:text="${post.freeTitle}"></a></td>
-							<td th:text="${post.nickname}"></td>
-							<td
-								th:text="${#temporals.format(post.freeRdate, 'yyyy-MM-dd HH:mm')}"></td>
-							<td th:text="${post.freeVisit}"></td>
-						</div>
+						<td th:text="${post.freeNo}"></td>
+						<td><a
+							th:href="@{/freeboards/{freeNo}(freeNo=${post.freeNo})}"
+							th:text="${post.freeTitle}"></a></td>
+						<td th:text="${post.nickname}"></td>
+						<td
+							th:text="${#temporals.format(post.freeRdate, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="${post.freeVisit}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
-		<br>
-		<br>
-
-		
 
 		<!-- footer Start -->
 		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
