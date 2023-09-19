@@ -37,6 +37,19 @@
 		<!-- header start -->
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
+		<nav class="navbar navbar-expand-sm mt-5 mb-3 profile fs-5"
+			style="width: 100%;">
+			<ul class="navbar-nav" style="margin: 0 auto; font-weight: bold;">
+				<li class="nav-item me-5"><a class="nav-link"
+					href="/mypage/profile" style="color:black;">회원 정보 수정</a></li>
+				<li class="nav-item me-5"><a class="nav-link"
+					href="/mypage/my-posts/freeboards">내가 쓴 글</a></li>
+				<li class="nav-item me-5"><a class="nav-link"
+					href="/mypage/my-comments/freeboards">내가 쓴 댓글</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/mypage/my-reviews" >내가 쓴 리뷰</a></li>
+			</ul>
+		</nav>
 <div class="container">
 	<form class="form-signin" action="/mypage/withdraw" method="post">
 		<!-- 비밀번호 확인 -->
@@ -56,7 +69,6 @@
 <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 <!-- footer End -->
 
-<script th:src="@{/js/withdraw.js}"></script>
 </div>
 </body>
 </html>
