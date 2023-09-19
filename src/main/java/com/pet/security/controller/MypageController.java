@@ -25,6 +25,8 @@ import com.pet.free.domain.FreeBoard;
 import com.pet.free.domain.FreeComment;
 import com.pet.free.repository.FreeBoardRepository;
 import com.pet.free.repository.FreeCommentRepository;
+import com.pet.map.domain.PlaceReview;
+import com.pet.map.repository.ReviewRepository;
 import com.pet.ques.domain.QuesBoard;
 import com.pet.ques.domain.QuesComment;
 import com.pet.ques.repository.QuesBoardRepository;
@@ -48,17 +50,21 @@ public class MypageController {
     
     private final QuesBoardRepository quesBoardRepository;
     private final QuesCommentRepository quesCommentRepository;
+    
+    private final ReviewRepository reviewRepository;
 	
 	@Autowired
 	public MypageController(MemberService memberService, PasswordEncoder passwordEncoder, 
 							FreeBoardRepository freeBoardRepository, QuesBoardRepository quesBoardRepository,
-							FreeCommentRepository freeCommentRepository, QuesCommentRepository quesCommentRepository) {
+							FreeCommentRepository freeCommentRepository, QuesCommentRepository quesCommentRepository,
+							ReviewRepository reviewRepository) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.freeBoardRepository = freeBoardRepository;
 		this.freeCommentRepository = freeCommentRepository;
 		this.quesBoardRepository = quesBoardRepository;
 		this.quesCommentRepository = quesCommentRepository;
+		this.reviewRepository = reviewRepository;
 	}
 	
 	@GetMapping("/profile")
@@ -159,6 +165,16 @@ public class MypageController {
             model.addAttribute("myComments", myComments);
         }
         return "/security/my-commentsQues";
+    }
+	
+	@GetMapping("/my-reviews")
+    public String myReviews(Model model, Principal principal) {
+        if (principal != null) {
+            String userid = principal.getName();
+            List<PlaceReview> myReviews = reviewRepository.findByUserid(userid);
+            model.addAttribute("myReviews", myReviews);
+        }
+        return "/security/my-reviews";
     }
 	
 }

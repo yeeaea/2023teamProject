@@ -9,4 +9,6 @@ import com.pet.map.domain.PlaceReview;
 public interface ReviewRepository extends JpaRepository<PlaceReview, Long>{
 
 	List<PlaceReview> findByPlace_No(Long no);
+	
+	List<PlaceReview> findByUserid(String userid);
 }

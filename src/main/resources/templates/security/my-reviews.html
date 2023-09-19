@@ -15,10 +15,10 @@
 
 <!-- Template Stylesheet -->
 <link rel="stylesheet" th:href="@{/css/style.css}" />
-<link rel="stylesheet" th:href="@{/css/signin.css}" />
 
 <!-- Bootstrap Stylesheet -->
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
 <!-- Icon Font Stylesheet -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-	<div class="container-xxl bg-white p-0">
+	<div class="container-xxl bg-white p-0" id="wrap">
 		<!-- header start -->
 		<nav th:replace="~{fragments/navbar :: navbarFragment}"></nav>
 		<!-- header end -->
@@ -44,50 +44,43 @@
 				<li class="nav-item me-5"><a class="nav-link"
 					href="/mypage/profile">회원 정보 수정</a></li>
 				<li class="nav-item me-5"><a class="nav-link"
-					href="/mypage/my-posts/freeboards" >내가 쓴 글</a></li>
+					href="/mypage/my-posts/freeboards">내가 쓴 글</a></li>
 				<li class="nav-item me-5"><a class="nav-link"
-					href="/mypage/my-comments/freeboards" style="color:black;">내가 쓴 댓글</a></li>
+					href="/mypage/my-comments/freeboards">내가 쓴 댓글</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="/mypage/my-reviews">내가 쓴 리뷰</a></li>
+					href="/mypage/my-reviews" style="color:black;">내가 쓴 리뷰</a></li>
 			</ul>
 		</nav>
 
-		<div class="container mt-5" style="width: 80%;"id="content-wrap">
-			<a href="/mypage/my-comments/freeboards" type="button"
-				class="btn custom-button" style="font-weight: bold;">자유게시판</a> <a
-				href="/mypage/my-comments/questions" type="button"
-				class="btn custom-button">질문게시판</a>
+		<div class="container mt-5" style="width: 80%;" id="content-wrap">
 
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th style="width: 10%;">글 번호</th>
-						<th style="width: 20%;">글 제목</th>
-						<th style="width: 10%;">작성자</th>
-						<th>댓글 내용</th>
-						<th style="width: 15%;">작성일시</th>
+						<th style="width: 20%;">업체명</th>
+			            <th style="width: 30%;">리뷰</th>
+			            <th style="width: 10%;">작성자</th>
+			            <th style="width: 15%;">작성일시</th>
+			            <th style="width: 10%;">별점</th>
 					</tr>
 				</thead>
 
-				<tbody class="row-6" th:each="comment : ${myComments}">
+				<tbody class="row-6" th:each="review: ${myReviews}">
 					<tr>
-						<td th:text="${comment.freeBoard.freeNo}"></td>
+						<td th:text="${review.place.name}"></td>
+						<td><a
+							th:href="@{/review/{reviewNo}(reviewNo=${review.place.no})}"
+							th:text="${review.reviewContent}"></a></td>
+						<td th:text="${review.nickname}"></td>
 						<td
-							th:text="${comment.freeBoard != null ? comment.freeBoard.freeTitle : 'N/A'}"></td>
-						<td th:text="${comment.nickname}"></td>
-						<td><a th:text="${comment.freeCmtContent}"
-							th:href="@{/freeboards/{freeNo}(freeNo=${comment.freeBoard.freeNo})}"></a>
-						</td>
-						<td
-							th:text="${#temporals.format(comment.freeCmtRdate, 'yyyy-MM-dd HH:mm')}"></td>
+							th:text="${#temporals.format(review.reviewRdate, 'yyyy-MM-dd HH:mm')}"></td>
+						<td th:text="${review.star}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
 		<br> <br>
-
-
 
 		<!-- footer Start -->
 		<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
