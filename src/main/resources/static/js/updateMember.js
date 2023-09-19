@@ -182,3 +182,15 @@ $(document).ready(function() {
 	});
 
 });
+
+ function showContent(sectionId) {
+      // 모든 섹션 비활성화
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // 선택한 섹션 활성화
+      const selectedSection = document.getElementById(sectionId);
+      selectedSection.classList.add('active');
+    }
