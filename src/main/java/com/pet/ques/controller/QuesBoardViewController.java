@@ -107,6 +107,10 @@ public class QuesBoardViewController {
 		} else {
 			boards = quesBoardService.boardSearchList(keyword, pageable);
 		}
+	        if (boards.isEmpty()) {
+	            model.addAttribute("noResults", true); // 검색 결과가 없다는 플래그 추가
+	        }
+	    
 
 		int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
 		int endPage = Math.min(boards.getPageable().getPageNumber() + 4, boards.getTotalPages());
