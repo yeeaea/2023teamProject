@@ -25,26 +25,26 @@
 - **ORM** : JPA
 
 ## 📌 주요 기능
-#### 로그인 - <a href="" >상세보기 - WIKI 이동</a>
+#### 로그인 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/01.-%EB%A1%9C%EA%B7%B8%EC%9D%B8" >상세보기 이동</a>
 - 
 - 
 - 
-#### 회원가입 - <a href="" >상세보기 - WIKI 이동</a>
+#### 회원가입 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/02.-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85" >상세보기 이동</a>
 - 
 - 
-#### 메인 페이지 - <a href="" >상세보기 - WIKI 이동</a>
+#### 메인 페이지 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/03.-%EB%A9%94%EC%9D%B8-%ED%8E%98%EC%9D%B4%EC%A7%80" >상세보기 이동</a>
 - 게시판 페이지 연동
 - 병원, 시/도/군 선택하여 검색
 
-#### 지도 - <a href="" >상세보기 - WIKI 이동</a>
+#### 지도 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/04.-%EC%A7%80%EB%8F%84" >상세보기 이동</a>
 - 카카오 지도 API 
 - 인포윈도우, 클러스터링 기능
 - 현재 위치 받아오기
 - 검색 주변 병원 목록 및 정보 확인
 - 리뷰 페이지 연동
-#### 리뷰 - <a href="" >상세보기 - WIKI 이동</a>
+#### 리뷰 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/05.-%EB%A6%AC%EB%B7%B0-%ED%8E%98%EC%9D%B4%EC%A7%80" >상세보기 이동</a>
 - 리뷰 작성, 읽기, 수정, 삭제(CRUD)
 - 별점 등록
-#### 게시판 - <a href="" >상세보기 - WIKI 이동</a> 
+#### 게시판 - <a href="https://github.com/Y0ungSe0/PetConnect/wiki/06.-%EA%B2%8C%EC%8B%9C%ED%8C%90" >상세보기 이동</a> 
 - 글 작성, 읽기, 수정, 삭제(CRUD)
 - 댓글 작성, 읽기, 수정, 삭제(CRUD)
